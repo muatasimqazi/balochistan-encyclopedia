@@ -12,8 +12,7 @@ const config = {
     messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
   };
 
-  console.log("API_KEY",process.env.REACT_APP_FIREBASE_DOMAIN)
-
 const app = firebase.initializeApp(config);
-const base = Rebase.createClass(app.database())
-export { base }
+const base = Rebase.createClass(app.database());
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+export { app, base, facebookProvider}

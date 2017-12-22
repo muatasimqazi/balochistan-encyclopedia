@@ -9,7 +9,7 @@ class Header extends Component {
                 <nav className='navbar navbar-expand-lg fixed-top bg-primary'>
                     <div className='container'>
                         <div className='navbar-translate'>
-                            <a className='navbar-brand' href='#'>
+                            <a className='navbar-brand' href='/'>
                                 <img src={logo} width='30' height='30' className='d-inline-block align-top' alt=''/>
                                 <b className='ml-3'>Balochistan Encyclopedia</b>
                             </a>
@@ -22,22 +22,28 @@ class Header extends Component {
                         <div className='collapse navbar-collapse justify-content-end' id='example-navbar-primary'>
                             <ul className='navbar-nav'>
                                 {this.props.authenticated 
-                                ? (    
+                                ? ([   
                                 <li className='nav-item'>
                                 <Link className='nav-link' to='/login'>
-                    <i className='fa fa-user-plus'></i>
-                                    <p>Sign Up</p>
+                                <i className="fa fa-pencil-square" aria-hidden="true"></i>
+                                   <p>Contribute</p>
                             </Link>
-                            </li>
-                                )
-                                : (     
-                             <li className='nav-item'>
-                                    <Link className='nav-link' to='/login'>
-                                    <i className='fa fa-user'></i>
-                        <p>Login</p>
-                                    </Link>
-                                </li>
-
+                            </li>,
+                            <li className='nav-item'>
+                            <Link className='nav-link' to='/logout'>
+                            <i className="fa fa-sign-out" aria-hidden="true"></i>
+                                <p>Logout</p>
+                        </Link>
+                        </li>
+                                ])
+                                : (   
+                            <li className='nav-item'>
+                            <Link className='nav-link' to='/login'>
+                                    <i className='fa fa-sign-in'></i>
+                                <p>Login</p>
+                        </Link>
+                        </li>
+                             
                                 )
                             }
                             </ul>

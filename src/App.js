@@ -3,18 +3,17 @@ import './App.css';
 import { firebase } from '@firebase/app';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import TopRow from './components/TopRow';
-import MidRow from './components/MidRow';
-import MidBottomRow from './components/MidBottomRow';
-import BottomTopRow from './components/BottomTopRow';
-import BottomRow from './components/BottomRow';
+
 import Login from './components/Login'
+import Logout from './components/Logout'
+import Home from './components/Home'
+
 
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import ArticleList from './components/ArticleList';
 import Article from './components/Article';
 
-import { base } from './base';
+import { app, base } from './base';
 
 
 
@@ -51,6 +50,19 @@ class App extends Component {
   }
 
 componentWillMount() {
+  this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
+    if (user) {
+      this.setState({
+        authenticated: true,
+        loading: false
+      })
+    } else {
+      this.setState({
+        authenticated: false,
+        loading: false
+      })
+    }
+  })
   this.articlesRef = base.syncState('articles', {
     context: this,
     state: 'articles'
@@ -58,6 +70,7 @@ componentWillMount() {
 
 }
 componentWillUnmount() {
+  this.removeAuthListener();
   base.removeBinding(this.articlesRef);
 
 }
@@ -73,6 +86,13 @@ componentWillUnmount() {
   }
 
   render() {
+    if (this.state.loading === true) {
+      return (
+        <div style={{textAlign: "center", position: "absolute", top: "25%", left: "50%"}}>
+        <h3>Loading</h3>
+        </div>
+      )
+    }
     return (
       <div className="App">
        
@@ -81,19 +101,11 @@ componentWillUnmount() {
       <div className="main-content">
       <Header authenticated={this.state.authenticated} />
         <div className="workspace">
+   
+          <Route exact path="/logout" component={Logout} />
           <Route exact path ="/articles" render={(props) => {
-            const articleIds = Object.keys(this.state.articles);
             return (
-              <ul>
-                {articleIds.map((id) => {
-                  return (
-                  <li key={id}>
-                    <Link to={`/articles/${id}`}>Article {id}</Link>
-                  </li>
-                  )
-                })}
-
-              </ul>
+              <ArticleList articles={this.state.articles} />
             )
           }} />
           <Route path="/articles/:articleId" render={(props) => {
@@ -105,6 +117,8 @@ componentWillUnmount() {
           )
           }} />
        <Route exact path="/login" component={Login} />
+
+        <Route exact path="/" component={Home} />
 
 
       </div> 
