@@ -31,3 +31,4 @@ src/config.js
 functions/etc
 functions/dist
 functions/.runtimeconfig.json
+.env

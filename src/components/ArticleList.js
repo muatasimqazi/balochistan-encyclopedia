@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 
-class Header extends Component {
+class ArticleList extends Component {
     render() {
         return (
             <div>
@@ -24,7 +24,7 @@ class Header extends Component {
                                 {this.props.authenticated 
                                 ? (    
                                 <li className='nav-item'>
-                                <Link className='nav-link' to='/login'>
+                                <Link className='nav-link' to='/songs' data-toggle='modal' data-target='#signup'>
                     <i className='fa fa-user-plus'></i>
                                     <p>Sign Up</p>
                             </Link>
@@ -32,7 +32,7 @@ class Header extends Component {
                                 )
                                 : (     
                              <li className='nav-item'>
-                                    <Link className='nav-link' to='/login'>
+                                    <Link className='nav-link' to='/songs' data-toggle='modal' data-target='#login'>
                                     <i className='fa fa-user'></i>
                         <p>Login</p>
                                     </Link>
@@ -91,10 +91,9 @@ class Header extends Component {
 			</ul>
 		</div>
 	</nav>
-    <br/><br/><br/><br/><br/>    <br/><br/><br/><br/><br/>
         </div>
         );
     }
 }
 
-export default Header;
+export default ArticleList;
