@@ -54,6 +54,9 @@ class Header extends Component {
                 <nav className='navbar navbar-expand-lg fixed-top text-black mt-5 bg-white p-4 second-nav'>
 		<div className='container'>
 			<ul className='nav text-uppercase'>
+            <li className='nav-item'>
+                <Link className="nav-link" to="/">Home</Link>
+                </li>
 				<li className='nav-item dropdown text-black'>
 					<a className='nav-link dropdown-toggle' data-toggle='dropdown' href='#' aria-haspopup='true' aria-expanded='false'>History</a>
 					<div className='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>
@@ -94,6 +97,9 @@ class Header extends Component {
 						<a className='dropdown-item' href='#'>Separated link</a>
 					</div>
 				</li>
+                <li className='nav-item'>
+                <Link className="nav-link" to="articles">Articles</Link>
+                </li>
 			</ul>
 		</div>
 	</nav>

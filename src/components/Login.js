@@ -84,11 +84,11 @@ class Login extends Component {
 							<div className="content">
 								<div className="input-group form-group-no-border input-lg">
 									<span className="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-									<input className="form-control" name="email" type="email" ref={(input) => {this. emailInput = input}} placeholder="email"></input>
+									<input className="form-control" name="email" type="email" ref={(input) => {this.emailInput = input}} placeholder="email"></input>
 								</div>
 								<div className="input-group form-group-no-border input-lg">
 									<span className="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-									<input className="form-control" name="password" type="password" ref={(input) => {this. passwordInput = input}} placeholder="password"></input>
+									<input className="form-control" name="password" type="password" ref={(input) => {this.passwordInput = input}} placeholder="password"></input>
 									
 								</div>
 							</div>

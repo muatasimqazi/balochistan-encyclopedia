@@ -3,19 +3,13 @@ import './App.css';
 import { firebase } from '@firebase/app';
 import Footer from './components/Footer';
 import Header from './components/Header';
-
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Home from './components/Home'
-
-
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Route } from 'react-router-dom';
 import ArticleList from './components/ArticleList';
 import Article from './components/Article';
-
 import { app, base } from './base';
-
-
 
 class App extends Component {
 
@@ -28,7 +22,6 @@ class App extends Component {
         authenticated: false,
         loading: true
       };
-
   }
 
   addArticle(title) {
@@ -37,7 +30,7 @@ class App extends Component {
     articles[id] = {
       id: id,
       title: title,
-      artpro: ""
+      text: ""
     };
 
     this.setState({articles});
@@ -88,44 +81,37 @@ componentWillUnmount() {
   render() {
     if (this.state.loading === true) {
       return (
-        <div style={{textAlign: "center", position: "absolute", top: "25%", left: "50%"}}>
+        <div style={{textAlign: "center", position: "absolute", top: "50%", left: "50%"}}>
         <h3>Loading</h3>
         </div>
       )
     }
     return (
-      <div className="App">
-       
-      <BrowserRouter>
-
-      <div className="main-content">
-      <Header authenticated={this.state.authenticated} />
-        <div className="workspace">
-   
-          <Route exact path="/logout" component={Logout} />
-          <Route exact path ="/articles" render={(props) => {
-            return (
-              <ArticleList articles={this.state.articles} />
+      <div className="App index-page sidebar-collapse">
+        <BrowserRouter>
+        <div className="main-content">
+        <Header authenticated={this.state.authenticated} />
+          <div className="workspace">
+            <Route exact path="/logout" component={Logout} />
+            <Route exact path ="/articles" render={(props) => {
+              return (
+                <ArticleList articles={this.state.articles} />
+              )
+            }} />
+            <Route path="/articles/:articleId" render={(props) => {
+              const article = this.state.articles[props.match.params.articleId];
+              return (
+                article
+                ? <Article article={article} updateArticle={this.updateArticle} />
+                : <h1>Article not found</h1>
             )
-          }} />
-          <Route path="/articles/:articleId" render={(props) => {
-            const article = this.state.articles[props.match.params.articleId];
-            return (
-              article
-              ? <Article article={article} updateArticle={this.updateArticle} />
-              : <h1>Article not found</h1>
-          )
-          }} />
-       <Route exact path="/login" component={Login} />
-
-        <Route exact path="/" component={Home} />
-
-
-      </div> 
-      </div>
-
-      </BrowserRouter>
-      <Footer />
+            }} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
+          </div> 
+        </div>
+        </BrowserRouter>
+        <Footer />
       </div>
     );
   }

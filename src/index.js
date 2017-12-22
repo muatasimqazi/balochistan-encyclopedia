@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import * as firebase from 'firebase';
-import Layout from './components/Layout';
 import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
