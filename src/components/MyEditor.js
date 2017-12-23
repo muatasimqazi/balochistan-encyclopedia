@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 class MyEditor extends React.Component {
   constructor(props) {
@@ -49,6 +49,18 @@ class MyEditor extends React.Component {
       )
     );
   }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+  method() {
+      const raw = convertToRaw(this.state.editorState.getCurrentContent())
+      return raw
+   
+  }
   render() {
     const {editorState} = this.state;
     // If the user changes block type before entering any text, we can
@@ -82,7 +94,9 @@ class MyEditor extends React.Component {
                   placeholder="Article content..."
                   ref="editor"
                   spellCheck={true}
+                 
                 />
+                
               </div>
             </div>
           );

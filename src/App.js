@@ -59,7 +59,7 @@ componentWillMount() {
       })
     }
   })
-  this.articlesRef = base.syncState('articles', {
+  this.articlesRef = base.syncState('content/articles', {
     context: this,
     state: 'articles'
   });
@@ -72,8 +72,11 @@ componentWillUnmount() {
 }
 
   componentDidMount() {
+    
     const rootRef = firebase.database().ref().child('content');
-    const articleRef = rootRef.child('article');
+    
+    const articleRef = rootRef.child('articles');
+    console.log(articleRef)
     articleRef.on('value', snap => {
       this.setState({
         article: snap.val()

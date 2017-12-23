@@ -20,6 +20,7 @@ class Article extends Component {
         });
     }
     render() {
+        
         return (
 
             <div className="section pt-3 pb-3 pt-5 bg-white article">
@@ -36,19 +37,27 @@ class Article extends Component {
                             </Breadcrumb.Item>
                         </Breadcrumb>
                     <h3 className="mb-0">{this.props.article.title}</h3>
-                        <div><span className="text-info">Written by</span> : <a href="">{this.props.article.author}</a></div>
+                        <div><span className="text-info">Written by</span> : <a href="">{this.props.article.author}</a> | <span>{this.props.article.date}</span></div>
+                        
                         <hr/>
                     </div>
                     </div>
 
                     <div className="row">
                     <div className="col-lg-8 mb-5">
-                    <p>{this.props.article.text}</p>
+                    {/* <img className="img-fluid" src={this.props.article.media.images[0]} /> */}
+                    {this.props.article.body.map((para, index) => {
+                        
+                        return (
+                            <p key={index}>{para.text}</p>
+                        )
+                    })}
+
                     </div>
 
                     <div className="col-lg-3">
                     <div className="card rounded-0 border mb-5">
-                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="Card image cap" />
+                        <img className="card-img-top rounded-0" src={this.props.article.media.images[0]} alt="Card image cap" />
                         <div className="card-body pt-0">
                             <h4 className="card-title mt-2">Card title</h4>
                             <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

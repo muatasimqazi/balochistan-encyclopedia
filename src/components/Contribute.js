@@ -10,21 +10,69 @@ class Contribute extends Component {
 	constructor(props) {
         super(props)
         this.submitArticle = this.submitArticle.bind(this)
+        this.addArticle = this.addArticle.bind(this);
 		this.state = {
             redirect: false,
-            editorState: ''
+            editorState: '',
+            dataContent: {},
+            articles: { },
         }
-        this.onChange = (editorState) => this.setState({editorState: this.editorState.value});
+        this.chan = (editorState) => {
+            
+            this.setState({editorState: editorState});
+
+        }
         
     }
+
+    addArticle(title) { 
+        const articles = {...this.state.articles};
+        const id = Date.now();
+        articles[id] = {
+          id: id,
+          title: title,
+          author: "",
+          text: ""
+        };
+    
+        this.setState({articles});
+    }
+
+    onClick = () => {
+        const data = this.child.method() // do stuff
+        const para = data.blocks[0].text
+        console.log(data.blocks)
+        console.log(para)
+      }
 
     
     
     submitArticle(event) {
         event.preventDefault()
+        let newArticle = {...this.state.articles};
         const title = this.AticleInput.value
         console.log("Article submitted" + title);
         console.log("ed" + this.state.editorState)
+
+        // data from editor
+        const data = this.child.method() // do stuff
+        const para = data.blocks[0].text
+
+        const rootRef = app.database().ref().child('content');
+        const articleRef = rootRef.child('articles');
+
+ 
+        newArticle = {
+            title: title,
+            author: "Mu",
+            body: data.blocks
+          };
+
+        console.log(newArticle)
+
+        this.setState({newArticle});
+        
+        articleRef.push(newArticle)
 
     }
 
@@ -65,7 +113,7 @@ class Contribute extends Component {
 								</div>
 								
                                 <div className="border">
-                                <MyEditor ref={MyEditor.EditorState}  onChange={this.onChange.bind(this)}  />
+                                <MyEditor  onRef={ref => (this.child = ref)} />
                                 
                                 </div>
 							</div>
@@ -73,6 +121,7 @@ class Contribute extends Component {
 								<input className="btn btn-primary btn-round btn-lg pull-right" type="submit" value="Submit"></input>
 							</div>
 						</form>
+                        <button onClick={this.onClick}>Child.method()</button>
                         </div>
                   
                     </div>
