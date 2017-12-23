@@ -1,49 +1,81 @@
 import React, { Component } from 'react';
-import one from '../img/one.jpeg';
-import two from '../img/two.jpeg';
-import three from '../img/three.jpeg';
-import four from '../img/four.jpeg';
-import five from '../img/five.jpeg';
+import {Redirect } from 'react-router-dom';
+import {app, facebookProvider } from '../base';
+import MyEditor from './MyEditor'
 import {Breadcrumb} from 'react-bootstrap';
+import {Editor, EditorState} from 'draft-js'
 
-class Article extends Component {
-    constructor(props) {
+
+class Contribute extends Component {
+	constructor(props) {
         super(props)
-        this.handleChange = this.handleChange.bind(this);
+        this.submitArticle = this.submitArticle.bind(this)
+		this.state = {
+            redirect: false,
+            editorState: ''
+        }
+        this.onChange = (editorState) => this.setState({editorState: this.editorState.value});
+        
     }
 
-    handleChange(event) {
-        const title = event.target.value;
+    
+    
+    submitArticle(event) {
+        event.preventDefault()
+        const title = this.AticleInput.value
+        console.log("Article submitted" + title);
+        console.log("ed" + this.state.editorState)
 
-        this.props.updateArticle({
-            title: title
-        });
     }
+
     render() {
+        
+		if (this.props.authenticated  === false) {
+			return <Redirect to='/'/>
+		}
+		
         return (
 
-            <div className="section pt-3 pb-3 pt-5 bg-white article">
+			<div className="section pt-3 pb-3 pt-5 bg-white article">
                 <div className="fluid-container ml-4 mr-4">
                     <div className="row">
                         <div className="col">
                         <Breadcrumb>
-                            <Breadcrumb.Item className="breadcrumb-item" href="/articles">
-                            Articles
+                            <Breadcrumb.Item className="breadcrumb-item" href="/">
+                            Home
                             </Breadcrumb.Item>
                             <span className="pl-2 pr-2 text-mute"> / </span>   
                             <Breadcrumb.Item active>
-                            {this.props.article.title}
+                            Contribute
                             </Breadcrumb.Item>
-                        </Breadcrumb>
-                    <h3 className="mb-0">{this.props.article.title}</h3>
-                        <div><span className="text-info">Written by</span> : <a href="">{this.props.article.author}</a></div>
+                        </Breadcrumb>        
                         <hr/>
                     </div>
                     </div>
 
                     <div className="row">
                     <div className="col-lg-8 mb-5">
-                    <p>{this.props.article.text}</p>
+                    <div className="card rounded-0 border mb-5">
+                    <div className="card-body">
+                    <form className="form" onSubmit={(event) => { this.submitArticle(event) }} ref={(form) => { this.articleForm = form}}>
+							<div className="content">
+								<div className="input-group form-group-no-border input-lg">
+									
+									<input className="form-control bg-white border" name="title" type="text" ref={(input) => {this.AticleInput = input}} placeholder="Article Title"></input>
+								</div>
+								
+                                <div className="border">
+                                <MyEditor ref={MyEditor.EditorState}  onChange={this.onChange.bind(this)}  />
+                                
+                                </div>
+							</div>
+							<div className="footer text-center">
+								<input className="btn btn-primary btn-round btn-lg pull-right" type="submit" value="Submit"></input>
+							</div>
+						</form>
+                        </div>
+                  
+                    </div>
                     </div>
 
                     <div className="col-lg-3">
@@ -71,4 +103,4 @@ class Article extends Component {
     }
 }
 
-export default Article;
+export default Contribute;

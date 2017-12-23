@@ -24,7 +24,7 @@ class Header extends Component {
                                 {this.props.authenticated 
                                 ? ([   
                                 <li key={1} className='nav-item'>
-                                <Link className='nav-link' to='/login'>
+                                <Link className='nav-link' to='/contribute'>
                                 <i className="fa fa-pencil-square" aria-hidden="true"></i>
                                    <p>Contribute</p>
                             </Link>

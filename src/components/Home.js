@@ -7,6 +7,7 @@ import BottomTopRow from './BottomTopRow';
 import BottomRow from './BottomRow';
 import {Redirect } from 'react-router-dom';
 import {app, facebookProvider } from '../base';
+import MyEditor from './MyEditor'
 
 class Home extends Component {
 	
@@ -14,10 +15,12 @@ class Home extends Component {
         return (
             <div className="wrapper">
             <TopRow />
+            
             <MidRow />
             <MidBottomRow />
             <BottomTopRow />
             <BottomRow />
+            <MyEditor/>
             </div>
         );
     }

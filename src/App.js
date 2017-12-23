@@ -5,11 +5,13 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Login from './components/Login'
 import Logout from './components/Logout'
+import Contribute from './components/Contribute'
 import Home from './components/Home'
 import {BrowserRouter, Route } from 'react-router-dom';
 import ArticleList from './components/ArticleList';
 import Article from './components/Article';
 import { app, base } from './base';
+
 
 class App extends Component {
 
@@ -20,11 +22,11 @@ class App extends Component {
       this.state = {
         articles: { },
         authenticated: false,
-        loading: true
+        loading: true,
       };
   }
 
-  addArticle(title) {
+  addArticle(title) { 
     const articles = {...this.state.articles};
     const id = Date.now();
     articles[id] = {
@@ -108,10 +110,12 @@ componentWillUnmount() {
             )
             }} />
             <Route exact path="/login" component={Login} />
+          <Route exact path="/contribute" render={()=><Contribute authenticated={this.state.authenticated}/>}/>
             <Route exact path="/" component={Home} />
           </div> 
         </div>
         </BrowserRouter>
+        
         <Footer />
       </div>
     );
