@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import TopRow from './TopRow';
 import MidRow from './MidRow';
 import MidBottomRow from './MidBottomRow';
@@ -11,11 +12,10 @@ class Home extends Component {
         return (
             <div className="wrapper">
             <TopRow />
-            
-            <MidRow />
+           
             <MidBottomRow />
-            <BottomTopRow />
-            <BottomRow />
+            <BottomTopRow articles={this.props.articles} />
+            <BottomRow categories={this.props.categories} />
           
             </div>
         );

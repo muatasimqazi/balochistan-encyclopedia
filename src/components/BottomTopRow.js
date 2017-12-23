@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import one from '../img/one.jpeg';
 import two from '../img/two.jpeg';
 import three from '../img/three.jpeg';
@@ -6,54 +7,33 @@ import three from '../img/three.jpeg';
 
 class BottomTopRow extends Component {
     render() {
+		const { articles } = this.props
+        const articleId = Object.keys(articles)
         return (
             <div className="section bg-white pt-1 pb-0">
 			<div className="fluid-container ml-4 mr-4">
 				<div className="row">
 					<div className="col-lg-6">
 						<h5 className="font-weight-bold mt-2 text-uppercase">Trending Topics</h5>
-
+						
 						<div className="list-group mb-5">
-							<a href='' className="list-group-item list-group-item-action flex-column align-items-start">
-								<div className="d-flex w-100 justify-content-between">
-									<h5 className="mb-1">List group item heading</h5>
-									<small>3 days ago</small>
-								</div>
-								<p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								<small>Donec id elit non mi porta.</small>
-							</a>
-							<a href='' className="list-group-item list-group-item-action flex-column align-items-start">
-								<div className="d-flex w-100 justify-content-between">
-									<h5 className="mb-1">List group item heading</h5>
-									<small className="text-muted">3 days ago</small>
-								</div>
-								<p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								<small className="text-muted">Donec id elit non mi porta.</small>
-							</a>
-							<a href='' className="list-group-item list-group-item-action flex-column align-items-start">
-								<div className="d-flex w-100 justify-content-between">
-									<h5 className="mb-1">List group item heading</h5>
-									<small className="text-muted">3 days ago</small>
-								</div>
-								<p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								<small className="text-muted">Donec id elit non mi porta.</small>
-							</a>
-							<a href='' className="list-group-item list-group-item-action flex-column align-items-start">
-								<div className="d-flex w-100 justify-content-between">
-									<h5 className="mb-1">List group item heading</h5>
-									<small>3 days ago</small>
-								</div>
-								<p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								<small>Donec id elit non mi porta.</small>
-							</a>
-							<a href='' className="list-group-item list-group-item-action flex-column align-items-start">
-								<div className="d-flex w-100 justify-content-between">
-									<h5 className="mb-1">List group item heading</h5>
-									<small>3 days ago</small>
-								</div>
-								<p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								<small>Donec id elit non mi porta.</small>
-							</a>
+						
+                    {
+						articleId.map((id, index) => {
+                        const article = articles[id]
+                        return (
+                            
+							<Link key={id} to={`/articles/${id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+							<div className="d-flex w-100 justify-content-between">
+								<h5 className="mb-1">{article.title}</h5>
+								<small>{article.domain}</small>
+							</div>
+							<p className="mb-1">{article.body[0].text}</p>
+							<small>Donec id elit non mi porta.</small>
+							</Link>
+                        )
+                    })
+                    }
 						</div>
 
 					</div>
@@ -93,6 +73,7 @@ class BottomTopRow extends Component {
 								</div>
 							</div>
 
+
 							<div className="col-12">
 								<div className="card border">
 									<img className="card-img-top" src={one} alt=""/>
@@ -107,6 +88,7 @@ class BottomTopRow extends Component {
 				</div>
 
 			</div>
+		
 		</div>
         );
     }

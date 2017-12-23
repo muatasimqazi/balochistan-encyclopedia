@@ -136,7 +136,11 @@ componentWillUnmount() {
           <Contribute user={this.state.user} category={category} authenticated={this.state.authenticated}/>
         )
         }}/>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={(props) => {
+              return (
+                <Home articles={this.state.articles} categories={this.state.categories}/>
+              )
+            }}/>
           </div> 
         </div>
         </BrowserRouter>

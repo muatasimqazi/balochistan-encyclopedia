@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import two from '../img/two.jpeg';
 import five from '../img/five.jpeg';
 
 class BottomRow extends Component {
     render() {
+		const { categories } = this.props
+		const categoryId = Object.keys(categories)
+		console.log(categoryId)
         return (
             <div>
             <div className="separator separator-primary"></div>
@@ -50,17 +54,26 @@ class BottomRow extends Component {
 				</div>
 			</div>
 			<hr/>
+
+			
 			<div className="section pt-3 pb-3 bg-white">
 				<div className="fluid-container ml-4 mr-4">
 					<h5 className="font-weight-bold mt-2 text-uppercase">Search By Topic</h5>
 					<div className="row">
 						<div className="col-6 col-lg-3 col-md-3">
 							<ul>
-								<li>one</li>
-								<li>two</li>
-								<li>three</li>
-								<li>four</li>
-								<li>five</li>
+							{
+									categoryId.map((id, index) => {
+									const category = categories[id]
+									
+									return (
+										
+										<li key={id}><Link to={`/category/${id}`}>{category.name}</Link></li>
+										
+									)
+								})
+								}
+
 							</ul>
 						</div>
 						<div className="col-6 col-lg-3 col-md-3">
