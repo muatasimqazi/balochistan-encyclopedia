@@ -17,7 +17,7 @@ class Home extends Component {
             <MidRow />
             <MidBottomRow />
             <BottomTopRow />
-            
+            <BottomRow />
             </div>
         );
     }

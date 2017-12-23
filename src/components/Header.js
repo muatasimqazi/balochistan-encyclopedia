@@ -23,13 +23,13 @@ class Header extends Component {
                             <ul className='navbar-nav'>
                                 {this.props.authenticated 
                                 ? ([   
-                                <li className='nav-item'>
+                                <li key={1} className='nav-item'>
                                 <Link className='nav-link' to='/login'>
                                 <i className="fa fa-pencil-square" aria-hidden="true"></i>
                                    <p>Contribute</p>
                             </Link>
                             </li>,
-                            <li className='nav-item'>
+                            <li key={2} className='nav-item'>
                             <Link className='nav-link' to='/logout'>
                             <i className="fa fa-sign-out" aria-hidden="true"></i>
                                 <p>Logout</p>
@@ -98,12 +98,12 @@ class Header extends Component {
 					</div>
 				</li>
                 <li className='nav-item'>
-                <Link className="nav-link" to="articles">Articles</Link>
+                <Link className="nav-link" to="/articles">Articles</Link>
                 </li>
 			</ul>
 		</div>
 	</nav>
-    <br/><br/><br/><br/><br/>    <br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/>
         </div>
         );
     }

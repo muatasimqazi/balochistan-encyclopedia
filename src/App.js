@@ -30,6 +30,7 @@ class App extends Component {
     articles[id] = {
       id: id,
       title: title,
+      author: "",
       text: ""
     };
 

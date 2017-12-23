@@ -10,7 +10,6 @@ class Footer extends Component {
     render() {
         return (
             <footer className="footer" data-background-color="black">
-            <br/><br/><br/><br/><br/>
                 <div className="fluid-container ml-4 mr-4">
                     <nav>
                         <ul>

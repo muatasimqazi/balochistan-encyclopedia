@@ -23,7 +23,7 @@ class ArticleList extends Component {
         const articleId = Object.keys(articles)
 
         return (
-            <div>
+            <div className="container">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/">
                     Home
@@ -35,16 +35,17 @@ class ArticleList extends Component {
                 </Breadcrumb>
                 <h1 style={{marginBottom: "0.5em"}}>Articles</h1>
                 <div style={articleListStyles}>
+                <ul className="list-group">
                     {articleId.map((id) => {
                         const article = articles[id]
                         return (
-                            <ul>
-                                <li key={id}  className=""><h5><Link to={`/articles/${id}`}>{article.title}</Link></h5></li>
-                            </ul>
+                            <li key={id}  className="list-group-item"><Link className="text-black" to={`/articles/${id}`}>{article.title}</Link></li>
                         )
                     })
 
+
                     }
+                     </ul>
                     <br/><br/>
                 </div>
             </div>
