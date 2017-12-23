@@ -1,48 +1,31 @@
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
-import {app, facebookProvider } from '../base';
+import {app } from '../base';
 import MyEditor from './MyEditor'
 import {Breadcrumb} from 'react-bootstrap';
-import {Editor, EditorState} from 'draft-js'
+
+
+const rootRef = app.database().ref().child('content');
+const articleRef = rootRef.child('articles');
+const categoryRef = rootRef.child('categories')
 
 
 class Contribute extends Component {
 	constructor(props) {
         super(props)
         this.submitArticle = this.submitArticle.bind(this)
-        this.addArticle = this.addArticle.bind(this);
 		this.state = {
             redirect: false,
             editorState: '',
             dataContent: {},
             articles: { },
+            categories: []
         }
-        this.chan = (editorState) => {
-            
-            this.setState({editorState: editorState});
-
-        }
-        
     }
 
-    addArticle(title) { 
-        const articles = {...this.state.articles};
-        const id = Date.now();
-        articles[id] = {
-          id: id,
-          title: title,
-          author: "",
-          text: ""
-        };
-    
-        this.setState({articles});
-    }
 
     onClick = () => {
-        const data = this.child.method() // do stuff
-        const para = data.blocks[0].text
-        console.log(data.blocks)
-        console.log(para)
+        const data = this.child.passEditorContent() // do stuff
       }
 
     
@@ -51,35 +34,42 @@ class Contribute extends Component {
         event.preventDefault()
         let newArticle = {...this.state.articles};
         const title = this.AticleInput.value
-        console.log("Article submitted" + title);
-        console.log("ed" + this.state.editorState)
+        const url = title.toLowerCase().trim().split(/\s+/).join('-');
+        const domain = this.ArticleDomain.value;
+        const author = this.props.user;
+        const date = new Date();
 
         // data from editor
-        const data = this.child.method() // do stuff
-        const para = data.blocks[0].text
-
-        const rootRef = app.database().ref().child('content');
-        const articleRef = rootRef.child('articles');
-
- 
+        const data = this.child.passEditorContent() // do stuff
+       
         newArticle = {
             title: title,
-            author: "Mu",
-            body: data.blocks
+            author: author,
+            body: data.blocks,
+            date: date,
+            domain: domain,
+            url: url
           };
-
-        console.log(newArticle)
 
         this.setState({newArticle});
         
         articleRef.push(newArticle)
+        this.articleForm.reset();
+        this.setState({
+            redirect: true
+        })
 
     }
+
 
     render() {
         
 		if (this.props.authenticated  === false) {
 			return <Redirect to='/'/>
+        }
+        
+        if (this.state.redirect === true) {
+			return <Redirect to='/articles'/>
 		}
 		
         return (
@@ -107,11 +97,23 @@ class Contribute extends Component {
                     <div className="card-body">
                     <form className="form" onSubmit={(event) => { this.submitArticle(event) }} ref={(form) => { this.articleForm = form}}>
 							<div className="content">
-								<div className="input-group form-group-no-border input-lg">
-									
+								<div className="form-group form-group-no-border input-lg">
+                                <label htmlFor="exampleFormControlSelect1">Title</label>
 									<input className="form-control bg-white border" name="title" type="text" ref={(input) => {this.AticleInput = input}} placeholder="Article Title"></input>
 								</div>
+                                <div className="form-group">
+                                <label htmlFor="exampleFormControlSelect1">Category</label>
+                                    <select className="form-control" id="exampleFormControlSelect1" ref={(select) => {this.ArticleDomain = select}}>
+                                    <option>History</option>
+                                    <option>Geography</option>
+                                    <option>Politics</option>
+                                    <option>Culture and Society</option>
+                                    <option>Biography</option>
+                                    </select>
+                            </div>
 								
+                                
+                            <label htmlFor="exampleFormControlSelect1">Article Body</label>
                                 <div className="border">
                                 <MyEditor  onRef={ref => (this.child = ref)} />
                                 
@@ -121,15 +123,16 @@ class Contribute extends Component {
 								<input className="btn btn-primary btn-round btn-lg pull-right" type="submit" value="Submit"></input>
 							</div>
 						</form>
-                        <button onClick={this.onClick}>Child.method()</button>
+
+                        
+               
                         </div>
-                  
                     </div>
                     </div>
 
                     <div className="col-lg-3">
                     <div className="card rounded-0 border mb-5">
-                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="Card image cap" />
+                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="" />
                         <div className="card-body pt-0">
                             <h4 className="card-title mt-2">Card title</h4>
                             <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -137,7 +140,7 @@ class Contribute extends Component {
                         </div>
                     </div>
                     <div className="card rounded-0 border mb-5">
-                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="Card image cap" />
+                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="" />
                         <div className="card-body pt-0">
                             <h4 className="card-title mt-2">Card title</h4>
                             <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

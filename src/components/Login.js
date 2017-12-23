@@ -83,7 +83,7 @@ class Login extends Component {
 						<form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
 							<div className="content">
 								<div className="input-group form-group-no-border input-lg">
-									<span className="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+									<span className="input-group-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
 									<input className="form-control" name="email" type="email" ref={(input) => {this.emailInput = input}} placeholder="email"></input>
 								</div>
 								<div className="input-group form-group-no-border input-lg">
@@ -97,10 +97,10 @@ class Login extends Component {
 								<input className="btn btn-primary btn-round btn-lg btn-block" type="submit" value="Login"></input>
 							</div>
 							<div className="pull-left">
-								<h6><small><a href="#" className="link">Create Account</a></small></h6>
+								<h6><small><a href="" className="link">Create Account</a></small></h6>
 							</div>
 							<div className="pull-right">
-								<h6><small><a href="#" className="link">Need Help?</a></small></h6>
+								<h6><small><a href="" className="link">Need Help?</a></small></h6>
 							</div>
 						</form>
 					</div>

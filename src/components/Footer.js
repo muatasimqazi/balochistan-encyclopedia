@@ -14,20 +14,20 @@ class Footer extends Component {
                     <nav>
                         <ul>
                             <li>
-                                <a href="#">Balochistan</a>
+                                <a href="">Balochistan</a>
                             </li>
                             <li>
-                                <a href="#">About Us</a>
+                                <a href="">About Us</a>
                             </li>
                             <li>
-                                <a href="#">Blog</a>
+                                <a href="">Blog</a>
                             </li>
 
                         </ul>
                     </nav>
                     <div className="copyright">
                         &copy; {this.state.year}, Designed and Coded by
-                        <a href="#" target="_blank"> Q. Creatives</a>.
+                        <a href="" target="_blank"> Q. Creatives</a>.
                     </div>
                 </div>
             </footer>

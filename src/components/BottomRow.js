@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import one from '../img/one.jpeg';
 import two from '../img/two.jpeg';
-import three from '../img/three.jpeg';
-import four from '../img/four.jpeg';
 import five from '../img/five.jpeg';
 
 class BottomRow extends Component {
@@ -30,7 +27,7 @@ class BottomRow extends Component {
 					</div>
 					<div className="col-lg-4">
 						<div className="card mb-5 text-white">
-							<img className="card-img" src={two} alt="Card image"/>
+							<img className="card-img" src={two} alt=""/>
 							<div className="card-img-overlay">
 								<h4 className="card-title">Card title</h4>
 								<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -41,7 +38,7 @@ class BottomRow extends Component {
 
 					<div className="col-lg-4">
 						<div className="card mb-5 text-white">
-							<img className="card-img" src={five} alt="Card image"/>
+							<img className="card-img" src={five} alt=""/>
 							<div className="card-img-overlay">
 								<h4 className="card-title">Card title</h4>
 								<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

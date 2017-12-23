@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 class MyEditor extends React.Component {
@@ -56,7 +55,7 @@ class MyEditor extends React.Component {
   componentWillUnmount() {
     this.props.onRef(undefined)
   }
-  method() {
+  passEditorContent() {
       const raw = convertToRaw(this.state.editorState.getCurrentContent())
       return raw
    

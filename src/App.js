@@ -23,6 +23,8 @@ class App extends Component {
         articles: { },
         authenticated: false,
         loading: true,
+        categories: {},
+        user: "",
       };
   }
 
@@ -50,7 +52,8 @@ componentWillMount() {
     if (user) {
       this.setState({
         authenticated: true,
-        loading: false
+        loading: false,
+        user: user.displayName
       })
     } else {
       this.setState({
@@ -62,6 +65,11 @@ componentWillMount() {
   this.articlesRef = base.syncState('content/articles', {
     context: this,
     state: 'articles'
+  });
+
+  this.categoryRef = base.syncState('content/categories', {
+    context: this,
+    state: 'categories'
   });
 
 }
@@ -76,10 +84,17 @@ componentWillUnmount() {
     const rootRef = firebase.database().ref().child('content');
     
     const articleRef = rootRef.child('articles');
-    console.log(articleRef)
+    const catRef = rootRef.child('categories');
+
     articleRef.on('value', snap => {
       this.setState({
         article: snap.val()
+      });
+    });
+
+    catRef.on('value', snap => {
+      this.setState({
+        category: snap.val()
       });
     });
   }
@@ -104,8 +119,9 @@ componentWillUnmount() {
                 <ArticleList articles={this.state.articles} />
               )
             }} />
-            <Route path="/articles/:articleId" render={(props) => {
-              const article = this.state.articles[props.match.params.articleId];
+            <Route path="/articles/:url" render={(props) => {
+              const article = this.state.articles[props.match.params.url];
+              console.log(props.match.params)
               return (
                 article
                 ? <Article article={article} updateArticle={this.updateArticle} />
@@ -113,7 +129,13 @@ componentWillUnmount() {
             )
             }} />
             <Route exact path="/login" component={Login} />
-          <Route exact path="/contribute" render={()=><Contribute authenticated={this.state.authenticated}/>}/>
+          <Route exact path="/contribute" render={(props) => {
+          const category = this.state.categories;
+          return (
+            category,
+          <Contribute user={this.state.user} category={category} authenticated={this.state.authenticated}/>
+        )
+        }}/>
             <Route exact path="/" component={Home} />
           </div> 
         </div>

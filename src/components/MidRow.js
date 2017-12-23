@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import one from '../img/one.jpeg';
-import two from '../img/two.jpeg';
-import three from '../img/three.jpeg';
-import four from '../img/four.jpeg';
-import five from '../img/five.jpeg';
 
 class MidRow extends Component {
     render() {

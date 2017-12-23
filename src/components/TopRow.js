@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import one from '../img/one.jpeg';
 import two from '../img/two.jpeg';
 import three from '../img/three.jpeg';
-import four from '../img/four.jpeg';
 import five from '../img/five.jpeg';
 
 class TopRow extends Component {
@@ -69,7 +67,7 @@ class TopRow extends Component {
 
 						<div className="col-lg-3">
 							<div className="card rounded-0 border mb-5">
-								<img className="card-img-top rounded-0" src={two} alt="Card image cap"/>
+								<img className="card-img-top rounded-0" src={two} alt="Card  cap"/>
 								
 								<div className="card-body pt-0">
 									<h4 className="card-title mt-2">Card title</h4>
