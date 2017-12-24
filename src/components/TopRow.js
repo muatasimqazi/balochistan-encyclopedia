@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import one from '../img/one.jpeg';
 import two from '../img/two.jpeg';
 import three from '../img/three.jpeg';
@@ -6,6 +7,8 @@ import five from '../img/five.jpeg';
 
 class TopRow extends Component {
     render() {
+		const articles = this.props.latestArticles
+		const articleId = Object.keys(articles)
         return (
 
             <div className="section pb-5">
@@ -22,36 +25,28 @@ class TopRow extends Component {
 									<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
 								</ol>
 								<div className="carousel-inner">
-									<div className="carousel-item active">
-										<img className="d-block w-100" src={one} alt="First slide"/>
-										<div className="carousel-caption">
-											<h5>Heading Goes Here</h5>
-											<p className="d-none d-md-block">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-										</div>
-									</div>
+									
 
-									<div className="carousel-item">
-										<img className="d-block w-100" src={two} alt="First slide"/>
+									{articleId.map((id, index) => {
+									const article = articles[id]
+									const cls = (index === 0) ? 'carousel-item active' : 'carousel-item'; 
+									return (
+										
+										<Link className={cls} to={`/articles/${id}`}>
+										<img className="d-block w-100" src={article.media.image.id.src} alt="First slide"/>
 										<div className="carousel-caption">
-											<h5>Heading Goes Here</h5>
-											<p className="d-none d-md-block">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+											<h5>{article.title}</h5>
+											<p className="d-none d-md-block">{article.body[0].text}</p>
 										</div>
-									</div>
+										</Link>
+									)
+								})
+								
+									
+								}
+									
 
-									<div className="carousel-item">
-										<img className="d-block w-100" src={three} alt="First slide"/>
-										<div className="carousel-caption">
-											<h5>Heading Goes Here</h5>
-											<p className="d-none d-md-block">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-										</div>
-									</div>
-									<div className="carousel-item">
-										<img className="d-block w-100" src={five} alt="First slide"/>
-										<div className="carousel-caption">
-											<h5>Heading Goes Here</h5>
-											<p className="d-none d-md-block">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-										</div>
-									</div>
+									
 
 								</div>
 								<a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -83,11 +78,16 @@ class TopRow extends Component {
 									<h6>What's New</h6>
 								</div>
 								<ul className="list-group list-group-flush">
-									<li className="list-group-item">Cras justo odio</li>
-									<li className="list-group-item">Dapibus ac facilisis in</li>
-									<li className="list-group-item">Vestibulum at eros</li>
-									<li className="list-group-item">Cras justo odio</li>
-									<li className="list-group-item">Dapibus ac facilisis in</li>
+								{articleId.map((id) => {
+									const article = articles[id]
+									return (
+									
+									<li className="list-group-item"><Link to={`/articles/${id}`}>{article.title}</Link></li>
+									)
+								})
+								
+									
+								}
 								</ul>
 							</div>
 						</div>

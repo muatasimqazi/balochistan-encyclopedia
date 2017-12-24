@@ -24,9 +24,10 @@ class BottomTopRow extends Component {
                         return (
                             
 							<Link key={id} to={`/articles/${id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+							<span className="badge badge-primary pull-right">{article.domain}</span>
 							<div className="d-flex w-100 justify-content-between">
 								<h5 className="mb-1">{article.title}</h5>
-								<small>{article.domain}</small>
+								
 							</div>
 							<p className="mb-1">{article.body[0].text}</p>
 							<small>Donec id elit non mi porta.</small>

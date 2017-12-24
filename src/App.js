@@ -10,6 +10,8 @@ import Home from './components/Home'
 import {BrowserRouter, Route } from 'react-router-dom';
 import ArticleList from './components/ArticleList';
 import Article from './components/Article';
+import Contributions from './components/Contributions';
+import Settings from './components/Settings';
 import { app, base } from './base';
 
 
@@ -24,7 +26,8 @@ class App extends Component {
         authenticated: false,
         loading: true,
         categories: {},
-        user: "",
+        user: { },
+        latestArticles: { }
       };
   }
 
@@ -47,13 +50,14 @@ class App extends Component {
     this.setState({articles});
   }
 
+  
 componentWillMount() {
   this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
     if (user) {
       this.setState({
         authenticated: true,
         loading: false,
-        user: user.displayName
+        user: user
       })
     } else {
       this.setState({
@@ -85,6 +89,14 @@ componentWillUnmount() {
     
     const articleRef = rootRef.child('articles');
     const catRef = rootRef.child('categories');
+    const lim = articleRef.limitToLast(5).on('value', snap => {
+      this.setState({
+        latestArticles: snap.val()
+      })
+    });
+    
+    
+    
 
     articleRef.on('value', snap => {
       this.setState({
@@ -97,6 +109,7 @@ componentWillUnmount() {
         category: snap.val()
       });
     });
+
   }
 
   render() {
@@ -111,7 +124,7 @@ componentWillUnmount() {
       <div className="App index-page sidebar-collapse">
         <BrowserRouter>
         <div className="main-content">
-        <Header authenticated={this.state.authenticated} />
+        <Header authenticated={this.state.authenticated} user={this.state.user}/>
           <div className="workspace">
             <Route exact path="/logout" component={Logout} />
             <Route exact path ="/articles" render={(props) => {
@@ -136,9 +149,21 @@ componentWillUnmount() {
           <Contribute user={this.state.user} category={category} authenticated={this.state.authenticated}/>
         )
         }}/>
+
+        <Route exact path="/contributions" render={(props) => {
+          return (
+            <Contributions articles={this.state.articles}/>
+          )
+        }}/>
+
+        <Route exact path="/settings" render={(props) => {
+          return(
+            <Settings />
+          )
+        }}/>
             <Route exact path="/" render={(props) => {
               return (
-                <Home articles={this.state.articles} categories={this.state.categories}/>
+                <Home articles={this.state.articles} categories={this.state.categories} latestArticles={this.state.latestArticles}/>
               )
             }}/>
           </div> 

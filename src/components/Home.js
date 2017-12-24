@@ -11,7 +11,7 @@ class Home extends Component {
     render() {
         return (
             <div className="wrapper">
-            <TopRow />
+            <TopRow latestArticles={this.props.latestArticles}/>
            
             <MidBottomRow />
             <BottomTopRow articles={this.props.articles} />

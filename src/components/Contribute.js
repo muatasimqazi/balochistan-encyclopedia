@@ -36,7 +36,7 @@ class Contribute extends Component {
         const title = this.AticleInput.value
         const url = title.toLowerCase().trim().split(/\s+/).join('-');
         const domain = this.ArticleDomain.value;
-        const author = this.props.user;
+        const author = this.props.user.displayName;
         const date = new Date();
 
         // data from editor
@@ -44,11 +44,18 @@ class Contribute extends Component {
        
         newArticle = {
             title: title,
-            author: author,
+            author: "author",
             body: data.blocks,
             date: date,
             domain: domain,
-            url: url
+            url: url,
+            media: {
+                image: {
+                    id: {
+                        src: 'https://images.pexels.com/photos/713668/pexels-photo-713668.jpeg'
+                    }
+                }
+            }
           };
 
         this.setState({newArticle});
@@ -111,8 +118,14 @@ class Contribute extends Component {
                                     <option>Biography</option>
                                     </select>
                             </div>
-								
-                                
+							
+                            <div className="form-group form-group-no-border input-lg">
+                            <label className="custom-file">
+                            <input type="file" id="file2" className="custom-file-input"/>
+                            <span className="custom-file-control">Upload Image</span>
+                            </label>
+                            </div>
+                            
                             <label htmlFor="exampleFormControlSelect1">Article Body</label>
                                 <div className="border">
                                 <MyEditor  onRef={ref => (this.child = ref)} />
