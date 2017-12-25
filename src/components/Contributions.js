@@ -4,49 +4,71 @@ import { Link } from 'react-router-dom';
 import {app, facebookProvider } from '../base';
 import { Breadcrumb } from 'react-bootstrap'
 
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    marginTop: 30,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+  },
+  paper: {
+    padding: 16,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
 
 
 class Contributions extends Component {
+    
     render() {
+         
+		if (this.props.authenticated  === false) {
+			return <Redirect to='/'/>
+        }
+        const { classes } = this.props;
         const { articles } = this.props
         const articleId = Object.keys(articles)
 
         return (
-            <div className="section pt-3 pb-3 pt-5 bg-white article">
-            <div className="fluid-container ml-4 mr-4">
-                <div className="row">
-                    <div className="col">
-                <Breadcrumb>
-                    <Breadcrumb.Item href="/">
-                    Home
-                    </Breadcrumb.Item>
-                    <span className="pl-2 pr-2 text-mute"> / </span> 
-                    <Breadcrumb.Item active>
-                    Articles
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <h1 style={{marginBottom: "0.5em"}}>Articles</h1>
-                <div>
-                <ul>
-                    {articleId.map((id) => {
-                        const article = articles[id]
-                        return (
-                            <li key={id}><Link className="text-black" to={`/articles/${id}`}><h4>{article.title}</h4></Link></li>
-                        )
-                    })
 
-
-                    }
-                     </ul>
-                    <br/><br/>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            </div>
+            <div className={classes.root}>
+            <Grid container spacing={24}>
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>xs=12</Paper>
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <Paper className={classes.paper}>xs=12 sm=6</Paper>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Paper className={classes.paper}>xs=12 sm=6</Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper className={classes.paper}>xs=6 sm=3</Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper className={classes.paper}>xs=6 sm=3</Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper className={classes.paper}>xs=6 sm=3</Paper>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Paper className={classes.paper}>xs=6 sm=3</Paper>
+              </Grid>
+            </Grid>
+          </div>
         );
     }
 }
 
 
-export default Contributions;
+Contributions.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  
+  export default withStyles(styles)(Contributions);

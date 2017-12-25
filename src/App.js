@@ -131,7 +131,7 @@ componentWillUnmount() {
     return (
       <div>
       <MuiThemeProvider  theme={theme}>
-          <Main />
+            <Main authenticated={this.state.authenticated} user={this.state.user} articles={this.state.articles}/>
       </MuiThemeProvider>
     </div>
     );
