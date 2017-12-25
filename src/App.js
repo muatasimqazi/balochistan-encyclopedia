@@ -13,7 +13,7 @@ import Article from './components/Article';
 import Contributions from './components/Contributions';
 import Settings from './components/Settings';
 import { app, base } from './base';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
 
@@ -161,6 +161,10 @@ componentWillUnmount() {
             <Settings />
           )
         }}/>
+
+<MuiThemeProvider>
+    <MyAwesomeReactComponent />
+  </MuiThemeProvider>
             <Route exact path="/" render={(props) => {
               return (
                 <Home articles={this.state.articles} categories={this.state.categories} latestArticles={this.state.latestArticles}/>

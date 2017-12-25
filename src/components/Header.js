@@ -1,6 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
+import { InstantSearch, SearchBox, Hits, Highlight, 
+        Stats, SortBy, Pagination, Menu, RefinementList } from 'react-instantsearch/dom';
+
+const Hit = ({hit}) => 
+    <div className="hit">
+        <div className="hit-image">
+            {/* <img src={hit.image}/> */}
+            <h1>{hit.author}</h1>
+            {console.log(hit)}
+        </div>
+        <div className="hit-content">
+            <div className="hit-price">
+                {/* ${hit.price} */}
+            </div>
+            <div className="hit-name">
+                {/* <Highlight attributeName="name" hit={hit}/> */}
+            </div>
+            <div className="hit-description">
+                {/* <Highlight attributeName="description" hit={hit}/> */}
+            </div>
+        </div>
+    </div>
+
+const Sidebar = () =>
+    <div className="sidebar">
+        <h5>Category</h5>
+        <RefinementList attributeName="categoreis"/>
+        <h5>Brand</h5>
+        <RefinementList attributeName="brand" withSearchBox/>
+        <h5>Type</h5>
+        <Menu attributeName="type"/>
+    </div>
+
+const Content = () =>
+    <div className="content">
+        <div className="info">
+            <Stats/>
+           
+        </div>
+        <Hits hitComponent={Hit}/>
+        <div className="pagination">
+             <Pagination showLast/>
+        </div>
+    </div>
+
 
 class Header extends Component {
     render() {
@@ -23,7 +68,7 @@ class Header extends Component {
                             
                             <ul className='navbar-nav'>
 
-                            <li className="nav-item">
+                            <li className="nav-item">                            
                             <form className="form-inline my-2">
                                 <input className="form-control mr-sm-5" type="search" placeholder="Search" aria-label="Search" />
                             </form>
@@ -114,10 +159,39 @@ class Header extends Component {
                             <li className='nav-item'>
                             <Link className="nav-link" to="/articles">Articles</Link>
                             </li>
+                            <li className="nav-item">
+                    </li>
                         </ul>
                     </div>
                 </nav>
+                <div className="section bg-gray pt-1 pb-4">
+                        <div className="container">
+                            <div className="row">
+                                    <div className="col col-lg-12">
+                                    <InstantSearch
+                                    appId="8FIWUM037Q"
+                                    apiKey="f5b97b302865568db301066102ab64a4"
+                                    indexName="encsearch">
+
+                                        <header className="header">
+                                        <SearchBox translations={{placeholder:'Search for aticles'}}/>
+                                        </header>
+                                    <div className="col-lg-3">
+                                      
+                                    <Sidebar/>
+                                    </div>
+                                    <div className="col-lg-6">
+                                    <Content />   
+                                    </div>
+                                 
+                                    </InstantSearch>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     <br/><br/><br/><br/><br/>
+                    
         </div>
         );
     }
