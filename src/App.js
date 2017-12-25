@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+// import './App.css';
 import { firebase } from '@firebase/app';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -13,7 +13,11 @@ import Article from './components/Article';
 import Contributions from './components/Contributions';
 import Settings from './components/Settings';
 import { app, base } from './base';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import Main from './components/Main'
+
+
+const theme = createMuiTheme();
 
 class App extends Component {
 
@@ -30,6 +34,8 @@ class App extends Component {
         latestArticles: { }
       };
   }
+
+  
 
   addArticle(title) { 
     const articles = {...this.state.articles};
@@ -112,6 +118,8 @@ componentWillUnmount() {
 
   }
 
+  
+
   render() {
     if (this.state.loading === true) {
       return (
@@ -121,61 +129,11 @@ componentWillUnmount() {
       )
     }
     return (
-      <div className="App index-page sidebar-collapse">
-        <BrowserRouter>
-        <div className="main-content">
-        <Header authenticated={this.state.authenticated} user={this.state.user}/>
-          <div className="workspace">
-            <Route exact path="/logout" component={Logout} />
-            <Route exact path ="/articles" render={(props) => {
-              return (
-                <ArticleList articles={this.state.articles} />
-              )
-            }} />
-            <Route path="/articles/:url" render={(props) => {
-              const article = this.state.articles[props.match.params.url];
-              console.log(props.match.params)
-              return (
-                article
-                ? <Article article={article} updateArticle={this.updateArticle} />
-                : <h1>Article not found</h1>
-            )
-            }} />
-            <Route exact path="/login" component={Login} />
-          <Route exact path="/contribute" render={(props) => {
-          const category = this.state.categories;
-          return (
-            category,
-          <Contribute user={this.state.user} category={category} authenticated={this.state.authenticated}/>
-        )
-        }}/>
-
-        <Route exact path="/contributions" render={(props) => {
-          return (
-            <Contributions articles={this.state.articles}/>
-          )
-        }}/>
-
-        <Route exact path="/settings" render={(props) => {
-          return(
-            <Settings />
-          )
-        }}/>
-
-<MuiThemeProvider>
-    <MyAwesomeReactComponent />
-  </MuiThemeProvider>
-            <Route exact path="/" render={(props) => {
-              return (
-                <Home articles={this.state.articles} categories={this.state.categories} latestArticles={this.state.latestArticles}/>
-              )
-            }}/>
-          </div> 
-        </div>
-        </BrowserRouter>
-        
-        <Footer />
-      </div>
+      <div>
+      <MuiThemeProvider  theme={theme}>
+          <Main />
+      </MuiThemeProvider>
+    </div>
     );
   }
 }
