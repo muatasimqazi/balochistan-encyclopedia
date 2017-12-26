@@ -4,8 +4,9 @@ import {BrowserRouter, Route } from 'react-router-dom';
 import Login from './Login';
 import Logout from './Logout';
 import Contribute from './Contribute';
-import Home from './Home'
+import Home from './Home';
 import Contributions from './Contributions';
+import ArticleList from './ArticleList';
 import Footer from './Footer';
 
   class Main extends Component {
@@ -49,10 +50,17 @@ import Footer from './Footer';
                 <Contribute user={this.state.user} category={category} authenticated={this.props.authenticated}/>
                 )
             }}/>
-            <Route exact path="/" render={(props) => {
+            <Route exact path ="/articles" render={(props) => {
+              return (
+                <ArticleList articles={this.state.articles} />
+              )
+            }} />
+
+            <Route path="/" render={(props) => {
                 return (
-                    <Home />
+                    <ArticleList article={this.article} />
                 )
+
             }}/>
             
             </div>
