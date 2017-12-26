@@ -35,43 +35,31 @@ import  Card, { CardActions, CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
 import logo from '../logo.svg';
 
-
+import List from 'material-ui/List';
 
 
 import ReactDOM from 'react-dom';
 import { InstantSearch, SearchBox, Hits, Highlight, 
   Stats, SortBy, Pagination, RefinementList } from 'react-instantsearch/dom';
-
-  import ListSubheader from 'material-ui/List/ListSubheader';
-  import List, { ListItem, ListItemText } from 'material-ui/List';
-
-
-
+  
   const Hit = ({hit}) => 
+  
   <div className="hit">
-  {hit 
-  ?
-
-  <Card style={{
-    width: 600,
-    margin: '0 auto',
-    right: '-40px',
-    position: 'relative'
-  }}>
-          <CardContent>
-           <Typography type="title" gutterBottom>
-              <Highlight attributeName="name" hit={hit}/>
-          </Typography>
-          <Typography gutterBottom style={{color: '#888888'}}>
+      {  console.log(hit)}
+      {hit 
+        ?
+      <CardContent style={{paddingBottom: 0}}>
+        <Typography type="title" gutterBottom component={Link} to={`/articles/${hit.url}`}>
+          <Highlight attributeName="name" hit={hit} />
+        </Typography>
+        <Typography gutterBottom style={{color: '#888888'}}>
           <Highlight attributeName="description" hit={hit}/>
-          </Typography>
-              <Divider light style={{marginBottom: 10}}/>
-                </CardContent>
-        </Card>
-      :
-      ''
-}
-
+        </Typography>
+          <Divider light style={{marginBottom: 1}}/>
+      </CardContent>
+        :
+        ''
+    }
   </div>
 const styles =  theme => ({
   root: {
@@ -90,10 +78,14 @@ const styles =  theme => ({
     display: 'none',
   },
   appBar: {
-    background: '#f96332'
+    background: '#ef6c00'
   },
   list: {
     width: 250,
+  },
+  whiteAppBar: {
+    background: 'white',
+    color: 'black'
   },
   listFull: {
     width: 'auto',
@@ -157,7 +149,14 @@ const styles =  theme => ({
 });
 
 class MenuAppBar extends React.Component {
-  state = {
+  constructor(props) {
+    super(props)
+    this.toggleAppBar = this.toggleAppBar.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  
+  this.state = {
     auth: true,
     open: false,
     results: false,
@@ -165,31 +164,41 @@ class MenuAppBar extends React.Component {
     left: false,
     bottom: false,
     right: false,
+    focused: false,
+    isToggleOn: false
   };
-
-  toggleDrawer = (side, open) => () => {
+  }
+toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open,
     });
   };
 
 
-  handleChange = (event, checked) => {
+handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
 
 
 
-  handleClick = () => {
+handleClick = () => {
     this.setState({ open: true });
   };
 
 
-  handleClose = () => {
+handleClose = () => {
     this.setState({ open: false });
   };
 
-  handleFocus = (event) => {
+  toggleAppBar = (focus) => () => {
+  
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+
+    
+  };
+handleFocus = (event) => {
     if(event.target.value) {
       this.setState({ results: true });
     } else {
@@ -197,11 +206,21 @@ class MenuAppBar extends React.Component {
     }
   };
 
+  submitForm = (event) => {
+    event.preventDefault()
+    alert('hi')
+  }
+  resetForm = (event) => {
+    this.setState({ results: false });
+  }
+
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    // const { auth, anchorEl } = this.state;
     const { results } = this.state;
     const { open } = this.state;
+    const focused = this.state.isToggleOn ? classes.whiteAppBar : classes.appBar;
+    const contrast = this.state.isToggleOn ? null : 'contrast'
 
     const sideList = (
       <div className={classes.list}>
@@ -217,7 +236,9 @@ class MenuAppBar extends React.Component {
           appId="8FIWUM037Q"
           apiKey="f5b97b302865568db301066102ab64a4"
           indexName="encsearch">
-        <AppBar position="static" className={classes.appBar}>
+          
+        
+        <AppBar className={focused}>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}
@@ -230,7 +251,7 @@ class MenuAppBar extends React.Component {
         </Drawer>
           <Toolbar>
             <Hidden mdUp>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+            <IconButton className={classes.menuButton} color={contrast} aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
               <MenuIcon />
             </IconButton>
             </Hidden>
@@ -244,20 +265,33 @@ class MenuAppBar extends React.Component {
               Balochistan Encyclopedia
             </Typography>
             <Hidden mdDown>
-            <SearchBox onChange={this.handleFocus}className={classes.container} translations={{placeholder:'Search for aticles'}}/>
+
+            <SearchBox 
+              onFocus={this.toggleAppBar(true)} 
+              onBlur={this.toggleAppBar(false)} 
+              
+
+              onChange={this.handleFocus}
+              className={classes.container} 
+              translations={{
+                placeholder:'Search for aticles',
+              }}
+              onSubmit={this.submitForm}
+              onReset={this.resetForm}
+              />
             {this.props.authenticated  ? (
                 
                 <div style={{display: "inline-flex"}}>
-                <Button color="contrast" component={Link} to="/contribute">Contribute </Button>
+                <Button color={contrast} component={Link} to="/contribute">Contribute </Button>
                 <Manager>
                   <Target>
                   <div
                     aria-owns={this.state.open ? 'menu-list' : null}
                     aria-haspopup="true"
                     onClick={this.handleClick}
-                    color="contrast"
+                    color={contrast}
                   >
-                  <Button className={classes.menuButton} color="contrast" aria-label="Menu" style={{padding: 0}}>   
+                  <Button className={classes.menuButton} color={contrast} aria-label="Menu" style={{padding: 0}}>   
                   {this.props.user.photoURL
                   ?         
                   <Avatar alt="Remy Sharp" src={this.props.user.photoURL} className={classes.avatar} />
@@ -290,11 +324,11 @@ class MenuAppBar extends React.Component {
         </div>
             ) :
             <div>
-              <Button color="contrast" component={Link} to="/login">
+              <Button color={contrast} component={Link} to="/login">
                 Login
               </Button>     
 
-              <Button color="contrast" component={Link} to="/login">
+              <Button color={contrast} component={Link} to="/login">
                 Signup
               </Button>             
             </div>
@@ -302,17 +336,28 @@ class MenuAppBar extends React.Component {
             </Hidden>
           </Toolbar>
         </AppBar>
-        <AppBar position="static" color="default">
+
+        
+        <AppBar position="static" className={classes.whiteAppBar} style={{marginTop: 64}}>
         <Toolbar className={classes.secondNav}>
-        <Button className={classes.lower} component={Link} to="/login">Signup</Button>
-        <Button className={classes.lower} component={Link} to="/login">Signup</Button>
-        <Button className={classes.lower} component={Link} to="/login">Signup</Button>
-        <Button className={classes.lower} component={Link} to="/login">Signup</Button>
+        <Button className={classes.lower} component={Link} to="/history">History</Button>
+        <Button className={classes.lower} component={Link} to="/culture">Culture</Button>
+        <Button className={classes.lower} component={Link} to="/people">People</Button>
+        <Button className={classes.lower} component={Link} to="/politics">Politics</Button>
         </Toolbar>
       </AppBar>
-
-        <Hidden mdDown>
-        {results ? <Hits  hitComponent={Hit}/> : '' }
+      <Hidden mdDown>
+        
+        {results ?   <Card style={{
+          width: 600,
+          position: 'relative',
+          left: '50%',
+          marginLeft: '-252px',
+          top: '-65px'    
+        }}>
+        <Hits  hitComponent={Hit}/> 
+        </Card>
+        : '' }
         </Hidden>
       </InstantSearch>
       </div>

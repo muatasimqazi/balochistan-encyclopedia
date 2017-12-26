@@ -112,3 +112,41 @@
 	.MuiListItem-button-225:hover * {
 		color: black !important;
 	}
+
+	.ais-SearchBox__input {
+		background: rgba(255,255,255,.15);
+		border: none;
+		box-shadow: none;
+		border-radius: 2px;
+		min-width: 144px;
+		display: flex;
+		flex: 1;
+		color: white
+	}
+	.ais-SearchBox__wrapper input::placeholder, .ais-SearchBox__wrapper input::-moz-placeholder, .ais-SearchBox__wrapper input::-webkit-input-placeholder {
+		color: white;
+	}
+
+	.ais-SearchBox__wrapper input::placeholder {
+		color: white;
+	}
+	.ais-SearchBox__submit svg {
+		fill: white;
+	}
+
+	.ais-SearchBox__wrapper input:focus {
+		background: rgba(255,255,255,.25);
+		outline: 2px solid transparent;
+		border: 1px solid rgb(224, 224, 224);
+	}
+	.ais-SearchBox__wrapper input:focus::placeholder, .ais-SearchBox__input:focus {
+		color: black;
+		
+	}
+	
+	.ais-SearchBox__wrapper input:focus + button>svg {
+		fill: black;
+		
+	}
+
+	

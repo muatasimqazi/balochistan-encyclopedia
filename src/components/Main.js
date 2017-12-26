@@ -4,6 +4,7 @@ import {BrowserRouter, Route } from 'react-router-dom';
 import Login from './Login';
 import Logout from './Logout';
 import Contribute from './Contribute';
+import Home from './Home'
 import Contributions from './Contributions';
 import Footer from './Footer';
 
@@ -46,6 +47,11 @@ import Footer from './Footer';
                 return (
                     category,
                 <Contribute user={this.state.user} category={category} authenticated={this.props.authenticated}/>
+                )
+            }}/>
+            <Route exact path="/" render={(props) => {
+                return (
+                    <Home />
                 )
             }}/>
             <Route exact path="/contributions" render={(props) => {

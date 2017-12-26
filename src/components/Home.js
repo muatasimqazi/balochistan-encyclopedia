@@ -1,25 +1,60 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import TopRow from './TopRow';
-import MidRow from './MidRow';
-import MidBottomRow from './MidBottomRow';
-import BottomTopRow from './BottomTopRow';
-import BottomRow from './BottomRow';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
 
-class Home extends Component {
-	
-    render() {
-        return (
-            <div className="wrapper">
-            <TopRow latestArticles={this.props.latestArticles}/>
-           
-            <MidBottomRow />
-            <BottomTopRow articles={this.props.articles} />
-            <BottomRow categories={this.props.categories} />
-          
-            </div>
-        );
-    }
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    marginTop: 30,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+  },
+  paper: {
+    padding: 16,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
+
+function Home(props) {
+  const { classes } = props;
+
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={24}>
+        <Grid item xs={12} sm={8}>
+          <Paper className={classes.paper}>xs=12</Paper>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Paper className={classes.paper}>xs=12</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Paper className={classes.paper}>xs=12 sm=6</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Paper className={classes.paper}>xs=12 sm=6</Paper>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Paper className={classes.paper}>xs=6 sm=3</Paper>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Paper className={classes.paper}>xs=6 sm=3</Paper>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Paper className={classes.paper}>xs=6 sm=3</Paper>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Paper className={classes.paper}>xs=6 sm=3</Paper>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
 
-export default Home;
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Home);
