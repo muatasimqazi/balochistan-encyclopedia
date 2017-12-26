@@ -1,107 +1,177 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
+import Divider from 'material-ui/Divider'
+import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
+import List, {
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from 'material-ui/List';
+
 import one from '../img/one.jpeg';
 import two from '../img/two.jpeg';
 import three from '../img/three.jpeg';
 import five from '../img/five.jpeg';
 
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    marginTop: 30,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+  },
+  card: {
+
+  },
+  media: {
+    height: 300,
+  },
+  mediaSmall: {
+    height: 150,
+  },
+  cardSmall: {
+    display: 'flex',
+    marginBottom: 20
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  cover: {
+    width: 151,
+    height: 151,
+    flex: 2,
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+  },
+  playIcon: {
+    height: 38,
+    width: 38,
+  },
+});
+
+
 class TopRow extends Component {
     render() {
-		const articles = this.props.latestArticles
-		const articleId = Object.keys(articles)
+      const { classes } = this.props;
         return (
+        <div className={classes.root}>
+          <Grid container spacing={24}>
+          <Grid item xs={12} sm={6}>
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.media}
+              image={one}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <Typography type="headline" component="h2">
+                Lizard
+              </Typography>
+              <Typography component="p">
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                across all continents except Antarctica
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button dense color="primary">
+                Share
+              </Button>
+              <Button dense color="primary">
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
+          </Grid>
+          
+            <Grid item xs={12} sm={3}>
+               <Card className={classes.card} style={{marginBottom: 20}}>
+          <CardContent>
+            <Typography className={classes.title}>Fact of the Day</Typography>
+            <Typography type="headline" component="h2">
+              benevolent
+            </Typography>
+          
+            <Typography component="p">
+              well meaning and kindly.<br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button dense>Learn More</Button>
+          </CardActions>
+            </Card>
 
-            <div className="section pb-5">
-			<div className="fluid-container ml-4 mr-4">
-				<div className="row">
-					<div className="card-group">
+            <Divider light />
 
-						<div className="col-lg-6">
-							<div id="carouselExampleIndicators" className="carousel slide mb-5" data-ride="carousel">
-								<ol className="carousel-indicators">
-									<li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-									<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-									<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-									<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-								</ol>
-								<div className="carousel-inner">
-									
+            <Card className={classes.cardSmall}>
+              <div className={classes.details}>
+                <CardContent className={classes.content}>
+                  <Typography  type="subheading" noWrap>Live From Space</Typography>
+                  <Typography color="secondary" noWrap>
+                    Mac Miller
+                  </Typography>
+                </CardContent>
+              </div>
+              <CardMedia
+                className={classes.cover}
+                image={three}
+                title="Live from space album cover"
+              />
+            </Card>
+      
 
-									{articleId.map((id, index) => {
-									const article = articles[id]
-									const cls = (index === 0) ? 'carousel-item active' : 'carousel-item'; 
-									return (
-										
-										<Link className={cls} to={`/articles/${id}`}>
-										<img className="d-block w-100" src={article.media.image.id.src} alt="First slide"/>
-										<div className="carousel-caption">
-											<h5>{article.title}</h5>
-											<p className="d-none d-md-block">{article.body[0].text}</p>
-										</div>
-										</Link>
-									)
-								})
-								
-									
-								}
-									
+            </Grid>
 
-									
-
-								</div>
-								<a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-								    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-								    <span className="sr-only">Previous</span>
-							  </a>
-								<a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-								    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-								    <span className="sr-only">Next</span>
-							  </a>
-							</div>
-						</div>
-
-						<div className="col-lg-3">
-							<div className="card rounded-0 border mb-5">
-								<img className="card-img-top rounded-0" src={two} alt="Card  cap"/>
-								
-								<div className="card-body pt-0">
-									<h4 className="card-title mt-2">Card title</h4>
-									<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-								</div>
-							</div>
-						</div>
-
-						<div className="col-lg-3">
-							<div className="card border">
-								<div className="card-body text-center">
-									<h6>What's New</h6>
-								</div>
-								<ul className="list-group list-group-flush">
-								{articleId.map((id) => {
-									const article = articles[id]
-									return (
-									
-									<li className="list-group-item"><Link to={`/articles/${id}`}>{article.title}</Link></li>
-									)
-								})
-								
-									
-								}
-								</ul>
-							</div>
-						</div>
-
-
-					</div>
-
-
-				</div>
-			</div>
-		</div>
-
+            <Grid item xs={12} sm={3}>
+            <Card className={classes.card} style={{marginBottom: 20}}>
+            <CardContent>
+            <Typography type="title" className={classes.title}>
+              Latest Additions
+            </Typography>
+            <div className={classes.demo}>
+              <List>
+                  <ListItem button>
+                    <ListItemText
+                      primary="Single-line item"
+                      secondary={true ? 'Secondary text' : null}
+                    />
+                  </ListItem>
+                  <Divider light />
+                  <ListItem button>
+                    <ListItemText
+                      primary="Single-line item"
+                      secondary={true ? 'Secondary text' : null}
+                    />
+                  </ListItem>
+              </List>
+            </div> 
+            </CardContent>
+          </Card> 
+            </Grid>
+          </Grid>
+      </div>
         );
     }
 }
 
-export default TopRow;
+TopRow.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(TopRow);

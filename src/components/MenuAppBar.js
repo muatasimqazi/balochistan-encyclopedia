@@ -140,9 +140,7 @@ const styles =  theme => ({
     height: 60,
    
   },
-  secondNav: {
-    width: 800,
-  },
+
   lower: {
     textTransform: 'capitalize',
   }
@@ -259,6 +257,7 @@ handleFocus = (event) => {
             <Avatar
               src={logo}
               className={classNames(classes.avatar, classes.logo)}
+              component={Link} to="/"
             />
 
             <Typography style={{"textDecoration": "none"}}type="title" color="inherit" className={classes.flex} component={Link} to="/">
@@ -326,11 +325,7 @@ handleFocus = (event) => {
             <div>
               <Button color={contrast} component={Link} to="/login">
                 Login
-              </Button>     
-
-              <Button color={contrast} component={Link} to="/login">
-                Signup
-              </Button>             
+              </Button>           
             </div>
             }
             </Hidden>

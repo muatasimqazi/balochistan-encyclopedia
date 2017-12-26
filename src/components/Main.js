@@ -54,11 +54,7 @@ import Footer from './Footer';
                     <Home />
                 )
             }}/>
-            <Route exact path="/contributions" render={(props) => {
-                return (
-                    <Contributions articles={this.props.articles} authenticated={this.props.authenticated}/>
-                )
-            }}/>
+            
             </div>
           </BrowserRouter>
           <Footer/>

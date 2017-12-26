@@ -1,7 +1,57 @@
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
 import {app, facebookProvider } from '../base';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import Typography from 'material-ui/Typography';
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import { FormControl } from 'material-ui/Form';
+import Visibility from 'material-ui-icons/Visibility';
+import VisibilityOff from 'material-ui-icons/VisibilityOff';
+import Button from 'material-ui/Button';
 
+import FaFacebookOfficial from 'react-icons/lib/fa/facebook-official';
+import Snackbar from 'material-ui/Snackbar';
+
+
+
+function TabContainer({ children, dir }) {
+	return (
+	  <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+		{children}
+	  </Typography>
+	);
+  }
+  
+  TabContainer.propTypes = {
+	children: PropTypes.node.isRequired,
+	dir: PropTypes.string.isRequired,
+  };
+
+const styles = theme => ({
+  root: {
+	maxWidth: 400,
+	minWidth: 100,
+	margin: '0 auto',
+	marginTop: '5%'
+  },
+  form: {
+	backgroundColor: theme.palette.background.paper,
+  },
+  social: {
+	 textAlign: 'center',
+	 marginTop: 20, 
+	 marginBottom: 20,
+	 padding: 5,
+	 background: '#3b5998'
+  }
+});
 
 class Login extends Component {
 	constructor(props) {
@@ -9,12 +59,41 @@ class Login extends Component {
 		this.authWithFacebook = this.authWithFacebook.bind(this)
 		this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
 		this.state = {
-			redirect: false
+			redirect: false,
+			value: 0,
+			userFullName: '',
+			email: '',
+			password: '',
+			showPassword: false,
+			isError: false,
+			message: ''
 		}
 	}
 
+	handleChange = (event, value) => {
+		this.setState({ value });
+	  };
+	
+	  handleChangeIndex = index => {
+		this.setState({ value: index });
+	  };
+
+	
+	  handleMouseDownPassword = event => {
+		event.preventDefault();
+	  };
+
+	
+	  handleClickShowPasssword = () => {
+		this.setState({ showPassword: !this.state.showPassword });
+	  };
+
+	// Snackbar
+	  handleClose = () => {
+		this.setState({ open: false });
+	  };
+
 	authWithFacebook() {
-		console.log("authed with facebook")
 		app.auth().signInWithPopup(facebookProvider)
 		.then((result, error) => {
 			if (error) {
@@ -27,8 +106,20 @@ class Login extends Component {
 
 	authWithEmailPassword(event) {
 		event.preventDefault()
-		const email = this.emailInput.value;
-		const password = this.passwordInput.value;
+		const email = this.state.email
+		const password = this.state.password
+		const displayName = this.state.userFullName
+		if (!email || !password) {
+			let errorMessage = !email ? "Email" : "Password"
+			if (!displayName) {
+				errorMessage = "Name field"
+			}
+			this.setState({
+				isError: true,
+				message: errorMessage + " cannot be left blank."
+			})
+			return;
+		}
 
 		app.auth().fetchProvidersForEmail(email)
 		.then((providers) => {
@@ -39,7 +130,10 @@ class Login extends Component {
 			} else if (providers.indexOf("password") === -1) {
 				// they used facebook
 				this.loginForm.reset();
-				console.log("Try an alternative login")
+				this.setState({
+					isError: true,
+					message: "Email already in use. Try an alternative login."
+				})
 			} else {
 				// sign the user in
 				return app.auth().signInWithEmailAndPassword(email, password)
@@ -49,69 +143,178 @@ class Login extends Component {
 		.then((user) => {
 			if (user && user.email) {
 				this.loginForm.reset()
+				if (displayName) {
+				user.updateProfile({displayName: displayName})
+				}
 				this.setState({
 					redirect: true
 				})
 			}
+			
 		})
 		.catch((error) => {
-			console.log(error.message)
+			this.setState({
+				isError: true,
+				message: error
+			})
 		})
 	}
-    render() {
-		if (this.state.redirect === true) {
-			return <Redirect to='/'/>
-		}
-		
-        return (
-			<div>
-				<div className="section pt-3 pb-3 bg-white">
-					<div className="container">
-					<div className="row">
-					<div className="col-lg-4 mr-auto ml-auto">
-						<div className="card rounded border">
-						<div className="card-body">
-						<div className="footer text-center">
-							<button style={{width: "100%", cursor: "pointer"}} className="btn btn-primary btn-round btn-lg btn-block loginBtn loginBtn--facebook" onClick={() => { this.authWithFacebook() }}>
-							Login with Facebook
-							</button>
-							<hr/>
-							<h5>Login with email</h5>
-						
-						</div>
 
-						<form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
-							<div className="content">
-								<div className="input-group form-group-no-border input-lg">
-									<span className="input-group-addon"><i className="fa fa-envelope" aria-hidden="true"></i></span>
-									<input className="form-control" name="email" type="email" ref={(input) => {this.emailInput = input}} placeholder="email"></input>
-								</div>
-								<div className="input-group form-group-no-border input-lg">
-									<span className="input-group-addon"><i className="fa fa-lock" aria-hidden="true"></i></span>
-									<input className="form-control" name="password" type="password" ref={(input) => {this.passwordInput = input}} placeholder="password"></input>
-									
-								</div>
-							</div>
-							<div className="footer text-center">
-								
-								<input className="btn btn-primary btn-round btn-lg btn-block" type="submit" value="Login"></input>
-							</div>
-							<div className="pull-left">
-								<h6><small><a href="" className="link">Create Account</a></small></h6>
-							</div>
-							<div className="pull-right">
-								<h6><small><a href="" className="link">Need Help?</a></small></h6>
-							</div>
-						</form>
-					</div>
-					</div>
-					</div>
-					</div>
-				</div>
-				</div>
-			</div>
-        );
-    }
+  render() {
+	const { classes, theme } = this.props;
+	const { isError, message } = this.state;
+
+	if (this.state.redirect === true) {
+		return <Redirect to='/'/>
+	}
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            fullWidth
+          >
+            <Tab label="Log In" />
+            <Tab label="Sign Up" />
+
+          </Tabs>
+        </AppBar>
+		<Paper className={classes.social}>
+		<Button color="contrast" onClick={() => { this.authWithFacebook() }}>
+		<FaFacebookOfficial size={30} color='white' style={{marginRight: 10}}/> Facebook
+		</Button>
+		</Paper>
+		<Divider light style={{marginBottom: 20}} />
+
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={this.state.value}
+		  onChangeIndex={this.handleChangeIndex}
+		  className={classes.form}
+        >
+          <TabContainer dir={theme.direction}>
+		  <form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
+
+		  <FormControl fullWidth className={classes.formControl}>
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <Input
+            id="email"
+            value={this.state.email}
+			onChange={(event) => this.setState({email: event.target.value})}
+			required
+          />
+        </FormControl>
+      
+        <FormControl fullWidth className={classes.formControl}>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <Input
+            id="password"
+            type={this.state.showPassword ? 'text' : 'password'}
+            value={this.state.password}
+            onChange={(event) => this.setState({password: event.target.value})}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={this.handleClickShowPasssword}
+                  onMouseDown={this.handleMouseDownPassword}
+                >
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+			}
+			required
+          />
+        </FormControl>
+		  
+		  <div style={{marginTop: 30}}>
+			<Button raised color="primary" type="submit" className={classes.button}>
+				Login
+			</Button>
+	  </div>
+	  </form>
+		  </TabContainer>
+          <TabContainer dir={theme.direction}>
+		  
+		  <form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
+		
+		  <FormControl fullWidth className={classes.formControl}>
+          <InputLabel htmlFor="fullname">Full Name</InputLabel>
+          <Input
+            id="fullname"
+            value={this.state.userFullName}
+			onChange={(event) => this.setState({userFullName: event.target.value})}
+			required
+          />
+        </FormControl>
+
+		  <FormControl fullWidth className={classes.formControl}>
+          <InputLabel htmlFor="useremail">Email</InputLabel>
+          <Input
+            id="useremail"
+            value={this.state.email}
+			onChange={(event) => this.setState({email: event.target.value})}
+			required
+          />
+        </FormControl>
+      
+        <FormControl fullWidth className={classes.formControl}>
+          <InputLabel htmlFor="userpassword">Password</InputLabel>
+          <Input
+            id="userpassword"
+            type={this.state.showPassword ? 'text' : 'password'}
+            value={this.state.password}
+            onChange={(event) => this.setState({password: event.target.value})}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={this.handleClickShowPasssword}
+                  onMouseDown={this.handleMouseDownPassword}
+                >
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+			}
+			required
+          />
+        </FormControl>
+		  
+		  <div style={{marginTop: 30}}>
+			<Button raised color="primary" type="submit" className={classes.button}>
+				Sign Up
+			</Button>
+	  </div>
+	  </form>
+		  
+		  </TabContainer>
+
+        </SwipeableViews>
+
+		
+		{isError ? 
+			<Snackbar
+			anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+			open={true}
+			onClose={this.handleClose}
+			SnackbarContentProps={{
+			  'aria-describedby': 'message-id',
+			}}
+			message={<span id="message-id">{`${message}`}</span>}
+		  />
+		  : null}
+      </div>
+    );
+  }
 }
 
-export default Login;
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(Login);
+
+
