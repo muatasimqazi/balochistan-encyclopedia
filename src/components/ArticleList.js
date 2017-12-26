@@ -6,6 +6,7 @@ import {Breadcrumb} from 'react-bootstrap';
 class ArticleList extends Component {
     render() {
         const { articles } = this.props
+        console.log(articles)
         const articleId = Object.keys(articles)
 
         return (

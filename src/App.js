@@ -101,8 +101,6 @@ componentWillUnmount() {
       })
     });
     
-    
-    
 
     articleRef.on('value', snap => {
       this.setState({
@@ -118,9 +116,9 @@ componentWillUnmount() {
 
   }
 
-  
 
   render() {
+    console.log(this.state)
     if (this.state.loading === true) {
       return (
         <div style={{textAlign: "center", position: "absolute", top: "50%", left: "50%"}}>
@@ -131,7 +129,7 @@ componentWillUnmount() {
     return (
       <div>
       <MuiThemeProvider  theme={theme}>
-            <Main authenticated={this.state.authenticated} user={this.state.user} articles={this.state.articles}/>
+            <Main authenticated={this.state.authenticated} user={this.state.user} articles={this.state.latestArticles}/>
       </MuiThemeProvider>
     </div>
     );

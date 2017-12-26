@@ -7,6 +7,7 @@ import Contribute from './Contribute';
 import Home from './Home';
 import Contributions from './Contributions';
 import ArticleList from './ArticleList';
+import Article from './Article';
 import Footer from './Footer';
 
   class Main extends Component {
@@ -44,25 +45,35 @@ import Footer from './Footer';
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/contribute" render={(props) => {
-                const category = this.state.categories;
+                const category = this.props.categories;
                 return (
                     category,
-                <Contribute user={this.state.user} category={category} authenticated={this.props.authenticated}/>
+                <Contribute user={this.props.user} category={category} authenticated={this.props.authenticated}/>
                 )
             }}/>
-            <Route exact path ="/articles" render={(props) => {
+
+            <Route exact path ="/" render={(props) => {
               return (
-                <ArticleList articles={this.state.articles} />
+                <ArticleList articles={this.props.articles} />
               )
             }} />
-
-            <Route path="/" render={(props) => {
-                return (
-                    <ArticleList article={this.article} />
-                )
-
-            }}/>
             
+            <Route exact path ="/articles" render={(props) => {
+              return (
+                <ArticleList articles={this.props.articles} />
+              )
+            }} />
+            <Route path="/articles/:id" render={(props) => {
+              const article = this.props.articles[props.match.params.id];
+              console.log(props.match.params)
+              return (
+                article
+                ? <Article article={article} updateArticle={this.updateArticle} />
+                : <h1>Article not found</h1>
+            )
+            }} />
+           
+ 
             </div>
           </BrowserRouter>
           <Footer/>
