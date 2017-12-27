@@ -15,7 +15,8 @@ import Settings from './components/Settings';
 import { app, base } from './base';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Main from './components/Main'
-import { ClipLoader } from 'react-spinners';
+import Spinner from './components/Spinner'
+
 
 
 const theme = createMuiTheme();
@@ -100,7 +101,7 @@ componentWillUnmount() {
 }
 
   componentDidMount() {
-    
+      console.clear()
     const rootRef = firebase.database().ref();
     
     const articleRef = rootRef.child('articles');
@@ -129,10 +130,7 @@ componentWillUnmount() {
 
 
   render() {
-    console.log("Our categos state")
-    console.log(this.state.categories)
     const rootRef = app.database().ref();
-    // console.log(this.state)
     const articleRef = rootRef.child('articles/-L1KVr1rfhSOXug2Wgjd/contributors/')
     // console.log("articles /users/$uid/groups/$group_id")
     var data = articleRef.on('value', snap => {
@@ -142,10 +140,7 @@ componentWillUnmount() {
     if (this.state.loading === true) {
       return (
         <div className='sweet-loading' style={{textAlign: "center", position: "absolute", top: "50%", left: "50%"}}>
-        <ClipLoader
-          color={'#123abc'} 
-          loading={this.state.loading} 
-        />
+        <Spinner />
       </div>
       )
     }

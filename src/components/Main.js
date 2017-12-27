@@ -48,7 +48,7 @@ import Footer from './Footer';
                 const category = this.props.categories;
                 return (
                     category,
-                <Contribute user={this.props.user} category={category} authenticated={this.props.authenticated}/>
+                <Contribute user={this.props.user} categories={this.props.categories} authenticated={this.props.authenticated}/>
                 )
             }}/>
 

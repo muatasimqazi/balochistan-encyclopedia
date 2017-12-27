@@ -90,7 +90,7 @@ class MyEditor extends React.Component {
                   handleKeyCommand={this.handleKeyCommand}
                   onChange={this.onChange}
                   onTab={this.onTab}
-                  placeholder="Article content..."
+                  placeholder=""
                   ref="editor"
                   spellCheck={true}
                  

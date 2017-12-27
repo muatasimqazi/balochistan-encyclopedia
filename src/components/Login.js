@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
 import {app, facebookProvider } from '../base';

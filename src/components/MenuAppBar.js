@@ -222,13 +222,8 @@ handleFocus = (event) => {
     const { articles } = this.props
     
     const articleId = Object.keys(articles)
-    const { categories } = this.props
-    console.log("menu")
-    console.log(categories)
-    console.log("categories")
-   
+    const { categories } = this.props   
     const categoryId = Object.keys(categories)
-    console.log(categoryId)
     const { classes } = this.props;
     // const { auth, anchorEl } = this.state;
     const { results } = this.state;
