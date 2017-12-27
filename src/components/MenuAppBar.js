@@ -37,6 +37,8 @@ import logo from '../logo.svg';
 
 import List from 'material-ui/List';
 
+import { app, base } from '../base';
+
 
 import ReactDOM from 'react-dom';
 import { InstantSearch, SearchBox, Hits, Highlight, 
@@ -163,9 +165,11 @@ class MenuAppBar extends React.Component {
     bottom: false,
     right: false,
     focused: false,
-    isToggleOn: false
+    isToggleOn: false,
+    categories: {}
   };
   }
+
 toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open,
@@ -213,6 +217,18 @@ handleFocus = (event) => {
   }
 
   render() {
+
+
+    const { articles } = this.props
+    
+    const articleId = Object.keys(articles)
+    const { categories } = this.props
+    console.log("menu")
+    console.log(categories)
+    console.log("categories")
+   
+    const categoryId = Object.keys(categories)
+    console.log(categoryId)
     const { classes } = this.props;
     // const { auth, anchorEl } = this.state;
     const { results } = this.state;
@@ -335,10 +351,15 @@ handleFocus = (event) => {
         
         <AppBar position="static" className={classes.whiteAppBar} style={{marginTop: 64}}>
         <Toolbar className={classes.secondNav}>
-        <Button className={classes.lower} component={Link} to="/history">History</Button>
-        <Button className={classes.lower} component={Link} to="/culture">Culture</Button>
-        <Button className={classes.lower} component={Link} to="/people">People</Button>
-        <Button className={classes.lower} component={Link} to="/politics">Politics</Button>
+          {categoryId.map((id, index) => {
+            const category = categories[id]
+            const menuitem = (category.name).toLowerCase();
+            return (
+              <Button  key={index} className={classes.lower} component={Link} to={`/category/${menuitem}`}>{category.name}</Button>
+                  )
+              })
+          }
+        
         </Toolbar>
       </AppBar>
       <Hidden mdDown>

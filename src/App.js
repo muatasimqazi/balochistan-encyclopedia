@@ -15,6 +15,7 @@ import Settings from './components/Settings';
 import { app, base } from './base';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Main from './components/Main'
+import { ClipLoader } from 'react-spinners';
 
 
 const theme = createMuiTheme();
@@ -25,6 +26,7 @@ class App extends Component {
       super();
       this.addArticle = this.addArticle.bind(this);
       this.updateArticle = this.updateArticle.bind(this);
+      this.updateCategory = this.updateCategory.bind(this);
       this.state = {
         articles: { },
         authenticated: false,
@@ -56,6 +58,14 @@ class App extends Component {
     this.setState({articles});
   }
 
+  updateCategory(category) {
+    const categories = {...this.state.categories};
+    categories[category.id] = category
+
+    this.setState({categories});
+  }
+
+
   
 componentWillMount() {
   this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
@@ -72,12 +82,12 @@ componentWillMount() {
       })
     }
   })
-  this.articlesRef = base.syncState('content/articles', {
+  this.articlesRef = base.syncState('articles', {
     context: this,
     state: 'articles'
   });
 
-  this.categoryRef = base.syncState('content/categories', {
+  this.categoryRef = base.syncState('categories', {
     context: this,
     state: 'categories'
   });
@@ -91,7 +101,7 @@ componentWillUnmount() {
 
   componentDidMount() {
     
-    const rootRef = firebase.database().ref().child('content');
+    const rootRef = firebase.database().ref();
     
     const articleRef = rootRef.child('articles');
     const catRef = rootRef.child('categories');
@@ -109,6 +119,7 @@ componentWillUnmount() {
     });
 
     catRef.on('value', snap => {
+      // console.log("categories: ", snap.val())
       this.setState({
         category: snap.val()
       });
@@ -118,18 +129,30 @@ componentWillUnmount() {
 
 
   render() {
-    console.log(this.state)
+    console.log("Our categos state")
+    console.log(this.state.categories)
+    const rootRef = app.database().ref();
+    // console.log(this.state)
+    const articleRef = rootRef.child('articles/-L1KVr1rfhSOXug2Wgjd/contributors/')
+    // console.log("articles /users/$uid/groups/$group_id")
+    var data = articleRef.on('value', snap => {
+      
+    });
+    // console.log(articleRef.child('contributors'))
     if (this.state.loading === true) {
       return (
-        <div style={{textAlign: "center", position: "absolute", top: "50%", left: "50%"}}>
-        <h3>Loading</h3>
-        </div>
+        <div className='sweet-loading' style={{textAlign: "center", position: "absolute", top: "50%", left: "50%"}}>
+        <ClipLoader
+          color={'#123abc'} 
+          loading={this.state.loading} 
+        />
+      </div>
       )
     }
     return (
       <div>
       <MuiThemeProvider  theme={theme}>
-            <Main authenticated={this.state.authenticated} user={this.state.user} articles={this.state.latestArticles}/>
+          <Main authenticated={this.state.authenticated} user={this.state.user} articles={this.state.latestArticles} categories={this.state.categories}/>
       </MuiThemeProvider>
     </div>
     );

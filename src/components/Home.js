@@ -8,7 +8,7 @@ import MidRow from './MidRow'
 import MidBottomRow from './MidBottomRow'
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+
     marginTop: 30,
    
   },

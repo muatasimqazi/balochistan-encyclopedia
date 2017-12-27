@@ -41,7 +41,7 @@ import Footer from './Footer';
             <div>
             <BrowserRouter>
             <div>
-            <MenuAppBar authenticated={this.props.authenticated} user={this.props.user}/>
+            <MenuAppBar authenticated={this.props.authenticated} user={this.props.user} articles={this.props.articles} categories={this.props.categories}/>
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/contribute" render={(props) => {
@@ -52,18 +52,28 @@ import Footer from './Footer';
                 )
             }}/>
 
-            <Route exact path ="/" render={(props) => {
-              return (
-                <ArticleList articles={this.props.articles} />
-              )
-            }} />
+            <Route exact path="/" render={(props) => {
+                return (
+                    <Home />
+                )
+            }}/>
             
             <Route exact path ="/articles" render={(props) => {
               return (
                 <ArticleList articles={this.props.articles} />
               )
             }} />
-            <Route path="/articles/:id" render={(props) => {
+
+            <Route exact path ="/category/:id" render={(props) => {
+              const category = this.props.categories[props.match.params.id]
+              console.log("parm")
+              console.log(category)
+              return (
+                <ArticleList articles={this.props.articles} />
+              )
+            }} />
+
+            <Route path="/category/articles/:id" render={(props) => {
               const article = this.props.articles[props.match.params.id];
               console.log(props.match.params)
               return (

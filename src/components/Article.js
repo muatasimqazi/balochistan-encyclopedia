@@ -1,5 +1,70 @@
 import React, { Component } from 'react';
-import {Breadcrumb} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Paper from 'material-ui/Paper'
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
+import Divider from 'material-ui/Divider'
+import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
+import List, {
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from 'material-ui/List';
+
+import one from '../img/one.jpeg';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
+import Chip from 'material-ui/Chip';
+import red from 'material-ui/colors/red';
+
+const styles = theme => ({
+    root: {
+      flexGrow: 1,
+      marginTop: 30,
+
+    },
+
+    title: {
+       
+    },
+      media: {
+        height: 250,
+      },
+    border: {
+      borderLeft: '1px solid #e9ecef',
+    },
+    card: {
+       
+      },
+      media: {
+        height: 194,
+      },
+      expand: {
+        transform: 'rotate(0deg)',
+        transition: theme.transitions.create('transform', {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+      expandOpen: {
+        transform: 'rotate(180deg)',
+      },
+      avatar: {
+        backgroundColor: red[500],
+      },
+      flexGrow: {
+        flex: '1 1 auto',
+      },
+      chip: {
+        margin: theme.spacing.unit,
+      },
+  });
+  
 
 class Article extends Component {
     constructor(props) {
@@ -27,66 +92,95 @@ class Article extends Component {
     }
     
     render() {
-        
+        const { classes } = this.props;
+        const { article } = this.props;
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return (
+                <div className={classes.root}  style={{ padding: 20 }}>
+                <Grid container spacing={40}>
+                
+                <Grid item xs={12} sm={8}>
+        <Card className={classes.card}>
 
-            <div className="section pt-3 pb-3 pt-5 bg-white article">
-                <div className="fluid-container ml-4 mr-4">
-                    <div className="row">
-                        <div className="col">
-                        <Breadcrumb>
-                            <Breadcrumb.Item className="breadcrumb-item" href="/articles">
-                            Articles
-                            </Breadcrumb.Item>
-                            <span className="pl-2 pr-2 text-mute"> / </span>   
-                            <Breadcrumb.Item active>
-                            {this.props.article.title}
-                            </Breadcrumb.Item>
-                        </Breadcrumb>
-                        {console.log(this.state.data)}
-                        <h3 className="mb-0">{this.state.data.title}</h3>
-                        <div><span className="text-info">Written by</span> : <a href="">{this.state.data.author}</a> | <span>{this.state.data.date}</span></div>
-                        
-                        <hr/>
-                    </div>
-                    </div>
+        <CardHeader
+            avatar={
+              <Avatar aria-label="Recipe" className={classes.avatar}>
+                R
+              </Avatar>
+            }
+            action={
+                <Chip label="Basic Chip" className={classes.chip} />
+              
+            }
+            title={article.title}
+            subheader= {new Intl.DateTimeFormat('en-US', options).format(new Date(article.date))}
+          />
 
-                    <div className="row">
-                    <div className="col-lg-8 mb-5">
-                    {/* <img className="img-fluid" src={this.props.article.media.images[0]} /> */}
-                    {this.state.data.body.map((para, index) => {
+        <CardMedia
+          className={classes.media}
+          image={article.media.image.id.src}
+          title="Contemplative Reptile"
+        />
+        <CardContent>
+
+
+        {this.state.data.body.map((para, index) => {
                         
                         return (
-                            <p key={index}>{para.text}</p>
-                        )
-                    })}
+          <Typography gutterBottom key={index}>
+          {para.text}
 
-                    </div>
+          </Typography>
+               
+            )
+        })}
+          
+        </CardContent>
+        <CardActions>
+          <Button dense color="primary">
+            Share
+          </Button>
+          <Button dense color="primary">
+            Learn More
+          </Button>
+        </CardActions>
+      </Card>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                <Card className={classes.card} style={{marginBottom: 20}}>
+                <CardContent>
+                <Typography type="title" className={classes.title}>
+                  Related Topics
+                </Typography>
+                <div className={classes.demo}>
+                  <List>
+                      <ListItem button>
+                        <ListItemText
+                          primary="Single-line item"
+                          secondary={true ? 'Secondary text' : null}
+                        />
+                      </ListItem>
+                      <Divider light />
+                      <ListItem button>
+                        <ListItemText
+                          primary="Single-line item"
+                          secondary={true ? 'Secondary text' : null}
+                        />
+                      </ListItem>
+                  </List>
+                </div> 
+                </CardContent>
+              </Card> 
+                </Grid>
+                </Grid>
+                </div>
 
-                    <div className="col-lg-3">
-                    <div className="card rounded-0 border mb-5">
-                       
-                        <img className="card-img-top rounded-0" src="" alt="" />
-                        <div className="card-body pt-0">
-                            <h4 className="card-title mt-2">Card title</h4>
-                            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div className="card rounded-0 border mb-5">
-                        <img className="card-img-top rounded-0" src="img/four.jpeg" alt="" />
-                        <div className="card-body pt-0">
-                            <h4 className="card-title mt-2">Card title</h4>
-                            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
-                    </div>
-                </div>
-            </div>
         );
     }
 }
 
-export default Article;
+Article.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  
+  export default withStyles(styles)(Article);

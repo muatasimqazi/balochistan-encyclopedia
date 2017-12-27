@@ -5,9 +5,10 @@ import MyEditor from './MyEditor'
 import {Breadcrumb} from 'react-bootstrap';
 
 
-const rootRef = app.database().ref().child('content');
+const rootRef = app.database().ref();
 const articleRef = rootRef.child('articles');
 const categoryRef = rootRef.child('categories')
+
 
 
 class Contribute extends Component {
@@ -38,15 +39,16 @@ class Contribute extends Component {
         const domain = this.ArticleDomain.value;
         const author = this.props.user.displayName;
         const date = new Date();
+        console.log("Root")
+
 
         // data from editor
         const data = this.child.passEditorContent() // do stuff
-       
         newArticle = {
             title: title,
             author: "author",
             body: data.blocks,
-            date: date,
+            date: date.toString(),
             domain: domain,
             url: url,
             media: {
