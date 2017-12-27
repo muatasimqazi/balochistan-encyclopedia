@@ -33,6 +33,7 @@ import Avatar from 'material-ui/Avatar';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Chip from 'material-ui/Chip';
 import red from 'material-ui/colors/red';
+import { LinearProgress } from 'material-ui/Progress';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -102,15 +103,21 @@ const styles = theme => ({
   const articleRef = rootRef.child('articles');
   const categoryRef = rootRef.child('categories')
 
+  // create a storage ref
+  const storageRef =app.storage()
+  let file;
+
   class Contribute extends Component {
 	constructor(props) {
         super(props)
         this.submitArticle = this.submitArticle.bind(this)
 		this.state = {
             redirect: false,
+            completed: 0,
             editorState: '',
             title: '',
             category: [],
+            file: {},
             article: {
                 categories: '',
                 media: {
@@ -148,12 +155,41 @@ const styles = theme => ({
     this.setState({ [category]: event.target.value });
     };
 
+    handleUpload = event => {
+       file = event.target.files[0]
+        this.setState({
+            file: file
+        })
+        console.log(this.state.file)
+        
+    }
     // editor data
     onClick = () => {
         const data = this.child.passEditorContent() // do stuff
       }
 
-    
+    uploadFile = () => {
+       
+        const destinationRef = storageRef.ref('images/' + file.name )
+        console.log(file)
+        var task = destinationRef.put(file)
+
+        task.on('state_changed',
+        function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+           
+        },
+        function error(err) {
+            console.log(err)
+        },
+        
+        function complete() {
+
+        }
+    )
+
+
+    }
     submitArticle(event) {
         event.preventDefault()
         const author = this.props.user.displayName;
@@ -162,6 +198,8 @@ const styles = theme => ({
         const date = new Date().toString();
         const title = this.state.title;
         const url = title.toLowerCase().trim().split(/\s+/).join('-');
+        var forestRef = app.storage().ref().child('images/globalist_profile.jpg')
+        console.log(forestRef.fullPath)
         
         // data from editor
         const articleBody = this.child.passEditorContent()
@@ -172,6 +210,11 @@ const styles = theme => ({
             author: author,
             body: articleBody,
             url: url,
+            image: forestRef.fullPath,
+            media: {
+                images: [
+                    ],
+            },
             contributors: {
                 [contributorId]: true,
             }
@@ -198,6 +241,7 @@ const styles = theme => ({
         const { classes } = this.props;
         const { categories } = this.props
         const categoryId = Object.keys(categories)
+        
         
         if (this.props.authenticated  === false) {
             return <Redirect to='/'/>
@@ -259,14 +303,19 @@ const styles = theme => ({
                                         inputProps={{
                                         'aria-label': 'Description',
                                         }}
+                                        onChange={this.handleUpload}
                                     />
                                     
-                                    <Button className={classes.button} raised color="default">
+                                    <Button className={classes.button} raised color="default" onClick={this.uploadFile}>
                                    
                                         Upload
+                                        
                                         <FileUpload className={classes.rightIcon} 
                                         />
                                     </Button>
+                                    <br/>
+                                    {/* <LinearProgress mode="determinate" value={this.state.completed} /> */}
+                                    
                                     <MyEditor  onRef={ref => (this.child = ref)} />
                                     <Button className={classes.button} raised color="primary" type="submit">
                                         Send

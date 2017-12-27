@@ -118,13 +118,15 @@ class Article extends Component {
 
         <CardMedia
           className={classes.media}
-          image={article.media.image.id.src}
+          image={`https://firebasestorage.googleapis.com/v0/b/balochistan-encyclopedia.appspot.com/o/images%2Fglobalist_profile.jpg?alt=media&token=1bfc3e9a-fbae-42f6-9c25-88a4ce230009`}
           title="Contemplative Reptile"
         />
         <CardContent>
 
-
-        {this.state.data.body.map((para, index) => {
+          {
+            console.log(this.state)
+          }
+        {this.state.data.body.blocks.map((para, index) => {
                         
                         return (
           <Typography gutterBottom key={index}>
