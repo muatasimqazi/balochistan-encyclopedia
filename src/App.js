@@ -1,17 +1,4 @@
 import React, { Component } from 'react';
-// import './App.css';
-import { firebase } from '@firebase/app';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Login from './components/Login'
-import Logout from './components/Logout'
-import Contribute from './components/Contribute'
-import Home from './components/Home'
-import {BrowserRouter, Route } from 'react-router-dom';
-import ArticleList from './components/ArticleList';
-import Article from './components/Article';
-import Contributions from './components/Contributions';
-import Settings from './components/Settings';
 import { app, base } from './base';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Main from './components/Main'
@@ -97,12 +84,11 @@ componentWillMount() {
 componentWillUnmount() {
   this.removeAuthListener();
   base.removeBinding(this.articlesRef);
-
 }
 
   componentDidMount() {
-      console.clear()
-    const rootRef = firebase.database().ref();
+
+    const rootRef = app.database().ref();
     
     const articleRef = rootRef.child('articles');
     const catRef = rootRef.child('categories');

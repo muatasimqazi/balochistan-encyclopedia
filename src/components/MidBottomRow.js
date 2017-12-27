@@ -5,21 +5,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider'
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
-import List, {
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
-} from 'material-ui/List';
-
-import one from '../img/one.jpeg';
-import two from '../img/two.jpeg';
-import three from '../img/three.jpeg';
-import five from '../img/five.jpeg';
-
+import one from '../img/one.jpeg'
 
 const styles = theme => ({
   root: {

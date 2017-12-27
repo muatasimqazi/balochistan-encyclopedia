@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import {app, facebookProvider } from '../base';
-import { Breadcrumb } from 'react-bootstrap'
-
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -33,7 +29,6 @@ class Contributions extends Component {
         }
         const { classes } = this.props;
         const { articles } = this.props
-        const articleId = Object.keys(articles)
 
         return (
 

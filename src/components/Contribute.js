@@ -4,33 +4,17 @@ import {app } from '../base';
 import MyEditor from './MyEditor'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Paper from 'material-ui/Paper'
+import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import FileUpload from 'material-ui-icons/FileUpload';
 import Send from 'material-ui-icons/Send';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider'
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
-import List, {
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
-} from 'material-ui/List';
-import classNames from 'classnames';
-import IconButton from 'material-ui/IconButton';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl, FormHelperText, FormGroup, FormControlLabel, FormLabel} from 'material-ui/Form';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Input, { InputLabel } from 'material-ui/Input';
+import { FormControl, FormGroup, FormControlLabel, FormLabel} from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
-
-import one from '../img/one.jpeg';
-import Avatar from 'material-ui/Avatar';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Chip from 'material-ui/Chip';
 import red from 'material-ui/colors/red';
 import { LinearProgress } from 'material-ui/Progress';
@@ -73,9 +57,6 @@ const styles = theme => ({
     cardTitle: {
         color: 'white',
     },
-      media: {
-        height: 194,
-      },
       expand: {
         transform: 'rotate(0deg)',
         transition: theme.transitions.create('transform', {
@@ -101,7 +82,6 @@ const styles = theme => ({
   
   const rootRef = app.database().ref()
   const articleRef = rootRef.child('articles');
-  const categoryRef = rootRef.child('categories')
 
   // create a storage ref
   const storageRef =app.storage()
@@ -182,12 +162,9 @@ const styles = theme => ({
         function error(err) {
             console.log(err)
         },
-        
         function complete() {
-
         }
     )
-
 
     }
     submitArticle(event) {

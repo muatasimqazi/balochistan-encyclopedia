@@ -7,20 +7,13 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
-import Switch from 'material-ui/Switch';
-import { FormControlLabel, FormGroup } from 'material-ui/Form';
-
 import Button from 'material-ui/Button';
-import Fade from 'material-ui/transitions/Fade';
+
 
 import {Link } from 'react-router-dom';
-import Login from './Login'
-import Logout from './Logout'
-import Contribute from './Contribute'
 import ArrowDropDown from 'material-ui-icons/ArrowDropDown';
-
 import classNames from 'classnames';
-import Menu, { MenuItem, MenuList } from 'material-ui/Menu';
+import { MenuItem, MenuList } from 'material-ui/Menu';
 import Grow from 'material-ui/transitions/Grow';
 import Paper from 'material-ui/Paper';
 import { Manager, Target, Popper } from 'react-popper';
@@ -29,20 +22,13 @@ import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import Hidden from 'material-ui/Hidden';
-import Grid from 'material-ui/Grid';
-import IntegrationAutosuggest from './IntegrationAutosuggest'
-import  Card, { CardActions, CardContent} from 'material-ui/Card'
+
+import  Card, { CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
 import logo from '../logo.svg';
 
 import List from 'material-ui/List';
-
-import { app, base } from '../base';
-
-
-import ReactDOM from 'react-dom';
-import { InstantSearch, SearchBox, Hits, Highlight, 
-  Stats, SortBy, Pagination, RefinementList } from 'react-instantsearch/dom';
+import { InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
   
   const Hit = ({hit}) => 
   
@@ -67,17 +53,8 @@ const styles =  theme => ({
   root: {
     width: '100%',
   },
-  flex: {
-
-  },
   popperClose: {
     pointerEvents: 'none',
-  },
-  button: {
-  
-  },
-  input: {
-    display: 'none',
   },
   appBar: {
     background: '#ef6c00'
@@ -176,30 +153,25 @@ toggleDrawer = (side, open) => () => {
     });
   };
 
-
 handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
-
-
 
 handleClick = () => {
     this.setState({ open: true });
   };
 
-
 handleClose = () => {
     this.setState({ open: false });
   };
 
-  toggleAppBar = (focus) => () => {
-  
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
+toggleAppBar = (focus) => () => {
 
-    
+  this.setState(prevState => ({
+    isToggleOn: !prevState.isToggleOn
+  }));
   };
+
 handleFocus = (event) => {
     if(event.target.value) {
       this.setState({ results: true });
@@ -210,22 +182,16 @@ handleFocus = (event) => {
 
   submitForm = (event) => {
     event.preventDefault()
-    alert('hi')
   }
+
   resetForm = (event) => {
     this.setState({ results: false });
   }
 
   render() {
-
-
-    const { articles } = this.props
-    
-    const articleId = Object.keys(articles)
-    const { categories } = this.props   
+    const { classes } = this.props;    
+    const { categories } = this.props;   
     const categoryId = Object.keys(categories)
-    const { classes } = this.props;
-    // const { auth, anchorEl } = this.state;
     const { results } = this.state;
     const { open } = this.state;
     const focused = this.state.isToggleOn ? classes.whiteAppBar : classes.appBar;
@@ -245,8 +211,7 @@ handleFocus = (event) => {
           appId="8FIWUM037Q"
           apiKey="f5b97b302865568db301066102ab64a4"
           indexName="encsearch">
-          
-        
+
         <AppBar className={focused}>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <div
@@ -279,8 +244,6 @@ handleFocus = (event) => {
             <SearchBox 
               onFocus={this.toggleAppBar(true)} 
               onBlur={this.toggleAppBar(false)} 
-              
-
               onChange={this.handleFocus}
               className={classes.container} 
               translations={{
@@ -322,9 +285,8 @@ handleFocus = (event) => {
                       <Paper>
                         <MenuList role="menu">
                           <MenuItem onClick={this.handleClose} component={Link} to='/profile'>Profile</MenuItem>
-                          <MenuItem onClick={this.handleClose} component={Link} to='/contributions'>Contributions</MenuItem>
+                          <MenuItem onClick={this.handleClose} component={Link} to='/user/contributions'>Contributions</MenuItem>
                           <MenuItem onClick={this.handleClose} component={Link} to='/logout'>Logout</MenuItem>
-                          
                         </MenuList>
                       </Paper>
                     </Grow>
@@ -343,7 +305,6 @@ handleFocus = (event) => {
           </Toolbar>
         </AppBar>
 
-        
         <AppBar position="static" className={classes.whiteAppBar} style={{marginTop: 64}}>
         <Toolbar className={classes.secondNav}>
           {categoryId.map((id, index) => {

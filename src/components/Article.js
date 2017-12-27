@@ -2,24 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider'
-import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
-import List, {
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
-} from 'material-ui/List';
-
-import one from '../img/one.jpeg';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Chip from 'material-ui/Chip';
 import red from 'material-ui/colors/red';
 
@@ -42,9 +30,7 @@ const styles = theme => ({
     card: {
        
       },
-      media: {
-        height: 194,
-      },
+
       expand: {
         transform: 'rotate(0deg)',
         transition: theme.transitions.create('transform', {
@@ -122,19 +108,15 @@ class Article extends Component {
           title="Contemplative Reptile"
         />
         <CardContent>
-
-          {
-            console.log(this.state)
-          }
         {this.state.data.body.blocks.map((para, index) => {
                         
-                        return (
-          <Typography gutterBottom key={index}>
-          {para.text}
+          return (
+            <Typography gutterBottom key={index}>
+            {para.text}
 
-          </Typography>
-               
-            )
+            </Typography>
+                
+          )
         })}
           
         </CardContent>

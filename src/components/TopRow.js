@@ -134,8 +134,6 @@ class TopRow extends Component {
                 title="Live from space album cover"
               />
             </Card>
-      
-
             </Grid>
 
             <Grid item xs={12} sm={3}>

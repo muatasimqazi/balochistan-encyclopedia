@@ -203,7 +203,8 @@ class Login extends Component {
 		  <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="email">Email</InputLabel>
           <Input
-            id="email"
+						id="email"
+						autoComplete="true"
             value={this.state.email}
 			onChange={(event) => this.setState({email: event.target.value})}
 			required
@@ -213,7 +214,8 @@ class Login extends Component {
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
-            id="password"
+						id="password"
+						autoComplete="true"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
             onChange={(event) => this.setState({password: event.target.value})}
@@ -245,7 +247,8 @@ class Login extends Component {
 		  <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="fullname">Full Name</InputLabel>
           <Input
-            id="fullname"
+						id="fullname"
+						autoComplete="true"
             value={this.state.userFullName}
 			onChange={(event) => this.setState({userFullName: event.target.value})}
 			required
@@ -255,7 +258,8 @@ class Login extends Component {
 		  <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="useremail">Email</InputLabel>
           <Input
-            id="useremail"
+						id="useremail"
+						autoComplete="true"
             value={this.state.email}
 			onChange={(event) => this.setState({email: event.target.value})}
 			required
@@ -265,7 +269,8 @@ class Login extends Component {
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="userpassword">Password</InputLabel>
           <Input
-            id="userpassword"
+						id="userpassword"
+						autoComplete="true"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
             onChange={(event) => this.setState({password: event.target.value})}

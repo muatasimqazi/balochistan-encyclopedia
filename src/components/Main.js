@@ -35,8 +35,6 @@ import Footer from './Footer';
     }
   
     render() {
-      
-  
       return (
             <div>
             <BrowserRouter>
@@ -66,8 +64,6 @@ import Footer from './Footer';
 
             <Route exact path ="/category/:id" render={(props) => {
               const category = this.props.categories[props.match.params.id]
-              console.log("parm")
-              console.log(category)
               return (
                 <ArticleList articles={this.props.articles} />
               )
@@ -75,12 +71,17 @@ import Footer from './Footer';
 
             <Route path="/category/articles/:id" render={(props) => {
               const article = this.props.articles[props.match.params.id];
-              console.log(props.match.params)
               return (
                 article
                 ? <Article article={article} updateArticle={this.updateArticle} />
                 : <h1>Article not found</h1>
             )
+            }} />
+
+            <Route exact path ="/user/contributions" render={(props) => {
+              return (
+                <Contributions articles={this.props.articles} />
+              )
             }} />
            
  
