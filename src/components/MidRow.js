@@ -41,9 +41,9 @@ class MidRow extends Component {
       const { classes } = this.props;
         return (
 			
-        <div className={classes.root}>
+        <div className={classes.root} style={{ padding: 20 }}>
 				<Paper elevation={0}>
-					<Grid container spacing={24} className={classes.inner}>
+					<Grid container spacing={40} className={classes.inner}>
 						<Grid item xs={6} sm={2}>
 							<Paper className={classes.paper} elevation={0}>
 								<FaBook />

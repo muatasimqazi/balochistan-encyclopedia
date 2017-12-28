@@ -11,9 +11,6 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: 30,
-    marginLeft: 50,
-	marginRight: 50,
-
   },
   card: {
 
@@ -57,12 +54,12 @@ class MidBottomRow extends Component {
     render() {
       const { classes } = this.props;
         return (
-        <div className={classes.root}>
+        <div className={classes.root} style={{ padding: 20 }}>
 			<Typography type="headline" component="h2" style={{padding: 10}}>
 					Explore Balochistan
 			</Typography>
 
-          <Grid container spacing={24}>
+          <Grid container spacing={40}>
           <Grid item xs={12} sm={4}>
           <Card className={classes.card}>
             <CardMedia

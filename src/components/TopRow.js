@@ -49,7 +49,7 @@ const styles = theme => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: 151,
+    minWidth: 100,
     height: 151,
     flex: 2,
   },
