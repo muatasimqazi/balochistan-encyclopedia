@@ -22,7 +22,7 @@ const styles = theme => ({
        
     },
       media: {
-        height: 250,
+        minHeight: '40vh',
       },
     border: {
       borderLeft: '1px solid #e9ecef',
@@ -104,7 +104,7 @@ class Article extends Component {
 
         <CardMedia
           className={classes.media}
-          image={`https://firebasestorage.googleapis.com/v0/b/balochistan-encyclopedia.appspot.com/o/images%2Fglobalist_profile.jpg?alt=media&token=1bfc3e9a-fbae-42f6-9c25-88a4ce230009`}
+          image={`https://www.fnord23.com/wp-content/uploads/2017/12/Cwo-EZ-WEAAt_lW.jpg`}
           title="Contemplative Reptile"
         />
         <CardContent>

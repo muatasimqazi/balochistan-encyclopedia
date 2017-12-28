@@ -187,7 +187,7 @@ const styles = theme => ({
             author: author,
             body: articleBody,
             url: url,
-            image: forestRef.fullPath,
+            image: "https://www.fnord23.com/wp-content/uploads/2017/12/Cwo-EZ-WEAAt_lW.jpg",
             media: {
                 images: [
                     ],
