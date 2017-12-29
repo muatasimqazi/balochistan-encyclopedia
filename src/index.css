@@ -1,6 +1,6 @@
-	
-	/* Editor */
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
 
+	/* Editor */
 	.RichEditor-root {
 		background: #fff;
 		/* border: 1px solid #ddd; */
@@ -125,7 +125,8 @@
 	}
 
 	body {
-		background: #f8f9fa;
+		/* background: linear-gradient(-45deg, #EEF0F3 0%, #F6F5F3 100%); */
+		background: #fafbfc !important;
 	}
 
 	

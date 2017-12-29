@@ -25,7 +25,7 @@ import Hidden from 'material-ui/Hidden';
 
 import  Card, { CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
-import logo from '../logo.svg';
+import logo_1 from '../img/logo_1.png';
 
 import List from 'material-ui/List';
 import { InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
@@ -57,7 +57,7 @@ const styles =  theme => ({
     pointerEvents: 'none',
   },
   appBar: {
-    background: '#ef6c00'
+    background: '#084466'
   },
   list: {
     width: 250,
@@ -101,11 +101,11 @@ const styles =  theme => ({
   title: {
     marginBottom: 16,
     fontSize: 14,
-    color: theme.palette.text.secondary,
+    // color: theme.palette.text.secondary,
   },
   pos: {
     marginBottom: 12,
-    color: theme.palette.text.secondary,
+    // color: theme.palette.text.secondary,
   },
   avatar: {
     margin: 10,
@@ -231,7 +231,7 @@ handleFocus = (event) => {
             </Hidden>
 
             <Avatar
-              src={logo}
+              src={logo_1}
               className={classNames(classes.avatar, classes.logo)}
               component={Link} to="/"
             />

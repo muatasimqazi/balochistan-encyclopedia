@@ -19,6 +19,8 @@ import Chip from 'material-ui/Chip';
 import red from 'material-ui/colors/red';
 import { LinearProgress } from 'material-ui/Progress';
 
+import ContributeEditor from './ContributeEditor'
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
   
@@ -271,35 +273,18 @@ const styles = theme => ({
                                     }
                                     </FormGroup>
                                     
-                                    <Input
-                                        id="fileButton"
-                                        type="file"
-                                        lagel="fs"
-                                        defaultValue="upload"
-                                        className={classes.input}
-                                        inputProps={{
-                                        'aria-label': 'Description',
-                                        }}
-                                        onChange={this.handleUpload}
-                                    />
                                     
-                                    <Button className={classes.button} raised color="default" onClick={this.uploadFile}>
-                                   
-                                        Upload
-                                        
-                                        <FileUpload className={classes.rightIcon} 
-                                        />
-                                    </Button>
                                     <br/>
                                     {/* <LinearProgress mode="determinate" value={this.state.completed} /> */}
                                     
-                                    <MyEditor  onRef={ref => (this.child = ref)} />
+                                    <ContributeEditor/> 
                                     <Button className={classes.button} raised color="primary" type="submit">
                                         Send
                                         <Send className={classes.rightIcon} />
                                     </Button>
                             </form>
                                 
+                           
                             </CardContent>
                             <CardActions>
                                 <Button dense color="primary">

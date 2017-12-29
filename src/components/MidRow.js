@@ -4,96 +4,39 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
+import TitlebarGridList from './TitlebarGridList'
+import MediaCard from './MediaCard';
+import SimpleCard from './SimpleCard';
 import { FaBook, FaHistory, FaTree, FaApple, FaBank } from 'react-icons/lib/fa';
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-		marginTop: 30,
-		marginBottom: 30,
-		textAlign: 'center'
-  },
-  inner: {
-	  padding: 50
-  },
-  border: {
-		borderLeft: '1px solid #e9ecef',
-  }
-});
+	root: {
 
+	}
+})
 class MidRow extends Component {
-	static childContextTypes = {
-        reactIconBase: PropTypes.object
-    };
 
-    getChildContext() {
-        return {
-            reactIconBase: {
-                color: '#868e96',
-                size: 100,
-                style: {
-                   
-                }
-            }
-        }
-    }
     render() {
-      const { classes } = this.props;
+	  const { classes } = this.props;
+	  const { articles } = this.props;
         return (
 			
-        <div className={classes.root} style={{ padding: 20 }}>
-				<Paper elevation={0}>
-					<Grid container spacing={40} className={classes.inner}>
-						<Grid item xs={6} sm={2}>
-							<Paper className={classes.paper} elevation={0}>
-								<FaBook />
-							</Paper>
-							<Button href="#flat-buttons" className={classes.button}>
-								Link
-							</Button>
-						</Grid>
-						<Grid item xs={6} sm={2} className={classes.border}>
-							<Paper className={classes.paper} elevation={0}>
-								<FaBank />
-							</Paper>
-							<Button href="#flat-buttons" className={classes.button}>
-									Link
-								</Button>
-						</Grid>
-						<Grid item xs={6} sm={2} className={classes.border}>
-							<Paper className={classes.paper} elevation={0}>
-								<FaHistory />
-							</Paper>
-							<Button href="#flat-buttons" className={classes.button}>
-									Link
-							</Button>
-						</Grid>
-						<Grid item xs={6} sm={2} className={classes.border}>
-							<Paper className={classes.paper} elevation={0}>
-								<FaTree />
-							</Paper>
-							<Button href="#flat-buttons" className={classes.button}>
-									Link
-							</Button>
-						</Grid>
-					<Grid item xs={6} sm={2} className={classes.border}>
-						<Paper className={classes.paper} elevation={0}>
-							<FaHistory />
-						</Paper>
-						<Button href="#flat-buttons" className={classes.button}>
-								Link
-							</Button>
-						</Grid>
-						<Grid item xs={6} sm={2} className={classes.border}>
-								<Paper className={classes.paper} elevation={0}>
-									<FaApple />
-								</Paper>
-								<Button href="#flat-buttons" className={classes.button}>
-									Link
-								</Button>
-						</Grid>
+			<div style={{ padding: 20 }}>
+				<Grid container spacing={40}>
+					<Grid item xs={12} sm={6}>
+						<TitlebarGridList />
 					</Grid>
-				</Paper>
+					<Grid item xs={12} sm={3}>
+						<MediaCard articles={articles}/>
+					</Grid>
+						<Grid item xs={12} sm={3}>
+							<SimpleCard/>	
+						</Grid>
+					
+				</Grid>
+				
+
+				
       </div>
         );
     }
