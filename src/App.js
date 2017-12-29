@@ -6,7 +6,46 @@ import Spinner from './components/Spinner'
 
 
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  overrides: {
+    MuiPaper: {
+      root: {
+        transition: '.6s ease',
+      },
+      shadow2: {
+        boxShadow: '0 15px 35px rgba(50, 50, 90, .1), 0 5px 15px rgba(0, 0, 0, .07)',
+      },
+      rounded: {
+        borderRadius: '4px',
+      }
+    },
+    MuiTypography: {
+      headline: {
+        fontFamily: 'Playfair Display',
+        fontSize: '1.7rem', 
+        color: '#303336',
+        letterSpacing: '1px',
+        margin: '2vh 0vw',
+        fontWeight: 'normal',
+      },
+      body1: {
+        paddingBottom: '1vh',
+        color: '#414141',
+        fontWeight: '400',
+        fontSize: '.9rem',
+        lineHeight: '1.25rem',
+      }
+    },
+    MuiCardMedia: {
+      root: {
+        borderTopLeftRadius: '4px',
+        borderTopRightRadius: '4px',
+        
+      }
+    },
+  },
+});
+
 
 class App extends Component {
 

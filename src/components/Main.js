@@ -52,7 +52,7 @@ import Footer from './Footer';
 
             <Route exact path="/" render={(props) => {
                 return (
-                    <Home />
+                    <Home articles={this.props.articles} />
                 )
             }}/>
             
