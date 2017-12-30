@@ -1,20 +1,15 @@
 <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
  <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
- <defs>
-  <filter id="svg_2_blur">
-   <feGaussianBlur stdDeviation="0.6" in="SourceGraphic"/>
-  </filter>
- </defs>
  <g>
   <title>background</title>
-  <rect fill="none" id="canvas_background" height="302" width="302" y="-1" x="-1"/>
+  <rect fill="#fff" id="canvas_background" height="302" width="302" y="-1" x="-1"/>
   <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
-   <rect fill="url(#gridpattern)" stroke-width="0" y="1" x="1" height="400" width="580"/>
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
   </g>
  </g>
  <g>
   <title>Layer 1</title>
-  <rect stroke="#000" filter="url(#svg_2_blur)" rx="50" id="svg_2" height="299.934424" width="300.428586" y="0" x="0" stroke-width="0" fill="#227aac"/>
-  <text font-weight="bold" stroke="#000" transform="matrix(1.1589247913678724,0,0,1.1589247913678724,-50.18033507263219,-79.86236356845333) " xml:space="preserve" text-anchor="start" font-family="Euphoria, sans-serif" font-size="250" id="svg_3" y="286.851524" x="86.286873" stroke-opacity="null" stroke-width="0" fill="#ffffff">B</text>
+  <rect rx="20" id="svg_1" height="300" width="300" stroke-width="0" stroke="#000" fill="#227aac"/>
+  <text stroke="#000" transform="matrix(1.2099238135736068,0,0,1.2047994087145861,-12.363235394987898,13.14825876204664) " font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="250" id="svg_3" y="202.669711" x="44.559937" stroke-opacity="null" stroke-width="0" fill="#ffffff">B</text>
  </g>
 </svg>
