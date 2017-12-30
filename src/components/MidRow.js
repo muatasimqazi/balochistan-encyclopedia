@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Grid from 'material-ui/Grid';
 import TitlebarGridList from './TitlebarGridList'
 import MediaCard from './MediaCard';

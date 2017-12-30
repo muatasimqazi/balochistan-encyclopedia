@@ -200,10 +200,36 @@ handleFocus = (event) => {
     const contrast = this.state.isToggleOn ? null : 'contrast'
 
     const sideList = (
-      <div className={classes.list}>
-        <List>aaaa</List>
+      <div>
         <Divider />
-        <List>ss</List>
+        <List>
+        <Toolbar>
+            <Avatar
+              src={logo}
+              className={classNames(classes.avatar, classes.logo)}
+              component={Link} to="/"
+            />
+            <Typography style={{"textDecoration": "none"}}type="title" color="inherit" className={classes.flex} component={Link} to="/">
+              Balochistan Encyclopedia
+            </Typography>
+          </Toolbar>
+        </List>
+        <Divider />
+        <List className={classes.listFull}>
+        {categoryId.map((id, index) => {
+            const category = categories[id]
+            const menuitem = (category.name).toLowerCase();
+            return (
+              <div key={index} >
+              <Button  style={{justifyContent: 'left'}} className={classes.lower} component={Link} to={`/category/${menuitem}`}>{category.name}</Button>
+              <br/>
+              </div>
+                  )
+              })
+          }
+        </List>
+        <Divider />
+        
       </div>
     );
 
