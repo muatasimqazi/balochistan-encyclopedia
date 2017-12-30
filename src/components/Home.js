@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TopRow from './TopRow'
 import MidRow from './MidRow'
-import MidBottomRow from './MidBottomRow'
+import TopBottomRow from './TopBottomRow'
 import BottomTopRow from './BottomTopRow'
 import BottomRow from './BottomRow'
+
 const styles = theme => ({
   root: {
     marginTop: 30,
@@ -26,15 +27,13 @@ const content = {
 
 function Home(props) {
   const { classes } = props;
-
   return (
     <div className={classes.roots}>
           <TopRow articles={content}/>
-          <MidBottomRow />
+          <TopBottomRow />
           <MidRow articles={content}/>
           <BottomTopRow articles={content}/>
           <BottomRow/>
-      
     </div>
   );
 }

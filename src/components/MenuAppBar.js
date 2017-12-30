@@ -25,7 +25,8 @@ import Hidden from 'material-ui/Hidden';
 
 import  Card, { CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
-import logo_1 from '../img/logo_1.png';
+import logo_colored from '../img/logo_colored.svg';
+import logo_black from '../img/logo_black.svg';
 
 import List from 'material-ui/List';
 import { InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
@@ -57,7 +58,7 @@ const styles =  theme => ({
     pointerEvents: 'none',
   },
   appBar: {
-    background: '#084466'
+    background: '#227AAC'
   },
   list: {
     width: 250,
@@ -195,6 +196,7 @@ handleFocus = (event) => {
     const { results } = this.state;
     const { open } = this.state;
     const focused = this.state.isToggleOn ? classes.whiteAppBar : classes.appBar;
+    const logo = this.state.isToggleOn ? logo_black : logo_colored;
     const contrast = this.state.isToggleOn ? null : 'contrast'
 
     const sideList = (
@@ -231,7 +233,7 @@ handleFocus = (event) => {
             </Hidden>
 
             <Avatar
-              src={logo_1}
+              src={logo}
               className={classNames(classes.avatar, classes.logo)}
               component={Link} to="/"
             />

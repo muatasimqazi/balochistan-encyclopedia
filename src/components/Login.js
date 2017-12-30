@@ -164,10 +164,11 @@ class Login extends Component {
   render() {
 	const { classes, theme } = this.props;
 	const { isError, message } = this.state;
-
-	if (this.state.redirect === true) {
-		return <Redirect to='/'/>
-	}
+	  
+		if (this.props.authenticated  === true) {
+			
+			return <Redirect to='/'/>
+		}
 
     return (
       <div className={classes.root}>

@@ -20,8 +20,8 @@ const styles = theme => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: '100%',
-    height: 151,
+    width: '40%',
+    marginLeft: 'auto', // fixes right space
     borderTopLeftRadius: 0,
     borderBottomRightRadius: 4,
   },
@@ -45,9 +45,9 @@ function MediaControlCard(props) {
       <Card className={classes.card}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography type="subheading">Live From Space</Typography>
+            <Typography type="subheading">Sounds of Balochistan</Typography>
             <Typography type="subheading" color="secondary">
-              Mac Miller
+              Nako Faizuk
             </Typography>
           </CardContent>
           <div className={classes.controls}>
@@ -64,7 +64,7 @@ function MediaControlCard(props) {
         </div>
         <CardMedia
           className={classes.cover}
-          image="https://lh3.googleusercontent.com/oZmsXSxNXXaWp6klrhl6uPJcv6xs9WC36xnElaaGPDrhJmrpMo2KttdcfQ=s360-c-e100-rwu-v1"
+          image="http://www.dostpakistan.pk/wp-content/uploads/2012/11/baloch-singer-profile.jpg"
           title="Live from space album cover"
         />
       </Card>

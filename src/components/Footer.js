@@ -10,11 +10,11 @@ const styles = theme => ({
     root: {
       padding: 16,
       marginTop: theme.spacing.unit * 3,
-      background: '#2c2c2c',
+      background: '#227AAC',
       color: '#ffff'
     },
     paper: {
-        background: '#2c2c2c',
+        background: '#227AAC',
         color: '#ffff',
         margin: 30,
     },

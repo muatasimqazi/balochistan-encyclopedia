@@ -10,8 +10,9 @@ import {  FaBook, FaHistory, FaTree, FaApple, FaBank } from 'react-icons/lib/fa'
 
 const styles = theme => ({
   root: {
-    paddingTop: 16,
-    paddingBottom: 16,
+    background: '#ffffff !important',
+    marginTop: 30,
+    marginBottom: 30,
     marginLeft: 0,
     marginRight: 0,
     // marginTop: theme.spacing.unit * 3,
@@ -25,7 +26,7 @@ function PaperSheet(props) {
   const content = props.content;
 
   return (
-    <div>
+    <div className={classes.root} >
       <Paper className={classes.root} elevation={0}>
           {content}
       </Paper>

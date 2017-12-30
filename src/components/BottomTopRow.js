@@ -53,11 +53,9 @@ const styles = theme => ({
 
 const cards = [1,2,3,4]
 
-class BottomTopRow extends Component {
-
-    render() {
-      const { classes } = this.props;
-      const { articles } = this.props;
+function BottomTopRow(props) {
+      const { classes } = props;
+      const { articles } = props;
         return (
         <div className={classes.root} style={{ padding: 20 }}>
             <Typography type="headline" component="h2" style={{marginBottom: 20, fontFamily: 'Roboto'}}>
@@ -67,7 +65,7 @@ class BottomTopRow extends Component {
             {
               cards.map((card, index) => {
                 return (
-                  <Grid item xs={12} sm={3} key={index}>
+                  <Grid item xs={12} sm={6} md={3} key={index}>
                     <MediaCard articles={articles}/>
                   </Grid>
                   )
@@ -76,7 +74,6 @@ class BottomTopRow extends Component {
           </Grid>
         </div>
         );
-    }
 }
 
 BottomTopRow.propTypes = {

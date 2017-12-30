@@ -25,7 +25,7 @@ import Divider from 'material-ui/Divider'
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    // maxWidth: 752,
   },
   demo: {
     background: theme.palette.background.paper,

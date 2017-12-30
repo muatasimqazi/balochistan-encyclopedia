@@ -17,7 +17,7 @@ const styles = {
   },
   chip: {
       position: 'absolute',
-      top: 8,
+      top: 4,
       right: 4,
       background: '#0096887a',
       color: 'white'

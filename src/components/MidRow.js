@@ -1,49 +1,26 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import TitlebarGridList from './TitlebarGridList'
 import MediaCard from './MediaCard';
 import SimpleCard from './SimpleCard';
-import { FaBook, FaHistory, FaTree, FaApple, FaBank } from 'react-icons/lib/fa';
 
-const styles = theme => ({
-	root: {
-
-	}
-})
-class MidRow extends Component {
-
-    render() {
-	  const { classes } = this.props;
-	  const { articles } = this.props;
+function MidRow(props) {
+	  const { articles } = props;
         return (
-			
 			<div style={{ padding: 20 }}>
 				<Grid container spacing={40}>
-					<Grid item xs={12} sm={6}>
+					<Grid item xs={12} sm={7} md={6}>
 						<TitlebarGridList />
 					</Grid>
-					<Grid item xs={12} sm={3}>
+					<Grid item xs={12} sm={5} md={3}>
 						<MediaCard articles={articles}/>
 					</Grid>
-						<Grid item xs={12} sm={3}>
+						<Grid item xs={12} sm={12} md={3}>
 							<SimpleCard/>	
 						</Grid>
-					
 				</Grid>
-				
-
-				
-      </div>
-        );
-    }
+			</div>
+		);
 }
 
-MidRow.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(MidRow);
+export default MidRow;

@@ -13,10 +13,9 @@ import Footer from './Footer';
   class Main extends Component {
     constructor(props, context) {
       super(props, context);
-  
       this.handleRequestClose = this.handleRequestClose.bind(this);
       this.handleTouchTap = this.handleTouchTap.bind(this);
-  
+
       this.state = {
         open: false,
       };
@@ -40,7 +39,13 @@ import Footer from './Footer';
             <BrowserRouter>
             <div>
             <MenuAppBar authenticated={this.props.authenticated} user={this.props.user} articles={this.props.articles} categories={this.props.categories}/>
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/login"  render={(props) => {
+              return (
+                <Login authenticated={this.props.authenticated}/>
+              )
+              }}
+            />
+
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/contribute" render={(props) => {
                 const category = this.props.categories;

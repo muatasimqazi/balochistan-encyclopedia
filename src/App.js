@@ -4,8 +4,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import Main from './components/Main'
 import Spinner from './components/Spinner'
 
-
-
 const theme = createMuiTheme({
   overrides: {
     MuiPaper: {
@@ -19,7 +17,11 @@ const theme = createMuiTheme({
         borderRadius: '4px',
       }
     },
+    
     MuiTypography: {
+      title: {
+        fontWeight: 'normal',
+      },
       headline: {
         fontFamily: 'Playfair Display',
         fontSize: '1.7rem', 
@@ -36,6 +38,11 @@ const theme = createMuiTheme({
         lineHeight: '1.25rem',
       }
     },
+    MuiButton: {
+      root: {
+        '-webkit-font-smoothing': 'antialiased',
+      },
+    },
     MuiCardMedia: {
       root: {
         borderTopLeftRadius: '4px',
@@ -43,6 +50,7 @@ const theme = createMuiTheme({
         
       }
     },
+
   },
 });
 

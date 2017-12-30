@@ -19,9 +19,12 @@ const styles = theme => ({
     transform: 'translateZ(0)',
   },
   title: {
-    color: theme.palette.primary[200],
+    // color: theme.palette.primary[200],
+    
   },
   titleBar: {
+    height: '100%',
+    textAlign: 'center',
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
@@ -38,12 +41,7 @@ const tileData = [
     img: "https://images.pexels.com/photos/749114/pexels-photo-749114.jpeg",
     title: 'Image',
     author: 'author',
-  },
-  {
-   img: "https://media1.britannica.com/eb-media/09/153009-118-54D78EEC.jpg",
-   title: 'Image',
-   author: 'author',
- },
+  }
  
 ];
 
@@ -52,21 +50,18 @@ function SingleLineGridList(props) {
 
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
+      <GridList className={classes.gridList} col={2.5}>
         {tileData.map(tile => (
-          <GridListTile key={tile.img}>
+          <GridListTile key={tile.img} style={{width: '100%'}}>
             <img src={tile.img} alt={tile.title} />
             <GridListTileBar
               title={tile.title}
+              subtitle={<span>by: {"Autho"}</span>}
               classes={{
                 root: classes.titleBar,
                 title: classes.title,
               }}
-              actionIcon={
-                <IconButton>
-                  <StarBorderIcon className={classes.title} />
-                </IconButton>
-              }
+              
             />
           </GridListTile>
         ))}

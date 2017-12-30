@@ -1,61 +1,62 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import two from '../img/two.jpeg';
-import five from '../img/five.jpeg';
 import PaperSheet from './PaperSheet';
-import Grid from 'material-ui/Grid'
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import SingleLineGridList from './SingleLineGridList'
-import SimpleCard from './SimpleCard';
-
-
+import SingleLineGridList from './SingleLineGridList';
+import Paper from 'material-ui/Paper';
 
 const styles = theme => ({
-    card: {
-    //  minHeight: 143,
-    },
-    media: {
-    //   height: 194,   
-    },
+  root: theme.mixins.gutters({
+    paddingTop: 16,
+    paddingBottom: 16,
+    // marginTop: theme.spacing.unit * 3,
+  }),
+  title: {
+    color: 'white', 
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 'normal',
+    fontSize: '1.2rem',
+  }
 });
 
-const messageCard = [
-    {
-        text: "afafa",
-        color: 'green',
-    },
-
-]
-class BottomRow extends Component {
-    render() {
-        const { classes } = this.props;
+function BottomRow(props) {
+        const { classes } = props;
         return (
-            <div className={classes.root} style={{ padding: 20 }}>
-           
                 <PaperSheet content={
-               <Grid container spacing={40}>            
-                <Grid item xs={12} sm={6}>
-                {
-                messageCard.map(card => (
-                 <div key={card.text} className={classes.card} style={{background: card.color}}>
-                  <SimpleCard />
-             </div>
-              ))
-            }    
-              </Grid>
-              <Grid item xs={12} sm={6}>
-              <SimpleCard/>
-              </Grid>
-            
-            </Grid>
-              }
-              />
-              
-			</div>
+                    <div className={classes.root} style={{ padding: 20 }}>
+                    <Grid container spacing={24}>
+                        <Grid item xs={12} sm={6} className={classes.card}>
+                        <div>
+                        <Paper className={classes.root} elevation={0} style={{background: 'rgb(121, 187, 181)', color: 'white', marginBottom: 30}} square={true}>
+                            <Typography type="headline" component="h3" className={classes.title}>
+                            This is a sheet of paper.
+                            </Typography>
+                            <Typography component="p" style={{ color: 'white'}}>
+                            Paper can be used to build surface or other elements for your application.
+                            </Typography>
+                        </Paper>
+                        <Paper className={classes.root} elevation={0} style={{background: '#DA503A', color: 'white'}} square={true}>
+                            <Typography type="headline" component="h3" className={classes.title}>
+                            This is a sheet of paper.
+                            </Typography>
+                            <Typography component="p" style={{ color: 'white', }}>
+                            Paper can be used to build surface or other elements for your application.
+                            </Typography>
+                        </Paper>
+                        </div>
+                        </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            <SingleLineGridList/>
+                        </Grid>
+                    </Grid>
+                    </div>
+                }
+                />
+
         );
-    }
 }
 
 BottomRow.propTypes = {
