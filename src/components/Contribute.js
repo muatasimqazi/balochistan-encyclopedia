@@ -19,7 +19,10 @@ import Chip from 'material-ui/Chip';
 import red from 'material-ui/colors/red';
 import { LinearProgress } from 'material-ui/Progress';
 
-import ContributeEditor from './ContributeEditor'
+// import ContributeEditor from './ContributeEditor'
+import { convertFromRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -96,7 +99,6 @@ const styles = theme => ({
 		this.state = {
             redirect: false,
             completed: 0,
-            editorState: '',
             title: '',
             category: [],
             file: {},
@@ -109,7 +111,9 @@ const styles = theme => ({
                         }
                     }
                 }
-              }
+              },
+              contentState: {},
+              image: ''
         }
     }
 
@@ -134,41 +138,9 @@ const styles = theme => ({
         this.setState({article: { ...this.state.article, categories: newCategoryArray} });
        
        
-    this.setState({ [category]: event.target.value });
+    // this.setState({ [category]: event.target.value });
     };
 
-    handleUpload = event => {
-       file = event.target.files[0]
-        this.setState({
-            file: file
-        })
-        console.log(this.state.file)
-        
-    }
-    // editor data
-    onClick = () => {
-        const data = this.child.passEditorContent() // do stuff
-      }
-
-    uploadFile = () => {
-       
-        const destinationRef = storageRef.ref('images/' + file.name )
-        console.log(file)
-        var task = destinationRef.put(file)
-
-        task.on('state_changed',
-        function progress(snapshot) {
-            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-           
-        },
-        function error(err) {
-            console.log(err)
-        },
-        function complete() {
-        }
-    )
-
-    }
     submitArticle(event) {
         event.preventDefault()
         const author = this.props.user.displayName;
@@ -181,7 +153,7 @@ const styles = theme => ({
         console.log(forestRef.fullPath)
         
         // data from editor
-        const articleBody = this.child.passEditorContent()
+        const articleBody = this.state.contentState;//this.child.passEditorContent()
 
        let newContent = {
             title: title,
@@ -189,11 +161,6 @@ const styles = theme => ({
             author: author,
             body: articleBody,
             url: url,
-            image: "https://www.fnord23.com/wp-content/uploads/2017/12/Cwo-EZ-WEAAt_lW.jpg",
-            media: {
-                images: [
-                    ],
-            },
             contributors: {
                 [contributorId]: true,
             }
@@ -212,14 +179,41 @@ const styles = theme => ({
         this.setState({
             redirect: true
         })
-
     }
+
+
+    onContentStateChange = (contentState) => {
+        if (this.refs.editor) {
+        this.setState({
+          contentState,
+        });
+        }
+      };
+
+    // image upload 
+  uploadImageCallBack = (file) => {
+    return new Promise((resolve, reject) => {
+        const destinationRef = storageRef.ref('images/' + file.name )
+        destinationRef.put(file)
+          resolve();
+        })
+       
+        .then(function(snapshot) {
+            // console.log('Uploaded an array!');
+          })
+       .catch(() => {
+          console.log('err')
+       });
+        
+  }
 
 
     render() {
         const { classes } = this.props;
         const { categories } = this.props
         const categoryId = Object.keys(categories)
+
+        const { contentState } = this.state;
         
         
         if (this.props.authenticated  === false) {
@@ -235,15 +229,8 @@ const styles = theme => ({
                 <Grid container spacing={40}>
                     <Grid item xs={12} sm={8}>
                         <Card className={classes.card}>
-                            <CardHeader className={classes.header}
-                                title={
-                                    <div className={classes.cardTitle}>Contribute</div>
-                                }
-                                color="primary"                            
-                            />
-
+                        <form onSubmit={(event) => { this.submitArticle(event) }} ref={(form) => { this.articleForm = form}}>
                             <CardContent>
-                                <form onSubmit={(event) => { this.submitArticle(event) }} ref={(form) => { this.articleForm = form}}>
                                     <FormControl fullWidth className={classes.formControl}>
                                         <InputLabel htmlFor="title">Article Title</InputLabel>
                                         <Input
@@ -252,6 +239,7 @@ const styles = theme => ({
                                             onChange={this.handleChange}
                                         />
                                     </FormControl>
+
                                     <FormLabel component="legend">Category</FormLabel>
                                     <FormGroup row>
                                     {
@@ -273,55 +261,49 @@ const styles = theme => ({
                                     }
                                     </FormGroup>
                                     
-                                    
                                     <br/>
-                                    {/* <LinearProgress mode="determinate" value={this.state.completed} /> */}
-                                    
-                                    <ContributeEditor/> 
-                                    <Button className={classes.button} raised color="primary" type="submit">
-                                        Send
-                                        <Send className={classes.rightIcon} />
-                                    </Button>
-                            </form>
+                                   
                                 
-                           
+                                    <Editor 
+                                        ref="editor"
+                                        wrapperClassName="demo-wrapper"
+                                        editorClassName="demo-editor"
+                                        onContentStateChange={this.onContentStateChange}
+                                        toolbar={{
+                                            inline: { inDropdown: false },
+                                            list: { inDropdown: true },
+                                            textAlign: { inDropdown: true },
+                                            link: { inDropdown: true },
+                                            history: { inDropdown: true },
+                                            image: {
+                                                // icon: image,
+                                                className: undefined,
+                                                component: undefined,
+                                                popupClassName: undefined,
+                                                urlEnabled: true,
+                                                uploadEnabled: true,
+                                                alignmentEnabled: true,
+                                                uploadCallback: this.uploadImageCallBack,
+                                                inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                alt: { present: true, mandatory: false },
+                                                defaultSize: {
+                                                  height: 'auto',
+                                                  width: 'auto',
+                                                },
+                                              },
+                                            // image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: true } },
+                                        }}
+                                    />                              
                             </CardContent>
                             <CardActions>
-                                <Button dense color="primary">
-                                    Share
-                                </Button>
-                                <Button dense color="primary">
-                                    Learn More
+                                <Button className={classes.button} raised type="submit" align="right">
+                                Publish
+                                <Send className={classes.rightIcon} />
                                 </Button>
                             </CardActions>
+                            </form>
                         </Card>
                     </Grid>
-                        <Grid item xs={12} sm={3}>
-                            <Card className={classes.card} style={{marginBottom: 20}}>
-                                <CardContent>
-                                    <Typography type="title" className={classes.title}>
-                                    Related Topics
-                                    </Typography>
-                                    <div className={classes.demo}>
-                                        <List>
-                                            <ListItem button>
-                                                <ListItemText
-                                                primary="Single-line item"
-                                                secondary={true ? 'Secondary text' : null}
-                                                />
-                                            </ListItem>
-                                            <Divider light />
-                                            <ListItem button>
-                                                <ListItemText
-                                                primary="Single-line item"
-                                                secondary={true ? 'Secondary text' : null}
-                                                />
-                                            </ListItem>
-                                        </List>
-                                    </div> 
-                                </CardContent>
-                            </Card> 
-                        </Grid>
                 </Grid>
             </div>
 

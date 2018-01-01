@@ -208,7 +208,7 @@ handleFocus = (event) => {
               src={logo}
               className={classNames(classes.avatar, classes.logo)}
               component={Link} to="/"
-            />
+            />    
             <Typography style={{"textDecoration": "none"}}type="title" color="inherit" className={classes.flex} component={Link} to="/">
               Balochistan Encyclopedia
             </Typography>

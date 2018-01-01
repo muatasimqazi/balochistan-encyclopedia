@@ -39,7 +39,7 @@ function ArticleCard(props) {
             <div className={classes.mediaContainer}>
                 <CardMedia
                     className={classes.media}
-                    image={article.image}
+                    image={article.body.entityMap[0].data.src}
                     title="Contemplative Reptile"
                 />
                 <div className={classes.chip}>

@@ -1,35 +1,70 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+import {app } from '../base';
 
+const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+
+const storageRef =app.storage()
 
 class ContributeEditor extends Component {
-  state = {
-    editorState: EditorState.createEmpty(),
+  constructor(props) {
+    super(props);
+    this.uploadImageCallBack = this.uploadImageCallBack.bind(this)
+    const contentState = convertFromRaw(content);
+    this.state = {
+      contentState,
+      image: ''
+    }
   }
 
-  onEditorStateChange = (editorState) => {
+  onContentStateChange = (contentState) => {
     this.setState({
-      editorState,
+      contentState,
     });
   };
 
+
+  // image upload 
+  uploadImageCallBack = (file) => {
+    return new Promise((resolve, reject) => {
+        const destinationRef = storageRef.ref('images/' + file.name )
+        destinationRef.put(file)
+          resolve();
+        })
+       .then(() => {
+         this.setState({
+           image: 'https://dictionary.cambridge.org/us/rss/images/flashpacking1.jpg'
+         })
+          console.log('succs')
+       })
+       .catch(() => {
+          console.log('err')
+       });
+        
+  }
+
   render() {
-    const { editorState } = this.state;
+    const { contentState } = this.state;
     return (
       <div>
         <Editor
-          editorState={editorState}
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor"
-          onEditorStateChange={this.onEditorStateChange}
+          onContentStateChange={this.onContentStateChange}
+          toolbar={{
+            inline: { inDropdown: false },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+            image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: true } },
+          }}
         />
         <textarea
-          disabled
-          value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+          
+          value={JSON.stringify(contentState, null, 4)}
         />
       </div>
     );
