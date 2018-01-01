@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
@@ -6,7 +6,9 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import SkipPreviousIcon from 'material-ui-icons/SkipPrevious';
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
+import PauseIcon from 'material-ui-icons/Pause';
 import SkipNextIcon from 'material-ui-icons/SkipNext';
+import faiz_baloch from '../media/faiz_baloch.mp3'
 
 const styles = theme => ({
   card: {
@@ -37,9 +39,37 @@ const styles = theme => ({
   },
 });
 
-function MediaControlCard(props) {
-  const { classes, theme } = props;
+class MediaControlCard extends Component {
+  constructor(props) {
+    super(props)
+    this.playSong = this.playSong.bind(this)
+    this.state = {
+      playing: false,
 
+    }
+  }
+  
+
+  
+  playSong = () => {
+    const song = document.getElementById('myAudio')
+    if(this.state.playing) {
+      this.setState({
+        playing: false,
+      })
+      song.pause()
+      
+    } else {
+      this.setState({
+        playing: true,
+      })
+      song.play()
+  }
+}
+
+  render() {
+    const { classes, theme } = this.props;
+    const song = faiz_baloch;
   return (
     <div>
       <Card className={classes.card}>
@@ -55,21 +85,32 @@ function MediaControlCard(props) {
               {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
             </IconButton>
             <IconButton aria-label="Play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
+              {
+                this.state.playing 
+                ?
+                <PauseIcon className={classes.playIcon} onClick={this.playSong}/>
+                :
+              
+              <PlayArrowIcon className={classes.playIcon} onClick={this.playSong}/>
+            }
             </IconButton>
             <IconButton aria-label="Next">
               {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
             </IconButton>
           </div>
+          <audio id="myAudio">
+            <source src={song} type="audio/mp3"/>
+            </audio>
         </div>
         <CardMedia
           className={classes.cover}
           image="http://www.dostpakistan.pk/wp-content/uploads/2012/11/baloch-singer-profile.jpg"
-          title="Live from space album cover"
+          title="Faiz Baloch"
         />
       </Card>
     </div>
   );
+}
 }
 
 MediaControlCard.propTypes = {
