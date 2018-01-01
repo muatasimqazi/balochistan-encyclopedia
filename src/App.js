@@ -31,11 +31,15 @@ const theme = createMuiTheme({
         fontWeight: 'normal',
       },
       body1: {
-        paddingBottom: '1vh',
-        color: '#414141',
-        fontWeight: '400',
-        fontSize: '.9rem',
-        lineHeight: '1.25rem',
+        fontFamily: 'sans-serif',
+        // paddingBottom: '1vh',
+        color: '#222222',
+        fontWeight: 'normal',
+        fontSize: '1em',
+        lineHeight: '1.6',
+        margin: '0.5em 0',
+        '-webkit-font-smoothing': 'antialiased',
+
       }
     },
     MuiButton: {

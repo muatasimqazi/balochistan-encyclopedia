@@ -35,7 +35,6 @@ function MediaCard(props) {
                 className={classes.media}
                 image={articles.media}
                 title="Contemplative Reptile"
-                
                 />
             <div className={classes.chip}>
             <Chip label="Basic Chip" className={classes.chip} /> 
