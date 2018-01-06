@@ -275,7 +275,7 @@ handleFocus = (event) => {
               onChange={this.handleFocus}
               className={classes.container}
               translations={{
-                placeholder:'Search for aticles',
+                placeholder:'Search Balochistan Encyclopedia',
               }}
               onSubmit={this.submitForm}
               onReset={this.resetForm}

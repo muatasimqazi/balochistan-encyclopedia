@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
+import ResponsiveDialog from './ResponsiveDialog';
 
 const styles = {
   card: {
@@ -24,9 +26,23 @@ const styles = {
   }
 };
 
-function MediaCard(props) {
-  const { classes } = props;
-  const { articles } = props;
+class MediaCard extends Component {
+  state = {
+    open: false,
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+
+  const { classes } = this.props;
+  const { articles } = this.props;
   return (
     <div>
       <Card className={classes.card}>
@@ -38,13 +54,12 @@ function MediaCard(props) {
                 />
             <div className={classes.chip}>
             <Chip label=
-							{props.label ? props.label : `Basic Chip`}
+							{this.props.label ? this.props.label : `Basic Chip`}
 							className={classes.chip} />
             </div>
                 </div>
         <CardContent>
           <Typography type="headline" component="h2">
-
             {articles.title}
           </Typography>
           <Typography component="p">
@@ -52,16 +67,18 @@ function MediaCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button dense color="primary">
+          <Button dense color="primary" onClick={this.handleClickOpen}>
             Share
           </Button>
-          <Button dense color="primary">
+          <Button dense color="primary" component={Link} to="/open-collective">
             Learn More
           </Button>
         </CardActions>
       </Card>
+      <ResponsiveDialog open={this.state.open} handleClose={this.handleClose}/>
     </div>
   );
+}
 }
 
 MediaCard.propTypes = {

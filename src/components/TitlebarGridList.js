@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
-import InfoIcon from 'material-ui-icons/Info';
+import ShareIcon from 'material-ui-icons/Share';
+import Button from 'material-ui/Button';
 // import tileData from './tileData';
 
 const styles = theme => ({
@@ -59,16 +61,11 @@ function TitlebarGridList(props) {
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
         {tileData.map(tile => (
-          <GridListTile key={tile.img}>
+          <GridListTile key={tile.img} component={Link} to="/article">
             <img src={tile.img} alt={tile.title} />
             <GridListTileBar
               title={tile.title}
               subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
             />
           </GridListTile>
         ))}

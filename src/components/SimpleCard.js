@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
@@ -44,7 +45,7 @@ function SimpleCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button dense>Learn More</Button>
+          <Button dense color="primary" component={Link} to="/article">Learn More</Button>
         </CardActions>
       </Card>
     </div>
