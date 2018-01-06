@@ -19,7 +19,7 @@ const styles = {
       position: 'absolute',
       top: 4,
       right: 4,
-      background: '#0096887a',
+      background: '#F3A346',
       color: 'white'
   }
 };
@@ -29,7 +29,7 @@ function MediaCard(props) {
   const { articles } = props;
   return (
     <div>
-      <Card className={classes.card}> 
+      <Card className={classes.card}>
             <div className={classes.mediaContainer}>
             <CardMedia
                 className={classes.media}
@@ -37,12 +37,14 @@ function MediaCard(props) {
                 title="Contemplative Reptile"
                 />
             <div className={classes.chip}>
-            <Chip label="Basic Chip" className={classes.chip} /> 
+            <Chip label=
+							{props.label ? props.label : `Basic Chip`}
+							className={classes.chip} />
             </div>
                 </div>
         <CardContent>
           <Typography type="headline" component="h2">
-          
+
             {articles.title}
           </Typography>
           <Typography component="p">

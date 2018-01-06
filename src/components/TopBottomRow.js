@@ -47,7 +47,7 @@ function TopBottomRow(props) {
                   {
                     horizontalIcons.map(item=> (
                       <Grid item xs={4} sm={2} style={{textAlign: 'center'}} key={item.title}>
-                        <Link to={`category/${item.title.toLowerCase()}`}><item.icon size={75} color='#3F88C5'/></Link>
+                        <Link to={`category/${item.title.toLowerCase()}`}><item.icon size={75} color='#F3A346'/></Link>
                         <Typography type="headline" component="h3">
                         <Button component={Link} to={`category/${item.title.toLowerCase()}`}>
                           {item.title}

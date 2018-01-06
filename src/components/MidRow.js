@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 import TitlebarGridList from './TitlebarGridList'
 import MediaCard from './MediaCard';
-import SimpleCard from './SimpleCard';
+import InteractiveList from './InteractiveList';
 
 function MidRow(props) {
 	  const { articles } = props;
@@ -16,7 +16,7 @@ function MidRow(props) {
 						<MediaCard articles={articles}/>
 					</Grid>
 						<Grid item xs={12} sm={12} md={3}>
-							<SimpleCard/>	
+							<InteractiveList/>
 						</Grid>
 				</Grid>
 			</div>

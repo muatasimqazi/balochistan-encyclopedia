@@ -17,14 +17,14 @@ const theme = createMuiTheme({
         borderRadius: '4px',
       }
     },
-    
+
     MuiTypography: {
       title: {
         fontWeight: 'normal',
       },
       headline: {
         fontFamily: 'Playfair Display',
-        fontSize: '1.7rem', 
+        fontSize: '1.7rem',
         color: '#303336',
         letterSpacing: '1px',
         margin: '2vh 0vw',
@@ -51,7 +51,7 @@ const theme = createMuiTheme({
       root: {
         borderTopLeftRadius: '4px',
         borderTopRightRadius: '4px',
-        
+
       }
     },
 
@@ -76,9 +76,9 @@ class App extends Component {
       };
   }
 
-  
 
-  addArticle(title) { 
+
+  addArticle(title) {
     const articles = {...this.state.articles};
     const id = Date.now();
     articles[id] = {
@@ -105,7 +105,7 @@ class App extends Component {
   }
 
 
-  
+
 componentWillMount() {
   this.removeAuthListener = app.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -140,7 +140,7 @@ componentWillUnmount() {
   componentDidMount() {
 
     const rootRef = app.database().ref();
-    
+
     const articleRef = rootRef.child('articles');
     const catRef = rootRef.child('categories');
     const lim = articleRef.limitToLast(5).on('value', snap => {
@@ -148,7 +148,7 @@ componentWillUnmount() {
         latestArticles: snap.val()
       })
     });
-    
+
 
     articleRef.on('value', snap => {
       this.setState({
@@ -171,7 +171,7 @@ componentWillUnmount() {
     const articleRef = rootRef.child('articles/-L1KVr1rfhSOXug2Wgjd/contributors/')
     // console.log("articles /users/$uid/groups/$group_id")
     var data = articleRef.on('value', snap => {
-      
+
     });
     // console.log(articleRef.child('contributors'))
     if (this.state.loading === true) {

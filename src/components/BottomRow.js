@@ -14,7 +14,7 @@ const styles = theme => ({
     // marginTop: theme.spacing.unit * 3,
   }),
   title: {
-    color: 'white', 
+    color: 'white',
     fontFamily: 'Roboto, sans-serif',
     fontWeight: 'normal',
     fontSize: '1.2rem',
@@ -29,7 +29,7 @@ function BottomRow(props) {
                     <Grid container spacing={24}>
                         <Grid item xs={12} sm={6} className={classes.card}>
                         <div>
-                        <Paper className={classes.root} elevation={0} style={{background: 'rgb(121, 187, 181)', color: 'white', marginBottom: 30}} square={true}>
+                        <Paper className={classes.root} elevation={0} style={{background: '#EF551F', color: 'white', marginBottom: 30}} square={true}>
                             <Typography type="headline" component="h3" className={classes.title}>
                             This is a sheet of paper.
                             </Typography>
@@ -37,7 +37,7 @@ function BottomRow(props) {
                             Paper can be used to build surface or other elements for your application.
                             </Typography>
                         </Paper>
-                        <Paper className={classes.root} elevation={0} style={{background: '#DA503A', color: 'white'}} square={true}>
+                        <Paper className={classes.root} elevation={0} style={{background: '#F3A346', color: 'white'}} square={true}>
                             <Typography type="headline" component="h3" className={classes.title}>
                             This is a sheet of paper.
                             </Typography>

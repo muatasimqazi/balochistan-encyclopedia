@@ -33,7 +33,7 @@ function SimpleCard(props) {
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Typography className={classes.title}>Fact of the Day</Typography>
+          <Typography className={classes.title}>{props.title}</Typography>
           <Typography type="headline" component="h2">
           benevolent
           </Typography>
