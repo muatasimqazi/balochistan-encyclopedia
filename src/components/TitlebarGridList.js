@@ -14,7 +14,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     overflow: 'hidden',
-    background: theme.palette.background.paper,
+    // background: theme.palette.background.paper,
   },
   gridList: {
     height: 450,
