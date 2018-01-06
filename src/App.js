@@ -31,7 +31,7 @@ const theme = createMuiTheme({
         fontWeight: 'normal',
       },
       body1: {
-        fontFamily: 'sans-serif',
+        fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
         // paddingBottom: '1vh',
         color: '#222222',
         fontWeight: 'normal',

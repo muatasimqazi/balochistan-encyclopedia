@@ -23,49 +23,20 @@ const styles = theme => ({
     color: 'rgba(255, 255, 255, 0.54)',
   },
 });
-
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * */
- const tileData = [
-   {
-     img: 'https://material-ui-next.com/static/images/grid-list/morning.jpg',
-     title: 'Image',
-     author: 'author',
-   },
-   {
-    img: 'https://media1.britannica.com/eb-media/21/183421-131-2F9E715E.jpg',
-    title: 'Image',
-    author: 'author',
-  },
-  {
-    img: 'https://media1.britannica.com/eb-media/65/104265-004-AC2A536B.jpg',
-    title: 'Image',
-    author: 'author',
-  },
-   {
-    img: 'https://media1.britannica.com/eb-media/80/140480-118-2BB2DFB1.jpg',
-    title: 'Image',
-    author: 'author',
-  },
- ];
  
 function TitlebarGridList(props) {
   const { classes } = props;
+  const { articles } = props;
 
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
-        {tileData.map(tile => (
-          <GridListTile key={tile.img} component={Link} to="/article">
-            <img src={tile.img} alt={tile.title} />
+        {articles.map(article => (
+          <GridListTile key={article.title} component={Link} to="/article">
+            <img src={article.media} alt={article.title} />
             <GridListTileBar
-              title={tile.title}
-              subtitle={<span>by: {tile.author}</span>}
+              title={article.title}
+              subtitle={<span>by: {article.author}</span>}
             />
           </GridListTile>
         ))}

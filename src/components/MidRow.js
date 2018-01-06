@@ -10,10 +10,10 @@ function MidRow(props) {
 			<div style={{ padding: 20 }}>
 				<Grid container spacing={40}>
 					<Grid item xs={12} sm={12} md={6}>
-					<InteractiveList label={`Did you know...`}/>
+					<InteractiveList label={`Did you know...`} />
 					</Grid>
 					<Grid item xs={12} sm={12} md={6}>
-						<TitlebarGridList />
+						<TitlebarGridList articles={articles}/>
 					</Grid>
 				</Grid>
 			</div>

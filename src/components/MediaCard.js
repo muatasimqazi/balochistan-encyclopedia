@@ -10,6 +10,7 @@ import ResponsiveDialog from './ResponsiveDialog';
 
 const styles = {
   card: {
+    minHeight: 200,
   },
   media: {
     height: 200,
@@ -21,7 +22,7 @@ const styles = {
       position: 'absolute',
       top: 4,
       right: 4,
-      background: '#F3A346',
+      // background: '#F3A346',
       color: 'white'
   }
 };
@@ -43,6 +44,8 @@ class MediaCard extends Component {
 
   const { classes } = this.props;
   const { articles } = this.props;
+  const { category } = this.props;
+  const chipBackground = category ? category.color : '#F3A346';
   return (
     <div>
       <Card className={classes.card}>
@@ -54,8 +57,10 @@ class MediaCard extends Component {
                 />
             <div className={classes.chip}>
             <Chip label=
-							{this.props.label ? this.props.label : `Basic Chip`}
-							className={classes.chip} />
+							{this.props.label ? this.props.label : category.name}
+              className={classes.chip} 
+              style={{background: chipBackground}}
+              />
             </div>
                 </div>
         <CardContent>

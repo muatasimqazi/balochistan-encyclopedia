@@ -51,8 +51,6 @@ const styles = theme => ({
   },
 });
 
-const cards = [1,2,3,4]
-
 function BottomTopRow(props) {
       const { classes } = props;
       const { articles } = props;
@@ -63,10 +61,10 @@ function BottomTopRow(props) {
             </Typography>
           <Grid container spacing={24}>
             {
-              cards.map((card, index) => {
+              articles.map((article, index) => {
                 return (
                   <Grid item xs={12} sm={6} md={3} key={index}>
-                    <MediaCard articles={articles}/>
+                    <MediaCard articles={article} category={article.category}/>
                   </Grid>
                   )
               })
