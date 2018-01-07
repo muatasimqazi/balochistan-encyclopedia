@@ -17,8 +17,15 @@ import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
 import Button from 'material-ui/Button';
 
-import FaFacebookOfficial from 'react-icons/lib/fa/facebook-official';
+import {FaFacebookOfficial, FaGoogle} from 'react-icons/lib/fa/';
 import Snackbar from 'material-ui/Snackbar';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  withMobileDialog,
+} from 'material-ui/Dialog';
 
 
 
@@ -36,22 +43,18 @@ function TabContainer({ children, dir }) {
   };
 
 const styles = theme => ({
-  root: {
-	maxWidth: 400,
-	minWidth: 100,
-	margin: '0 auto',
-	marginTop: '5%'
-  },
   form: {
 	backgroundColor: theme.palette.background.paper,
   },
   social: {
 	 textAlign: 'center',
-	 marginTop: 20, 
-	 marginBottom: 20,
-	 padding: 5,
-	 background: '#3b5998'
-  }
+	 textTransform: 'capitalize',
+	 margin: '20px 5px',
+	 width: 300,
+	},
+	button: {
+		width: '100%'
+	}
 });
 
 class Login extends Component {
@@ -60,7 +63,7 @@ class Login extends Component {
 		this.authWithFacebook = this.authWithFacebook.bind(this)
 		this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
 		this.state = {
-			redirect: false,
+			open: false,
 			value: 0,
 			userFullName: '',
 			email: '',
@@ -75,24 +78,22 @@ class Login extends Component {
 		this.setState({ value });
 	  };
 	
-	  handleChangeIndex = index => {
-		this.setState({ value: index });
-	  };
+	handleChangeIndex = index => {
+	this.setState({ value: index });
+	};
 
-	
-	  handleMouseDownPassword = event => {
-		event.preventDefault();
-	  };
+	handleMouseDownPassword = event => {
+	event.preventDefault();
+	};
 
-	
-	  handleClickShowPasssword = () => {
-		this.setState({ showPassword: !this.state.showPassword });
-	  };
+	handleClickShowPasssword = () => {
+	this.setState({ showPassword: !this.state.showPassword });
+	};
 
 	// Snackbar
-	  handleClose = () => {
-		this.setState({ open: false });
-	  };
+	handleClose = () => {
+	this.setState({ open: false });
+	};
 
 	authWithFacebook() {
 		app.auth().signInWithPopup(facebookProvider)
@@ -100,7 +101,10 @@ class Login extends Component {
 			if (error) {
 				console.log("unable to sign in with Facebook")
 			} else { 
-				this.setState({ redirect: true })
+				this.setState({ 
+					redirect: true,
+					open: false,
+				})
 			}
 		})
 	}
@@ -119,6 +123,7 @@ class Login extends Component {
 				isError: true,
 				message: errorMessage + " cannot be left blank."
 			})
+			this.loginForm.reset();
 			return;
 		}
 
@@ -137,6 +142,7 @@ class Login extends Component {
 				})
 			} else {
 				// sign the user in
+				this.loginForm.reset()
 				return app.auth().signInWithEmailAndPassword(email, password)
 			}
 
@@ -148,7 +154,7 @@ class Login extends Component {
 				user.updateProfile({displayName: displayName})
 				}
 				this.setState({
-					redirect: true
+					open: true
 				})
 			}
 			
@@ -160,159 +166,180 @@ class Login extends Component {
 			})
 		})
 	}
-
+	
   render() {
-	const { classes, theme } = this.props;
-	const { isError, message } = this.state;
-	  
+		const { classes, theme } = this.props;
+		const { isError, message } = this.state;
+		const { fullScreen } = this.props;
+		let { open } = this.props;
+
 		if (this.props.authenticated  === true) {
-			
-			return <Redirect to='/'/>
+			open = false;
 		}
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth
-          >
-            <Tab label="Log In" />
-            <Tab label="Sign Up" />
+			<div className={classes.root}>
+				<Dialog
+					open={open}
+					onClose={this.props.handleClose}
+					aria-labelledby="responsive-dialog-title"
+				>
+					<AppBar position="static" color="default">
+						<DialogTitle id="responsive-dialog-title" style={{paddingBottom: 0}}>
+							<Tabs
+							value={this.state.value}
+							onChange={this.handleChange}
+							indicatorColor="primary"
+							textColor="primary"
+							fullWidth
+							>
+								<Tab label="Log In" />
+								<Tab label="Sign Up" />
 
-          </Tabs>
-        </AppBar>
-		<Paper className={classes.social}>
-		<Button color="contrast" onClick={() => { this.authWithFacebook() }}>
-		<FaFacebookOfficial size={30} color='white' style={{marginRight: 10}}/> Facebook
-		</Button>
-		</Paper>
-		<Divider light style={{marginBottom: 20}} />
+							</Tabs>
+						</DialogTitle>
+					</AppBar>
 
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-		  onChangeIndex={this.handleChangeIndex}
-		  className={classes.form}
-        >
-          <TabContainer dir={theme.direction}>
-		  <form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
+					<DialogContent>
+						<div style={{display: 'flex'}}>
+							<Button color="contrast" className={classes.social} style={{background: '#3b5998'}} onClick={() => { this.authWithFacebook() }}>
+								<FaFacebookOfficial color="white" size={30} style={{marginRight: 5}}/> Facebook
+							</Button>
 
-		  <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-						id="email"
-						autoComplete="true"
-            value={this.state.email}
-			onChange={(event) => this.setState({email: event.target.value})}
-			required
-          />
-        </FormControl>
-      
-        <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-						id="password"
-						autoComplete="true"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.password}
-            onChange={(event) => this.setState({password: event.target.value})}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={this.handleClickShowPasssword}
-                  onMouseDown={this.handleMouseDownPassword}
-                >
-                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-			}
-			required
-          />
-        </FormControl>
-		  
-		  <div style={{marginTop: 30}}>
-			<Button raised color="primary" type="submit" className={classes.button}>
-				Login
-			</Button>
-	  </div>
-	  </form>
-		  </TabContainer>
-          <TabContainer dir={theme.direction}>
-		  
-		  <form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
-		
-		  <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="fullname">Full Name</InputLabel>
-          <Input
-						id="fullname"
-						autoComplete="true"
-            value={this.state.userFullName}
-			onChange={(event) => this.setState({userFullName: event.target.value})}
-			required
-          />
-        </FormControl>
+							<Button color="contrast" className={classes.social} style={{background: '#dc4e41'}} onClick={() => { this.authWithFacebook() }}>
+								<FaGoogle color="white" size={30} style={{marginRight: 5}}/> Google
+							</Button>
+						</div>
 
-		  <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="useremail">Email</InputLabel>
-          <Input
-						id="useremail"
-						autoComplete="true"
-            value={this.state.email}
-			onChange={(event) => this.setState({email: event.target.value})}
-			required
-          />
-        </FormControl>
-      
-        <FormControl fullWidth className={classes.formControl}>
-          <InputLabel htmlFor="userpassword">Password</InputLabel>
-          <Input
-						id="userpassword"
-						autoComplete="true"
-            type={this.state.showPassword ? 'text' : 'password'}
-            value={this.state.password}
-            onChange={(event) => this.setState({password: event.target.value})}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={this.handleClickShowPasssword}
-                  onMouseDown={this.handleMouseDownPassword}
-                >
-                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-			}
-			required
-          />
-        </FormControl>
-		  
-		  <div style={{marginTop: 30}}>
-			<Button raised color="primary" type="submit" className={classes.button}>
-				Sign Up
-			</Button>
-	  </div>
-	  </form>
-		  
-		  </TabContainer>
+					<Divider light style={{marginBottom: 20}} />
 
-        </SwipeableViews>
+					<SwipeableViews
+						axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+						index={this.state.value}
+						onChangeIndex={this.handleChangeIndex}
+						className={classes.form}
+					>
+						<TabContainer dir={theme.direction}>
 
-		
-		{isError ? 
-			<Snackbar
-			anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-			open={true}
-			onClose={this.handleClose}
-			SnackbarContentProps={{
-			  'aria-describedby': 'message-id',
-			}}
-			message={<span id="message-id">{`${message}`}</span>}
-		  />
-		  : null}
-      </div>
+							<form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
+								<FormControl fullWidth className={classes.formControl}>
+									<InputLabel htmlFor="email">Email</InputLabel>
+									<Input
+									id="email"
+									autoComplete="true"
+									value={this.state.email}
+									onChange={(event) => this.setState({email: event.target.value})}
+									required
+									/>
+								</FormControl>
+
+								<FormControl fullWidth className={classes.formControl}>
+									<InputLabel htmlFor="password">Password</InputLabel>
+									<Input
+										id="password"
+										autoComplete="true"
+										type={this.state.showPassword ? 'text' : 'password'}
+										value={this.state.password}
+										onChange={(event) => this.setState({password: event.target.value})}
+										endAdornment={
+										<InputAdornment position="end">
+										<IconButton
+										onClick={this.handleClickShowPasssword}
+										onMouseDown={this.handleMouseDownPassword}
+										>
+										{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+										</InputAdornment>
+										}
+										required
+									/>
+								</FormControl>
+
+								<div style={{marginTop: 30}}>
+									<Button raised color="primary" type="submit" className={classes.button}>
+										Login
+									</Button>
+								</div>
+							</form>
+						</TabContainer>
+					
+						<TabContainer dir={theme.direction}>
+
+							<form className="form" onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form}}>
+								<FormControl fullWidth className={classes.formControl}>
+									<InputLabel htmlFor="fullname">Full Name</InputLabel>
+									<Input
+										id="fullname"
+										autoComplete="true"
+										value={this.state.userFullName}
+										onChange={(event) => this.setState({userFullName: event.target.value})}
+										required
+									/>
+								</FormControl>
+
+								<FormControl fullWidth className={classes.formControl}>
+									<InputLabel htmlFor="useremail">Email</InputLabel>
+									<Input
+										id="useremail"
+										autoComplete="true"
+										value={this.state.email}
+										onChange={(event) => this.setState({email: event.target.value})}
+										required
+									/>
+								</FormControl>
+
+								<FormControl fullWidth className={classes.formControl}>
+									<InputLabel htmlFor="userpassword">Password</InputLabel>
+									<Input
+										id="userpassword"
+										autoComplete="true"
+										type={this.state.showPassword ? 'text' : 'password'}
+										value={this.state.password}
+										onChange={(event) => this.setState({password: event.target.value})}
+										endAdornment={
+										<InputAdornment position="end">
+										<IconButton
+										onClick={this.handleClickShowPasssword}
+										onMouseDown={this.handleMouseDownPassword}
+										>
+										{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+										</InputAdornment>
+										}
+										required
+									/>
+								</FormControl>
+
+								<div style={{marginTop: 30}}>
+									<Button raised color="primary" type="submit" className={classes.button}>
+										Sign Up
+									</Button>
+								</div>
+							</form>
+						</TabContainer>
+
+					</SwipeableViews>
+
+					{isError ? 
+						<Snackbar
+							anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+							open={true}
+							onClose={this.handleClose}
+							SnackbarContentProps={{
+							'aria-describedby': 'message-id',
+							}}
+							message={<span id="message-id">{`${message}`}</span>}
+						/>
+					: null}
+
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.props.handleClose} color="primary" autoFocus>
+								Cancel
+						</Button>
+					</DialogActions>
+				</Dialog>
+			</div>
     );
   }
 }

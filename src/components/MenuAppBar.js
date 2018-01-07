@@ -27,6 +27,7 @@ import  Card, { CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
 import logo_colored from '../img/logo_colored.svg';
 import logo_black from '../img/logo_black.svg';
+import Login from './Login';
 
 import List from 'material-ui/List';
 import { InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
@@ -137,6 +138,7 @@ class MenuAppBar extends React.Component {
   this.state = {
     auth: true,
     open: false,
+    openDialog: false,
     results: false,
     top: false,
     left: false,
@@ -188,6 +190,14 @@ handleFocus = (event) => {
   resetForm = (event) => {
     this.setState({ results: false });
   }
+
+  handleClickOpen = () => {
+    this.setState({ openDialog: true });
+  };
+
+  handleClose = () => {
+    this.setState({ openDialog: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -324,7 +334,8 @@ handleFocus = (event) => {
         </div>
             ) :
             <div>
-              <Button color={contrast} component={Link} to="/login">
+              {/* component={Link} to="/login"> */}
+              <Button color={contrast} onClick={this.handleClickOpen}> 
                 Login
               </Button>
             </div>
@@ -360,6 +371,8 @@ handleFocus = (event) => {
         : '' }
         </Hidden>
       </InstantSearch>
+
+      <Login open={this.state.openDialog} handleClose={this.handleClose} authenticated={this.props.authenticated}/>
       </div>
     );
   }

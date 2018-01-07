@@ -39,13 +39,7 @@ import Footer from './Footer';
             <BrowserRouter>
             <div>
             <MenuAppBar authenticated={this.props.authenticated} user={this.props.user} articles={this.props.articles} categories={this.props.categories}/>
-            <Route exact path="/login"  render={(props) => {
-              return (
-                <Login authenticated={this.props.authenticated}/>
-              )
-              }}
-            />
-
+            
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/contribute" render={(props) => {
                 const category = this.props.categories;
