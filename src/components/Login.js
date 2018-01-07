@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { Component } from 'react';
 import {Redirect } from 'react-router-dom';
-import {app, facebookProvider } from '../base';
+import {app, facebookProvider, googleProvider } from '../base';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
@@ -61,6 +61,7 @@ class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.authWithFacebook = this.authWithFacebook.bind(this)
+		this.authWithGoogle = this.authWithGoogle.bind(this)
 		this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
 		this.state = {
 			open: false,
@@ -108,6 +109,20 @@ class Login extends Component {
 			}
 		})
 	}
+
+authWithGoogle() {
+	app.auth().signInWithPopup(googleProvider)
+		.then((result, error) => {
+			if (error) {
+				console.log("unable to sign in with Facebook")
+			} else { 
+				this.setState({ 
+					redirect: true,
+					open: false,
+				})
+			}
+		})
+}
 
 	authWithEmailPassword(event) {
 		event.preventDefault()
@@ -206,7 +221,7 @@ class Login extends Component {
 								<FaFacebookOfficial color="white" size={30} style={{marginRight: 5}}/> Facebook
 							</Button>
 
-							<Button color="contrast" className={classes.social} style={{background: '#dc4e41'}} onClick={() => { this.authWithFacebook() }}>
+							<Button color="contrast" className={classes.social} style={{background: '#dc4e41'}} onClick={() => { this.authWithGoogle() }}>
 								<FaGoogle color="white" size={30} style={{marginRight: 5}}/> Google
 							</Button>
 						</div>
