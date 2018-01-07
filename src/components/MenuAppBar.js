@@ -11,7 +11,7 @@ import Button from 'material-ui/Button';
 
 
 import {Link } from 'react-router-dom';
-import ArrowDropDown from 'material-ui-icons/ArrowDropDown';
+import { ArrowDropDown, ArrowDropUp } from 'material-ui-icons';
 import classNames from 'classnames';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import Grow from 'material-ui/transitions/Grow';
@@ -161,7 +161,7 @@ handleChange = (event, checked) => {
   };
 
 handleClick = () => {
-    this.setState({ open: true });
+    this.setState({ open: !this.state.open });
   };
 
 handleClose = () => {
@@ -195,7 +195,7 @@ handleFocus = (event) => {
     this.setState({ openDialog: true });
   };
 
-  handleClose = () => {
+  handleDialogClose = () => {
     this.setState({ openDialog: false });
   };
 
@@ -305,11 +305,13 @@ handleFocus = (event) => {
                   <Button className={classes.menuButton} color={contrast} aria-label="Menu" style={{padding: 0}}>
                   {this.props.user.photoURL
                   ?
-                  <Avatar alt="Remy Sharp" src={this.props.user.photoURL} className={classes.avatar} />
+                  <Avatar alt={this.props.user.displayName} src={this.props.user.photoURL} className={classes.avatar} />
                   :
                   <AccountCircle />
                   }
-                    <ArrowDropDown/>
+                  {
+                    this.state.open ? <ArrowDropUp onClick={this.handleClose}/> : <ArrowDropDown/>
+                  }
                     </Button>
                   </div>
                 </Target>
@@ -372,7 +374,7 @@ handleFocus = (event) => {
         </Hidden>
       </InstantSearch>
 
-      <Login open={this.state.openDialog} handleClose={this.handleClose} authenticated={this.props.authenticated}/>
+      <Login openDialog={this.state.openDialog} handleDialogClose={this.handleDialogClose} authenticated={this.props.authenticated}/>
       </div>
     );
   }

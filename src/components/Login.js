@@ -108,13 +108,19 @@ class Login extends Component {
 				})
 			}
 		})
+		.catch((error) => {
+			this.setState({
+				isError: true,
+				message: error
+			})
+		});
 	}
 
 authWithGoogle() {
 	app.auth().signInWithPopup(googleProvider)
 		.then((result, error) => {
 			if (error) {
-				console.log("unable to sign in with Facebook")
+				console.log("unable to sign in with Google")
 			} else { 
 				this.setState({ 
 					redirect: true,
@@ -122,6 +128,12 @@ authWithGoogle() {
 				})
 			}
 		})
+		.catch((error) => {
+			this.setState({
+				isError: true,
+				message: error
+			})
+		});
 }
 
 	authWithEmailPassword(event) {
@@ -186,17 +198,17 @@ authWithGoogle() {
 		const { classes, theme } = this.props;
 		const { isError, message } = this.state;
 		const { fullScreen } = this.props;
-		let { open } = this.props;
+		let { openDialog } = this.props;
 
 		if (this.props.authenticated  === true) {
-			open = false;
+			openDialog = false;
 		}
 
     return (
 			<div className={classes.root}>
 				<Dialog
-					open={open}
-					onClose={this.props.handleClose}
+					open={openDialog}
+					onClose={this.props.handleDialogClose}
 					aria-labelledby="responsive-dialog-title"
 				>
 					<AppBar position="static" color="default">
@@ -349,7 +361,7 @@ authWithGoogle() {
 
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={this.props.handleClose} color="primary" autoFocus>
+						<Button onClick={this.props.handleDialogClose} color="primary" autoFocus>
 								Cancel
 						</Button>
 					</DialogActions>
