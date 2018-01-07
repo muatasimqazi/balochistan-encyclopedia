@@ -324,7 +324,7 @@ handleFocus = (event) => {
                     <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>
                       <Paper>
                         <MenuList role="menu">
-                          <MenuItem onClick={this.handleClose} component={Link} to='/profile'>Profile</MenuItem>
+                          <MenuItem onClick={this.handleClose} component={Link} to='/user/profile'>Profile</MenuItem>
                           <MenuItem onClick={this.handleClose} component={Link} to='/user/contributions'>Contributions</MenuItem>
                           <MenuItem onClick={this.handleClose} component={Link} to='/logout'>Logout</MenuItem>
                         </MenuList>

@@ -6,6 +6,7 @@ import Logout from './Logout';
 import Contribute from './Contribute';
 import Home from './Home';
 import Contributions from './Contributions';
+import Profile from './Profile';
 import ArticleList from './ArticleList';
 import Article from './Article';
 import Footer from './Footer';
@@ -80,6 +81,12 @@ import Footer from './Footer';
                 <Route exact path ="/user/contributions" render={(props) => {
                   return (
                     <Contributions articles={this.props.articles} />
+                  )
+                }} />
+
+                <Route exact path ="/user/profile" render={(props) => {
+                  return (
+                    <Profile />
                   )
                 }} />
                 </div>
