@@ -37,7 +37,7 @@ const styles = theme => ({
 });
 
 function generate(element) {
-  return [0, 1, 2].map(value =>
+  return [0, 1, 2, 3].map(value =>
     React.cloneElement(element, {
       key: value,
     }),
@@ -58,14 +58,14 @@ class InteractiveList extends React.Component {
         <div className={classes.root}>
             <Card className={classes.card}>
                 <CardContent>
-                <Typography className={classes.title}>Latest Articles</Typography>
+                <Typography className={classes.title}>{this.props.label}</Typography>
                 <List className={classes.root}> 
                     {generate(
                         <div>
-                        <ListItem button>
+                        <ListItem button style={{paddingTop: 5, paddingBottom: 5}}>
                         <ListItemText
                             primary="Single-line item"
-                            secondary={secondary ? 'Secondary text' : null}
+                            secondary="Secondary text" //{secondary ? 'Secondary text' : null}
                         />
                           
                         </ListItem>

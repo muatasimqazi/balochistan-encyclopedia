@@ -11,7 +11,7 @@ import Button from 'material-ui/Button';
 
 
 import {Link } from 'react-router-dom';
-import ArrowDropDown from 'material-ui-icons/ArrowDropDown';
+import { ArrowDropDown, ArrowDropUp } from 'material-ui-icons';
 import classNames from 'classnames';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import Grow from 'material-ui/transitions/Grow';
@@ -27,15 +27,16 @@ import  Card, { CardContent} from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar';
 import logo_colored from '../img/logo_colored.svg';
 import logo_black from '../img/logo_black.svg';
+import Login from './Login';
 
 import List from 'material-ui/List';
 import { InstantSearch, SearchBox, Hits, Highlight} from 'react-instantsearch/dom';
-  
-  const Hit = ({hit}) => 
-  
+
+  const Hit = ({hit}) =>
+
   <div className="hit">
       {  console.log(hit)}
-      {hit 
+      {hit
         ?
       <CardContent style={{paddingBottom: 0}}>
         <Typography type="title" gutterBottom component={Link} to={`/articles/${hit.url}`}>
@@ -118,7 +119,7 @@ const styles =  theme => ({
   bigAvatar: {
     width: 60,
     height: 60,
-   
+
   },
 
   lower: {
@@ -133,10 +134,11 @@ class MenuAppBar extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  
+
   this.state = {
     auth: true,
     open: false,
+    openDialog: false,
     results: false,
     top: false,
     left: false,
@@ -159,7 +161,7 @@ handleChange = (event, checked) => {
   };
 
 handleClick = () => {
-    this.setState({ open: true });
+    this.setState({ open: !this.state.open });
   };
 
 handleClose = () => {
@@ -189,9 +191,17 @@ handleFocus = (event) => {
     this.setState({ results: false });
   }
 
+  handleClickOpen = () => {
+    this.setState({ openDialog: true });
+  };
+
+  handleDialogClose = () => {
+    this.setState({ openDialog: false });
+  };
+
   render() {
-    const { classes } = this.props;    
-    const { categories } = this.props;   
+    const { classes } = this.props;
+    const { categories } = this.props;
     const categoryId = Object.keys(categories)
     const { results } = this.state;
     const { open } = this.state;
@@ -208,7 +218,7 @@ handleFocus = (event) => {
               src={logo}
               className={classNames(classes.avatar, classes.logo)}
               component={Link} to="/"
-            />    
+            />
             <Typography style={{"textDecoration": "none"}}type="title" color="inherit" className={classes.flex} component={Link} to="/">
               Balochistan Encyclopedia
             </Typography>
@@ -229,12 +239,12 @@ handleFocus = (event) => {
           }
         </List>
         <Divider />
-        
+
       </div>
     );
 
     return (
-      <div className={classes.root}>  
+      <div className={classes.root}>
         <InstantSearch
           appId="8FIWUM037Q"
           apiKey="f5b97b302865568db301066102ab64a4"
@@ -269,19 +279,19 @@ handleFocus = (event) => {
             </Typography>
             <Hidden mdDown>
 
-            <SearchBox 
-              onFocus={this.toggleAppBar(true)} 
-              onBlur={this.toggleAppBar(false)} 
+            <SearchBox
+              onFocus={this.toggleAppBar(true)}
+              onBlur={this.toggleAppBar(false)}
               onChange={this.handleFocus}
-              className={classes.container} 
+              className={classes.container}
               translations={{
-                placeholder:'Search for aticles',
+                placeholder:'Search Balochistan Encyclopedia',
               }}
               onSubmit={this.submitForm}
               onReset={this.resetForm}
               />
             {this.props.authenticated  ? (
-                
+
                 <div style={{display: "inline-flex"}}>
                 <Button color={contrast} component={Link} to="/contribute">Contribute </Button>
                 <Manager>
@@ -292,14 +302,16 @@ handleFocus = (event) => {
                     onClick={this.handleClick}
                     color={contrast}
                   >
-                  <Button className={classes.menuButton} color={contrast} aria-label="Menu" style={{padding: 0}}>   
+                  <Button className={classes.menuButton} color={contrast} aria-label="Menu" style={{padding: 0}}>
                   {this.props.user.photoURL
-                  ?         
-                  <Avatar alt="Remy Sharp" src={this.props.user.photoURL} className={classes.avatar} />
+                  ?
+                  <Avatar alt={this.props.user.displayName} src={this.props.user.photoURL} className={classes.avatar} />
                   :
                   <AccountCircle />
                   }
-                    <ArrowDropDown/>
+                  {
+                    this.state.open ? <ArrowDropUp onClick={this.handleClose}/> : <ArrowDropDown/>
+                  }
                     </Button>
                   </div>
                 </Target>
@@ -312,7 +324,7 @@ handleFocus = (event) => {
                     <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>
                       <Paper>
                         <MenuList role="menu">
-                          <MenuItem onClick={this.handleClose} component={Link} to='/profile'>Profile</MenuItem>
+                          <MenuItem onClick={this.handleClose} component={Link} to='/user/profile'>Profile</MenuItem>
                           <MenuItem onClick={this.handleClose} component={Link} to='/user/contributions'>Contributions</MenuItem>
                           <MenuItem onClick={this.handleClose} component={Link} to='/logout'>Logout</MenuItem>
                         </MenuList>
@@ -324,9 +336,10 @@ handleFocus = (event) => {
         </div>
             ) :
             <div>
-              <Button color={contrast} component={Link} to="/login">
+              {/* component={Link} to="/login"> */}
+              <Button color={contrast} onClick={this.handleClickOpen}> 
                 Login
-              </Button>           
+              </Button>
             </div>
             }
             </Hidden>
@@ -343,23 +356,25 @@ handleFocus = (event) => {
                   )
               })
           }
-        
+
         </Toolbar>
       </AppBar>
       <Hidden mdDown>
-        
+
         {results ?   <Card style={{
           width: 600,
           position: 'relative',
           left: '50%',
           marginLeft: '-252px',
-          top: '-65px'    
+          top: '-65px'
         }}>
-        <Hits  hitComponent={Hit}/> 
+        <Hits  hitComponent={Hit}/>
         </Card>
         : '' }
         </Hidden>
       </InstantSearch>
+
+      <Login openDialog={this.state.openDialog} handleDialogClose={this.handleDialogClose} authenticated={this.props.authenticated}/>
       </div>
     );
   }

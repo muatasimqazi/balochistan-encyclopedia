@@ -23,21 +23,21 @@ function TopRow (props) {
           <div className={classes.root}>
             <Grid container spacing={24}>
               <Grid item xs={12} sm={7} md={6}>
-                <MediaCard articles={articles}/>
+                <MediaCard articles={articles} label={`Featured Article`}/>
               </Grid>
 
               <Grid item xs={12} sm={5} md={3}>
                 <div>
                   <div style={{marginBottom: 30}}>
-                  <SimpleCard/>
+                  <SimpleCard title={"Fact of the Day"}/>
                   </div>
-                  <MediaControlCard />
+                  <MediaControlCard/>
                 </div>
               </Grid>
 
               <Grid item xs={12} sm={12} md={3}>
                 <div>
-                  <InteractiveList />
+                  <SimpleCard title={"Today in History"}/>
                 </div>
               </Grid>
             </Grid>
