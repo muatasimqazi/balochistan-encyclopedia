@@ -10,10 +10,10 @@ import ResponsiveDialog from './ResponsiveDialog';
 
 const styles = {
   card: {
-    minHeight: 200,
+    minHeight: 300,
   },
   media: {
-    height: 200,
+    height: 250,
   },
   mediaContainer: {
       position: 'relative',
@@ -24,6 +24,9 @@ const styles = {
       right: 4,
       // background: '#F3A346',
       color: 'white'
+  },
+  link: {
+    textDecoration: 'none',
   }
 };
 
@@ -49,12 +52,15 @@ class MediaCard extends Component {
   return (
     <div>
       <Card className={classes.card}>
+            
             <div className={classes.mediaContainer}>
+            <Link to="/" className={classes.link}>
             <CardMedia
                 className={classes.media}
                 image={articles.media}
                 title="Contemplative Reptile"
                 />
+            </Link>
             <div className={classes.chip}>
             <Chip label=
 							{this.props.label ? this.props.label : category.name}

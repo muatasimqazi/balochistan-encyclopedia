@@ -14,7 +14,7 @@ const theme = createMuiTheme({
         boxShadow: '0 15px 35px rgba(50, 50, 90, .1), 0 5px 15px rgba(0, 0, 0, .07)',
       },
       rounded: {
-        borderRadius: '4px',
+        // borderRadius: '4px',
       }
     },
 
@@ -23,22 +23,26 @@ const theme = createMuiTheme({
         fontWeight: 'normal',
       },
       headline: {
-        fontFamily: 'Playfair Display',
-        fontSize: '1.7rem',
-        color: '#303336',
-        letterSpacing: '1px',
-        margin: '2vh 0vw',
-        fontWeight: 'normal',
+        // fontFamily: 'Playfair Display',
+        // fontSize: '1.7rem',
+        // color: '#303336',
+        // letterSpacing: '1px',
+        // margin: '2vh 0vw',
+        // fontWeight: 'normal',
       },
       body1: {
         fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
         // paddingBottom: '1vh',
-        color: '#222222',
-        fontWeight: 'normal',
-        fontSize: '1em',
-        lineHeight: '1.6',
-        margin: '0.5em 0',
-        '-webkit-font-smoothing': 'antialiased',
+        // color: '#222222',
+        // fontWeight: 'normal',
+        // fontSize: '1em',
+        // lineHeight: '1.6',
+        // margin: '0.5em 0',
+        // '-webkit-font-smoothing': 'antialiased',
+        fontSize: '1rem',
+        fontWeight: 400,
+        lineHeight: 1.5,
+        color: '#292b2c',
 
       }
     },
@@ -49,8 +53,8 @@ const theme = createMuiTheme({
     },
     MuiCardMedia: {
       root: {
-        borderTopLeftRadius: '4px',
-        borderTopRightRadius: '4px',
+        // borderTopLeftRadius: '4px',
+        // borderTopRightRadius: '4px',
 
       }
     },

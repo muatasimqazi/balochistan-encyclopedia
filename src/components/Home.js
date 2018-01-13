@@ -5,7 +5,8 @@ import TopRow from './TopRow'
 import MidRow from './MidRow'
 import TopBottomRow from './TopBottomRow'
 import BottomTopRow from './BottomTopRow'
-import BottomRow from './BottomRow'
+import BottomRow from './BottomRow';
+import TimelineCustom from './TimelineCustom'
 
 const styles = theme => ({
   root: {
@@ -75,6 +76,7 @@ function Home(props) {
           <TopRow articles={articles[0]}/>
           <TopBottomRow />
           <MidRow articles={articles}/>
+          <TimelineCustom/>
           <BottomTopRow articles={articles}/>
           <BottomRow/>
     </div>
