@@ -15,7 +15,7 @@ deploy:
   - provider: firebase
     token:
       secure: "1/jXarLqwLzlaBy83j2IKV4522XfDRlakCNoF0ECeYuhY"
-    project: "default"
+    project: "balochistan-encyclopedia"
     message: "deploying to production"
     on:
       branch: master
