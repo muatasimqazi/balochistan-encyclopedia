@@ -7,9 +7,9 @@ before_install:
 cache:
   yarn: true
 install:
-- cd ./client && yarn install && cd ..
+- yarn install && cd ..
 script:
-- cd ./client && yarn build && cd ..
+- yarn build && cd ..
 deploy:
   skip_cleanup: true
   provider: firebase
