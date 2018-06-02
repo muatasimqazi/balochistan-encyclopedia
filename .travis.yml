@@ -1,21 +1,20 @@
 language: node_js
 node_js: lts/*
-install: true
+sudo: false
+before_install:
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
+- export PATH=$HOME/.yarn/bin:$PATH
+cache:
+  yarn: true
+install:
+- cd ./functions && yarn install && cd ..
+- cd ./client && yarn install && cd ..
 script:
-- npm run build
-notifications:
-  email:
-  - muatasimqazi@gmail.com
-branches:
-  only:
-  - master
-  - develop
+- cd ./client && yarn build && cd ..
+- cd ./client && yarn test && cd ..
 deploy:
-  - provider: firebase
-    token:
+  skip_cleanup: true
+  provider: firebase
+  token:
       secure: "1/jXarLqwLzlaBy83j2IKV4522XfDRlakCNoF0ECeYuhY"
-    project: "balochistan-encyclopedia"
-    message: "deploying to production"
-    on:
-      branch: master
-    skip_cleanup: true
+  project: "balochistan-encyclopedia"
