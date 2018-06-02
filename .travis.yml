@@ -16,3 +16,6 @@ deploy:
   token:
       secure: "1/jXarLqwLzlaBy83j2IKV4522XfDRlakCNoF0ECeYuhY"
   project: "balochistan-encyclopedia"
+
+  env:
+  - CI=false
