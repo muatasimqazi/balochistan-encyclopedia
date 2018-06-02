@@ -27,8 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node scripts/build.js",
-    "deploy": "node scripts/build.js && firebase deploy",
+    "build": "react-scripts build && rm build/static/js/*.map && firebase deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
