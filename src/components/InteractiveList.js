@@ -21,6 +21,7 @@ import Button from 'material-ui/Button';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import CardHeader from 'material-ui/Card/CardHeader';
 import Divider from 'material-ui/Divider'
+import { newArticles } from '../constants'
 
 const styles = theme => ({
   root: {
@@ -35,14 +36,6 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
   },
 });
-
-function generate(element) {
-  return [0, 1, 2, 3].map(value =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
 
 class InteractiveList extends React.Component {
   state = {
@@ -60,19 +53,21 @@ class InteractiveList extends React.Component {
                 <CardContent>
                 <Typography className={classes.title}>{this.props.label}</Typography>
                 <List className={classes.root}> 
-                    {generate(
+                    {newArticles.map(article => (
+                      <React.Fragment key={article.title}>
                         <div>
                         <ListItem button style={{paddingTop: 5, paddingBottom: 5}}>
                         <ListItemText
-                            primary="Single-line item"
-                            secondary="Secondary text" //{secondary ? 'Secondary text' : null}
+                            primary={article.title}
+                            secondary={article.content}//{secondary ? 'Secondary text' : null}
                         />
                           
                         </ListItem>
                         <Divider />
-                        </div>,
+                        </div>
+                        </React.Fragment>
                         
-                    )}
+                    ))}
                    
                 </List>
             </CardContent>

@@ -53,26 +53,6 @@ const items = [
     {
         start: new Date(2015, 12, 23),
         content: "Dr. Malik Baloch resigns as Chief Minister"
-    },
-    {
-        start: new Date(2018, 1, 9),
-        end: new Date(2018, 1, 10),  // end is optional
-        content: 'New Chief Minister',
-    },
-    {
-        start: new Date(2017, 12, 8),
-        end: new Date(2017, 12, 9),  // end is optional
-        content: 'Book Published',
-    },
-    {
-        start: new Date(2017, 12, 7),
-        end: new Date(2017, 1, 8),  // end is optional
-        content: 'Watched',
-    },
-    {
-        start: new Date(2015, 1, 7),
-        end: new Date(2015, 1, 8),  // end is optional
-        content: 'New Chief Minister',
     }
 ]
 
@@ -102,23 +82,18 @@ class TimelineCustom extends Component {
         this.state = {
             selectedIds: [],
             event: {
-                title: 'Watch',
-                caption: 'May 22, 2012',
-                text: 'Books published today'
+                title: 'Explore Balochistan\'s History',
+                caption: new Date().toDateString(),
+                text: 'Click on any event title to learn more!'
             }
         }
     }
     clickHandler() {
         console.log()
         const event = {
-            title: "Books",
+            title: "Title of the event",
             capton: "May 3, 2010",
-            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+            text: `On this day, this event happend. More details to follow.`
         }
         this.setState({
             event: event,

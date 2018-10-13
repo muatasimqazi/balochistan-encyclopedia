@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorderIcon from 'material-ui-icons/StarBorder';
+import { tileData } from '../constants'
 
 const styles = theme => ({
   root: {
@@ -36,14 +37,6 @@ const styles = theme => ({
  * import image from 'path/to/image.jpg';
  * [etc...]
  */
-const tileData = [
-  {
-    img: "https://images.pexels.com/photos/749114/pexels-photo-749114.jpeg",
-    title: 'Image',
-    author: 'author',
-  }
- 
-];
 
 function SingleLineGridList(props) {
   const { classes } = props;

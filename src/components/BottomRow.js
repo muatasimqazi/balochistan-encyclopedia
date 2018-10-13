@@ -14,7 +14,7 @@ const styles = theme => ({
     // marginTop: theme.spacing.unit * 3,
   }),
   title: {
-    color: 'white',
+    color: 'black',
     fontFamily: 'Roboto, sans-serif',
     fontWeight: 'normal',
     fontSize: '1.2rem',
@@ -29,22 +29,15 @@ function BottomRow(props) {
                     <Grid container spacing={24}>
                         <Grid item xs={12} sm={6} className={classes.card}>
                         <div>
-                        <Paper className={classes.root} elevation={0} style={{background: '#EF551F', color: 'white', marginBottom: 30}} square={true}>
-                            <Typography type="headline" component="h3" className={classes.title}>
-                            This is a sheet of paper.
+                        <Paper className={classes.root} elevation={0} style={{background: 'white', color: 'black', marginBottom: 30}} square={true}>
+                            <Typography type="headline" component="h2" className={classes.title}>
+                            Adding New Content to Balochistan Encyclopedia
                             </Typography>
-                            <Typography component="p" style={{ color: 'white'}}>
-                            Paper can be used to build surface or other elements for your application.
-                            </Typography>
-                        </Paper>
-                        <Paper className={classes.root} elevation={0} style={{background: '#F3A346', color: 'white'}} square={true}>
-                            <Typography type="headline" component="h3" className={classes.title}>
-                            This is a sheet of paper.
-                            </Typography>
-                            <Typography component="p" style={{ color: 'white', }}>
-                            Paper can be used to build surface or other elements for your application.
+                            <Typography component="p" style={{ color: 'black'}}>
+                            Balochistan Encyclopedia is a crowd-sourced project that aims to document Balochistan's culture, history, language, etc. If you'd like to contribute, please create an account and submit a proposal on what you would like to write about.
                             </Typography>
                         </Paper>
+                    
                         </div>
                         </Grid>
 

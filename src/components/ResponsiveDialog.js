@@ -22,11 +22,10 @@ class ResponsiveDialog extends React.Component {
           onClose={this.props.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{"Share to Social Media pages"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              This feature is not available yet.
             </DialogContentText>
           </DialogContent>
           <DialogActions>

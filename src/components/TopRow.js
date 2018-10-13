@@ -29,7 +29,7 @@ function TopRow (props) {
               <Grid item xs={12} sm={5} md={3}>
                 <div>
                   <div style={{marginBottom: 30}}>
-                  <SimpleCard title={"Fact of the Day"}/>
+                  <SimpleCard heading={"Fact of the Day"} title="Sokhta Koh" content="A Harappan site on the Mekran coast that dates back to the Mature Harappan period (2600-1900 BC)."/>
                   </div>
                   <MediaControlCard/>
                 </div>
@@ -37,7 +37,7 @@ function TopRow (props) {
 
               <Grid item xs={12} sm={12} md={3}>
                 <div>
-                  <SimpleCard title={"Today in History"}/>
+                  <SimpleCard heading={"Fun Fact"} title="Shalkot" content="is the former name of Quetta, Balochistan capital"/>
                 </div>
               </Grid>
             </Grid>

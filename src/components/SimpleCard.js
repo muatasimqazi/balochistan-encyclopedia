@@ -15,7 +15,7 @@ const styles = theme => ({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
+  heading: {
     marginBottom: 16,
     fontSize: 14,
     color: theme.palette.text.secondary,
@@ -34,14 +34,13 @@ function SimpleCard(props) {
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Typography className={classes.title}>{props.title}</Typography>
+          <Typography className={classes.heading}>{props.heading}</Typography>
           <Typography type="headline" component="h2">
-          benevolent
+          {props.title}
           </Typography>
 
           <Typography component="p">
-            well meaning and kindly.<br />
-            {'"a benevolent smile"'}
+          {props.content}
           </Typography>
         </CardContent>
         <CardActions>

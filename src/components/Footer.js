@@ -60,7 +60,7 @@ class Footer extends Component {
                                 Follow Us
                         </Typography>
                         <List>
-                            <ListItem button component="a" href="#facebook" className={classes.gutters}>
+                            <ListItem button component="a" href="facebook.com/balochistan-encyclopedia" className={classes.gutters}>
                             <ListItemIcon className={classes.icon}>
                                 <FaFacebook size={30} />
                             </ListItemIcon>
